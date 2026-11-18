@@ -1,11 +1,11 @@
-// The inhabitants of zone one, R11: the shrine keeper and the old
-// hunter - who now TALK. A watched arrival earns a greeting; a heard
-// greeting earns a reply; nothing answers a reply, so every
-// conversation ends itself. No one greets what they only heard at the
-// edge: you do not hail an unidentified footstep.
+// The inhabitants of zone one, R12: they RESUME now. Save restore - then
+// subscribe - then carry on: the world waits between runs, it does not
+// refashion itself. Everything else is R10-R11 verbatim: posts, patrol,
+// perception, and speech that knows when to stop.
 
 #include "npc.h"
 
+#include "persist.h"
 #include "world_clock.h"
 
 #include <cstdio>
@@ -13,6 +13,7 @@
 #include <variant>
 
 static const NpcAgenda kShrineKeeper = {
+    1,
     "Nara the shrine keeper",
     &room_shrine(), &room_grove(),
     1, 2,
@@ -22,11 +23,12 @@ static const NpcAgenda kShrineKeeper = {
       "watches the low clouds from the doorway.",
       "opens the shrine windows to listen to the rain.",
       "shuts the shrine windows against the storm." },
-    "The grove is quiet, this far from the steps.",   // greet (unused this era's run: she is never the witness)
-    "The shrine held. The storm has passed.",         // reply
+    "The grove is quiet, this far from the steps.",
+    "The shrine held. The storm has passed.",
 };
 
 static const NpcAgenda kOldHunter = {
+    2,
     "Kaya the old hunter",
     &room_grove(), nullptr,
     5, 5,
@@ -36,8 +38,8 @@ static const NpcAgenda kOldHunter = {
       "scans the treeline from the grove's edge.",
       "watches the rain fill the grove's pool.",
       "pulls her cloak tight beneath the old oak." },
-    "The rain speaks, keeper. Welcome to the grove.", // greet: said when she watches an arrival
-    "Rain keeps its own counsel.",                    // reply (unused: no one greets Kaya this run)
+    "The rain speaks, keeper. Welcome to the grove.",
+    "Rain keeps its own counsel.",
 };
 
 static Npc g_shrine_keeper(kShrineKeeper);
@@ -45,6 +47,26 @@ static Npc g_old_hunter(kOldHunter);
 
 Npc::Npc(const NpcAgenda& agenda)
     : agenda_(&agenda), at_room_(agenda.home), x_(agenda.start_x), y_(agenda.start_y) {}
+
+void Npc::restore() {
+    int zone = 0, rx = 0, ry = 0, x = 0, y = 0;
+    if (!persist_get_entity(agenda_->id, &zone, &rx, &ry, &x, &y)) return;
+    const Room* const room = room_at(zone, rx, ry);
+    if (room == nullptr) return;  // a saved place that no longer exists: stand at home
+    at_room_ = room;
+    x_ = x;
+    y_ = y;
+}
+
+void Npc::dump(FILE* f) const {
+    std::fprintf(f, "npc %d %d %d %d %d %d\n",
+                 agenda_->id, at_room_->zone(), at_room_->x(), at_room_->y(), x_, y_);
+}
+
+void npc_dump(FILE* f) {
+    g_shrine_keeper.dump(f);
+    g_old_hunter.dump(f);
+}
 
 void Npc::on_event(const Event& evt) {
     if (evt.visibility <= 0) return;
@@ -76,20 +98,20 @@ void Npc::perceive_movement(const MovementEvt& mv, const GameTime& t) {
         std::snprintf(spoken_, sizeof spoken_, "hears someone arriving along the edge of the grove.");
         std::printf("%s hears someone arriving along the edge of the grove.\n", agenda_->name);
         act(spoken_, gc, t);
-        return;  // you do not greet what you cannot identify
+        return;
     }
     std::snprintf(spoken_, sizeof spoken_, "watches %s arrive.", mv.who);
     std::printf("%s watches %s arrive.\n", agenda_->name, mv.who);
     act(spoken_, gc, t);
     if (agenda_->greet != nullptr) {
-        speak(agenda_->greet, false, t);  // a face in the rain earns a word
+        speak(agenda_->greet, false, t);
     }
 }
 
 void Npc::respond_to_speech(const SpeechEvt& sp, const GameTime& t) {
-    if (sp.is_reply) return;  // the loop rule: no one replies to a reply
+    if (sp.is_reply) return;
     if (std::strcmp(sp.who, agenda_->name) == 0) return;
-    if (std::strcmp(sp.room, at_room_->name()) != 0) return;  // hearing is room-scoped
+    if (std::strcmp(sp.room, at_room_->name()) != 0) return;
     if (agenda_->reply == nullptr) return;
     speak(agenda_->reply, true, t);
 }
@@ -124,7 +146,7 @@ void Npc::speak(const char* text, bool is_reply, const GameTime& t) {
     evt.time        = t;
     evt.category    = EventCategory::kSpeech;
     evt.payload     = sp;
-    evt.visibility  = 100;  // speech in the open; whispers are a later, quieter number
+    evt.visibility  = 100;
     events_emit(evt);
 }
 
@@ -187,6 +209,8 @@ void Npc::walk(const GameTime& t) {
 }
 
 void npc_subscribe() {
+    g_shrine_keeper.restore();   // resume before perceiving: the world waits, it does not reset
+    g_old_hunter.restore();
     events_subscribe(&g_shrine_keeper);
     events_subscribe(&g_old_hunter);
 }

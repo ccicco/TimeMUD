@@ -1,25 +1,26 @@
 #pragma once
 
-// world/weather: the sky, R5. The design's first READer of world time -
-// weather asks world_clock_now() instead of deriving time itself, the
-// read seam arriving with the first category that needs it. Deterministic:
-// the same world-clock minute always forecasts the same sky; prose scale
-// (storm intensity etc.) is numbers, rendered names are vocabulary,
-// config strings when the sim asks for them.
+// world/weather: the sky, R5+. The design's first READer of world time;
+// the check rides the calendar's own boundary constant; deterministic
+// (same minute, same sky); reports only on change. R12: the sky can
+// RESUME from a save and can DUMP itself as numbers for persist/.
 
-#include "world_clock.h"  // the weather check rides the calendar boundary
+#include "world_clock.h"
+
+#include <cstdio>
 
 enum class WeatherState {
-    kUnset    = -1,  // the world has not had a first minute yet
+    kUnset    = -1,
     kClear    = 0,
     kOvercast = 1,
     kRain     = 2,
     kStorm    = 3,
+    kCount    = 4,
 };
 
-constexpr int kWeatherStateCount = 4;
+constexpr int kPulsesPerWeatherCheck = kPulsesPerMinute;
 
-inline constexpr int kPulsesPerWeatherCheck = kPulsesPerMinute;  // forecast each game-minute
-
-const char* weather_name(WeatherState s);  // report vocabulary, lowercase
-void weather_subscribe();                 // call once at boot, AFTER the clock subscribes
+const char* weather_name(WeatherState s);
+void weather_subscribe();
+void weather_restore(WeatherState s);  // boot: the sky as the world last saw it
+void weather_dump(FILE* f);            // persist: the sky as numbers

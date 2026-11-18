@@ -1,13 +1,15 @@
-// TimeMUD round 8: places, and an agenda. Zone one is surveyed at boot
-// (the shrine, the moonlit grove - coordinates from day one), Nara
-// gains a patrol and its rule (never walk in a storm), and Movement
-// becomes the first event category beyond World. Boot order holds:
-// recorder before actors, memory in arrival sequence.
+// TimeMUD round 12: the world RESUMES. persist/ opens - the only place
+// a save file ever opens, schema 1, IDs across the boundary - and a
+// clean shutdown writes where everyone stands so the next boot is not
+// a refashioning but a waking. Boot order: load state, survey the
+// world, then subscribers: record, calendar, sky (restored), recorder,
+// then the inhabitants (restored), who perceive, answer and speak.
 
 #include "chronicle.h"
 #include "events.h"
 #include "log.h"
 #include "npc.h"
+#include "persist.h"
 #include "rooms.h"
 #include "weather.h"
 #include "world_clock.h"
@@ -15,9 +17,9 @@
 #include <cstdio>
 #include <ctime>
 
-static constexpr long kHeartbeatMs = 100;  // the floor of tick cadence
-static constexpr int  kTicksToRun  = 20;   // smoke test: exactly two game-minutes
-static constexpr int  kEra         = 1;    // era one, the Age of Chronomancy
+static constexpr long kHeartbeatMs = 100;
+static constexpr int  kTicksToRun  = 20;
+static constexpr int  kEra         = 1;
 
 class SteadyMs {
 public:
@@ -38,13 +40,18 @@ public:
 
 int main() {
     log_init("log");
-    rooms_load();              // the world survey: zone one has places now
-    log_subscribe_events();   // subscriber 1: the record (forgets)
-    world_clock_subscribe();  // subscriber 2: the calendar
-    weather_subscribe();      // subscriber 3: the sky (emits World events)
-    chronicle_init();          // the world's memory opens
-    chronicle_subscribe();     // subscriber 4: the recorder - BEFORE the actors
-    npc_subscribe();          // subscriber 5: the inhabitant - perceives, answers, walks
+    persist_load();              // the world's state, if the world ever saved it
+    rooms_load();
+    log_subscribe_events();      // subscriber 1: the record (forgets)
+    world_clock_subscribe();     // subscriber 2: the calendar
+    weather_subscribe();         // subscriber 3: the sky
+    int sky = 0;
+    if (persist_get_sky(&sky)) {
+        weather_restore(static_cast<WeatherState>(sky));  // the sky as it last stood
+    }
+    chronicle_init();            // the world's memory opens
+    chronicle_subscribe();       // subscriber 4: the recorder - BEFORE the actors
+    npc_subscribe();             // subscriber 5+: the inhabitants, resumed from state
     const long boot_ms = SteadyMs::now();
 
     std::puts("TimeMUD boot: era one, the Age of Chronomancy. Heartbeat 100ms.");
@@ -64,5 +71,6 @@ int main() {
 
     std::puts("TimeMUD shutdown: clean.");
     log_boot("TimeMUD shutdown: clean.");
+    persist_save();              // where everyone stands, for the next waking
     return 0;
 }

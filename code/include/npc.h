@@ -1,17 +1,19 @@
 #pragma once
 
-// entities/: inhabitants, R7-R11. An NPC IS a Subscriber - being on
-// the artery is perceiving the world. NPCs are DATA-DRIVEN: an NpcAgenda
-// names the posts, acts, greetings and replies. R11: SPEECH - a witness
-// who watches an arrival speaks her greeting; a greeting heard in one's
-// own room earns a reply; and NO ONE REPLIES TO A REPLY (the loop rule
-// lives in SpeechEvt.is_reply). What inhabitants say is world history.
+// entities/: inhabitants, R7-R12. NPCs are DATA-DRIVEN (NpcAgenda);
+// R12: every inhabitant has an ID (the entity/obj ID space opens) and
+// can RESUME from a save - restoring a saved position is the difference
+// between a world that resets and one that waits. What inhabitants do,
+// perceive and say is world history.
 
 #include "events.h"
 #include "rooms.h"
 #include "weather.h"
 
+#include <cstdio>
+
 struct NpcAgenda {
+    int id;                 // entity ID - the number that crosses save boundaries
     const char* name;
     const Room* home;
     const Room* other;      // nullptr = no patrol
@@ -20,8 +22,8 @@ struct NpcAgenda {
     int post_x[4];
     int post_y[4];
     const char* act[4];
-    const char* greet;      // spoken when she watches an arrival; nullptr = silent
-    const char* reply;      // spoken when she hears a greeting in her room; nullptr = no reply
+    const char* greet;
+    const char* reply;
 };
 
 class Npc : public Subscriber {
@@ -29,6 +31,8 @@ public:
     explicit Npc(const NpcAgenda& agenda);
 
     void on_event(const Event& evt) override;
+    void restore();                 // resume a saved position, if the world saved one
+    void dump(FILE* f) const;       // persist: numbers only across the boundary
 
 private:
     void perceive_movement(const MovementEvt& mv, const GameTime& t);
@@ -47,4 +51,5 @@ private:
     char spoken_[160];
 };
 
-void npc_subscribe();
+void npc_subscribe();  // restores positions first, then boots the inhabitants
+void npc_dump(FILE* f);       // persist: both inhabitants, one line each
