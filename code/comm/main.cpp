@@ -1,10 +1,12 @@
-// TimeMUD round 3: the event stream goes live. comm/ no longer calls the
-// log per tick; it emits GameTime, and whoever subscribed hears it. The
-// first subscriber is the log, the design's own proof that logging is
-// "just another subscriber on events/".
+// TimeMUD round 4: the world hears time. comm/ emits GameTime each pass;
+// subscribers answer in boot order: first the log (the record), then the
+// clock (the first piece of the sim proper). Same artery, two listeners,
+// one of which now DOES something with the beat instead of just writing
+// it down.
 
 #include "events.h"
 #include "log.h"
+#include "world_clock.h"
 
 #include <cstdio>
 #include <ctime>
@@ -12,7 +14,7 @@
 namespace {
 
 constexpr long kHeartbeatMs = 100;  // the floor of tick cadence
-constexpr int  kTicksToRun  = 10;   // smoke-test duration
+constexpr int  kTicksToRun  = 10;   // smoke test: exactly one game-second
 constexpr int  kEra         = 1;    // era one, the Age of Chronomancy
 
 long now_ms() {
@@ -33,7 +35,8 @@ void sleep_until(long deadline_ms) {
 
 int main() {
     log_init("log");
-    log_subscribe_game_time();  // boot order decides subscriber order
+    log_subscribe_game_time();  // subscriber 1: the record
+    world_clock_subscribe();    // subscriber 2: the world
     const long boot_ms = now_ms();
 
     std::puts("TimeMUD boot: era one, the Age of Chronomancy. Heartbeat 100ms.");
