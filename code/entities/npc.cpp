@@ -183,3 +183,11 @@ void npc_subscribe() {
     events_subscribe(&g_shrine_keeper);
     events_subscribe(&g_old_hunter);
 }
+
+bool Npc::is_at(const char* room, int x, int y) const {
+    return std::strcmp(at_room_->name(), room) == 0 && x_ == x && y_ == y;
+}
+
+bool npc_occupied(const char* room, int x, int y) {
+    return g_shrine_keeper.is_at(room, x, y) || g_old_hunter.is_at(room, x, y);
+}

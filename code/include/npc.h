@@ -1,12 +1,11 @@
 #pragma once
 
-// entities/: inhabitants, R7-R14. NPCs are DATA-DRIVEN (NpcAgenda) and
-// MINDFUL (memory v0: a face is greeted once and answered once per
-// boot). R14b: describe_in writes presence prose straight to the
-// client (the fmemopen interlude was undefined behavior and is gone),
-// and the class now spans two TUs - bodies in npc.cpp, perception and
-// speech in npc_wits.cpp - so every translation unit stays inside a
-// phone compiler's envelope. Compile weight is now a design surface.
+// entities/: inhabitants, R7-R15. NPCs are DATA-DRIVEN (NpcAgenda) and
+// MINDFUL (memory v0: a face greeted once, answered once). R15: cells
+// are physical - npc_occupied() makes coordinates solid, and players
+// moving on the grid are perceived through the same band machinery as
+// any other arrival. The class spans npc.cpp (bodies) and npc_wits.cpp
+// (perception/speech); compile weight is a design surface.
 
 #include "events.h"
 #include "rooms.h"
@@ -35,7 +34,8 @@ public:
     void on_event(const Event& evt) override;
     void restore();
     void dump(FILE* f) const;
-    void describe_in(const char* room) const;   // presence prose, straight to the client
+    void describe_in(const char* room) const;
+    bool is_at(const char* room, int x, int y) const;   // R15: coordinates are solid
 
 private:
     void perceive_movement(const MovementEvt& mv, const GameTime& t);
@@ -59,3 +59,4 @@ private:
 void npc_subscribe();
 void npc_dump(FILE* f);
 void npc_describe_in(const char* room);
+bool npc_occupied(const char* room, int x, int y);
