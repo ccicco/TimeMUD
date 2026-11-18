@@ -1,13 +1,14 @@
-// The era clock hears the artery and counts, R4; R5 rescales to minute
-// pace and exposes the read seam. Still derives from gt.tick (the
-// authoritative counter), never its own accumulator, so a stalled
-// heartbeat cannot desync the calendar.
+// The era clock hears the artery and counts, R4; heartbeat payload
+// arrives in the Event envelope as of R6; R5 rescale holds (10 pulses =
+// 1 game-minute) and so does the rule: derive from the tick (the
+// authoritative counter), never our own accumulator.
 
 #include "events.h"
 #include "log.h"
 #include "world_clock.h"
 
 #include <cstdio>
+#include <variant>
 
 namespace {
 
@@ -25,10 +26,11 @@ GameClock derive(long pulses_done) {
     return gc;
 }
 
-void on_game_time(const GameTime& gt) {
-    g_last_tick = gt.tick;
-    const long pulses_done = gt.tick + 1;              // tick 0 is the first pulse
-    if (pulses_done % kPulsesPerMinute != 0) return;   // not a minute boundary
+void on_event(const Event& evt) {
+    if (!std::holds_alternative<TickEvt>(evt.payload)) return;
+    g_last_tick = evt.time.tick;
+    const long pulses_done = evt.time.tick + 1;              // tick 0 is the first pulse
+    if (pulses_done % kPulsesPerMinute != 0) return;         // not a minute boundary
     const GameClock gc = derive(pulses_done);
     std::printf("World time: day %ld, %02d:%02d.\n", gc.day, gc.hour, gc.minute);
     log_boot("world time: day %ld, %02d:%02d", gc.day, gc.hour, gc.minute);
@@ -42,5 +44,5 @@ GameClock world_clock_now() {
 }
 
 void world_clock_subscribe() {
-    events_subscribe(&on_game_time);
+    events_subscribe(&on_event);
 }

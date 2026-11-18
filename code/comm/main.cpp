@@ -1,9 +1,11 @@
-// TimeMUD round 5: the sky reads the clock. comm/ emits GameTime each
-// pass; subscribers answer in boot order: the log (the record), the
-// clock (the calendar), the weather (the first READER of world time).
-// Twenty ticks = two game-minutes = two forecast checks: the read seam
-// proven observable, not just present.
+// TimeMUD round 6: the world remembers. comm/ emits the heartbeat as an
+// Event (envelope v1: sequence, GameTime, category, payload, visibility);
+// subscribers answer in boot order: the record (boot.log), the calendar,
+// the sky, and now the chronicle (history.log), the durable memory the
+// whole project exists to build. Twenty ticks = two game-minutes = two
+// chronicle-worthy weather events.
 
+#include "chronicle.h"
 #include "events.h"
 #include "log.h"
 #include "weather.h"
@@ -36,17 +38,25 @@ void sleep_until(long deadline_ms) {
 
 int main() {
     log_init("log");
-    log_subscribe_game_time();  // subscriber 1: the record
-    world_clock_subscribe();    // subscriber 2: the calendar
-    weather_subscribe();        // subscriber 3: the sky, which reads 2 through the artery
+    log_subscribe_events();  // subscriber 1: the record (forgetful diagnostics)
+    world_clock_subscribe(); // subscriber 2: the calendar
+    weather_subscribe();    // subscriber 3: the sky, now a World-event emitter
+    chronicle_init();      // the world's memory opens
+    chronicle_subscribe(); // subscriber 4: the memory (never forgets)
     const long boot_ms = now_ms();
 
     std::puts("TimeMUD boot: era one, the Age of Chronomancy. Heartbeat 100ms.");
-    log_boot("TimeMUD boot: era one, the Age of Chronomancy. Heartbeat %ldms.", kHeartbeatMs);
+    log_boot("TimeMUD boot: era one, the Age of Chronomancy. Heartbeat 100ms.");
 
     for (int tick = 0; tick < kTicksToRun; ++tick) {
         std::printf("Tick %d.\n", tick);
-        events_emit(GameTime{ tick, kEra });   // the artery carries it from here
+        Event evt{};
+        evt.sequence_id = events_next_sequence();
+        evt.time        = GameTime{ tick, kEra };
+        evt.category    = EventCategory::kSystem;
+        evt.payload     = TickEvt{};
+        evt.visibility  = 100;   // the beat itself: fully perceivable plumbing
+        events_emit(evt);        // the artery carries it from here
         sleep_until(boot_ms + (tick + 1) * kHeartbeatMs);
     }
 

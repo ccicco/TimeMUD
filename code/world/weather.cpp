@@ -1,18 +1,14 @@
-// Weather: hears the artery, asks the clock, forecasts a sky. Once per
-// game-minute it derives its state from (day, hour, minute) by a fixed
-// formula - deterministic, so world state is replayable from tick 0, the
-// same property wilderness-from-seed will lean on. Reports only on
-// CHANGE: silence is the steady sky, subscribers do not spam the artery.
-// NOTE the order dependency: weather's world_clock_now() is correct only
-// because the clock (earlier subscriber) stored this tick first - boot
-// order is part of the architecture, subscribers answer in wiring order.
+// Weather: hears the artery, asks the clock, forecasts a sky. R6: the
+// sky stops merely PRINTING - a change now becomes a real World-category
+// event on the artery (WeatherChangeEvt) for any subscriber that cares.
+// The chronicle subscribes to that heartbeat of the world.
 
 #include "events.h"
-#include "log.h"
 #include "weather.h"
 #include "world_clock.h"
 
 #include <cstdio>
+#include <variant>
 
 namespace {
 
@@ -23,33 +19,48 @@ WeatherState forecast(const GameClock& gc) {
     return static_cast<WeatherState>(h % kWeatherStateCount);
 }
 
-void report(WeatherState s, const GameClock& gc) {
-    std::printf("World weather: %s.\n", weather_name(s));
-    log_boot("weather: %s (day %ld, %02d:%02d)", weather_name(s), gc.day, gc.hour, gc.minute);
+void emit_change(WeatherState prev, WeatherState now, const GameClock& gc, const GameTime& t) {
+    WeatherChangeEvt wc{};
+    wc.prev   = static_cast<int>(prev);
+    wc.now    = static_cast<int>(now);
+    wc.day    = gc.day;
+    wc.hour   = gc.hour;
+    wc.minute = gc.minute;
+    wc.second = gc.second;
+    Event evt{};
+    evt.sequence_id = events_next_sequence();
+    evt.time        = t;
+    evt.category    = EventCategory::kWorld;
+    evt.payload     = wc;
+    evt.visibility  = 100;  // the sky is loud: the whole world may perceive it
+    events_emit(evt);
 }
 
-void on_game_time(const GameTime& gt) {
-    const long pulses_done = gt.tick + 1;
+void on_event(const Event& evt) {
+    if (!std::holds_alternative<TickEvt>(evt.payload)) return;
+    const long pulses_done = evt.time.tick + 1;
     if (pulses_done % kPulsesPerWeatherCheck != 0) return;  // once per game-minute
-    const GameClock gc = world_clock_now();                // the read seam, threaded through the artery's own order
+    const GameClock gc = world_clock_now();                 // the read seam
     const WeatherState sky = forecast(gc);
-    if (sky == g_state) return;                            // steady sky = silence
+    if (sky == g_state) return;                             // steady sky = silence
+    const WeatherState prev = g_state;
     g_state = sky;
-    report(sky, gc);
+    std::printf("World weather: %s.\n", weather_name(sky));
+    emit_change(prev, sky, gc, evt.time);
 }
 
 }  // namespace
 
 const char* weather_name(WeatherState s) {
     switch (s) {
-        case WeatherState::kClear:    return "clear";
+        case WeatherState::kClear:     return "clear";
         case WeatherState::kOvercast: return "overcast";
-        case WeatherState::kRain:     return "rain";
-        case WeatherState::kStorm:    return "storm";
-        default:                      return "unset";
+        case WeatherState::kRain:      return "rain";
+        case WeatherState::kStorm:     return "storm";
+        default:                       return "unset";
     }
 }
 
 void weather_subscribe() {
-    events_subscribe(&on_game_time);
+    events_subscribe(&on_event);
 }
