@@ -1,11 +1,10 @@
 #pragma once
 
-// chronicle/: the world's memory, first cut (R6). The design's thesis:
-// THE EVENT LOG IS WORLD HISTORY. This category makes that a durable
-// artifact: World-category events are appended to log/history.log,
-// which never rotates and never truncates. boot.log forgets; the
-// chronicle compounds. Eras, heirloom legacies and lost-technique
-// research will read this same file for years.
+// chronicle/: the world's memory, R6-R7. The design's thesis: THE EVENT
+// LOG IS WORLD HISTORY. World-category events append to log/history.log,
+// never rotated, never truncated - boot.log forgets; the chronicle
+// compounds. R7: the recorder stands BEFORE the actors in boot order,
+// so events reach the page in arrival order.
 
 void chronicle_init();        // open the history; call once at boot
 void chronicle_subscribe();   // hear the artery; record the World

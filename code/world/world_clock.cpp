@@ -1,7 +1,7 @@
-// The era clock hears the artery and counts, R4; heartbeat payload
-// arrives in the Event envelope as of R6; R5 rescale holds (10 pulses =
-// 1 game-minute) and so does the rule: derive from the tick (the
-// authoritative counter), never our own accumulator.
+// The era clock, R7 class form: WorldClock is a Subscriber; the read
+// seam world_clock_now() reads the one clock instance. Derives from
+// the tick (the authoritative counter), never its own accumulator -
+// a stalled heartbeat cannot desync the calendar.
 
 #include "events.h"
 #include "log.h"
@@ -10,39 +10,45 @@
 #include <cstdio>
 #include <variant>
 
-namespace {
+class WorldClock : public Subscriber {
+public:
+    void on_event(const Event& evt) override {
+        if (!std::holds_alternative<TickEvt>(evt.payload)) return;
+        last_tick_ = evt.time.tick;
+        const long pulses_done = evt.time.tick + 1;              // tick 0 is the first pulse
+        if (pulses_done % kPulsesPerMinute != 0) return;         // not a minute boundary
+        const GameClock gc = derive(pulses_done);
+        std::printf("World time: day %ld, %02d:%02d.\n", gc.day, gc.hour, gc.minute);
+        log_boot("world time: day %ld, %02d:%02d", gc.day, gc.hour, gc.minute);
+    }
 
-long g_last_tick = -1;  // -1 = the artery has not beaten yet
+    GameClock now() const {
+        const long pulses_done = last_tick_ < 0 ? 0 : last_tick_ + 1;
+        return derive(pulses_done);
+    }
 
-GameClock derive(long pulses_done) {
-    constexpr long kMinPerDay = kMinutesPerHour * kHoursPerDay;
-    GameClock gc{};
-    const long minute_total = pulses_done / kPulsesPerMinute;
-    gc.day    = minute_total / kMinPerDay;
-    long rem  = minute_total % kMinPerDay;
-    gc.hour   = static_cast<int>(rem / kMinutesPerHour);
-    gc.minute = static_cast<int>(rem % kMinutesPerHour);
-    gc.second = static_cast<int>((pulses_done / kPulsesPerSecond) % (kPulsesPerMinute / kPulsesPerSecond));
-    return gc;
-}
+private:
+    static GameClock derive(long pulses_done) {
+        constexpr long kMinPerDay = kMinutesPerHour * kHoursPerDay;
+        GameClock gc{};
+        const long minute_total = pulses_done / kPulsesPerMinute;
+        gc.day    = minute_total / kMinPerDay;
+        long rem  = minute_total % kMinPerDay;
+        gc.hour   = static_cast<int>(rem / kMinutesPerHour);
+        gc.minute = static_cast<int>(rem % kMinutesPerHour);
+        gc.second = static_cast<int>((pulses_done / kPulsesPerSecond) % (kPulsesPerMinute / kPulsesPerSecond));
+        return gc;
+    }
 
-void on_event(const Event& evt) {
-    if (!std::holds_alternative<TickEvt>(evt.payload)) return;
-    g_last_tick = evt.time.tick;
-    const long pulses_done = evt.time.tick + 1;              // tick 0 is the first pulse
-    if (pulses_done % kPulsesPerMinute != 0) return;         // not a minute boundary
-    const GameClock gc = derive(pulses_done);
-    std::printf("World time: day %ld, %02d:%02d.\n", gc.day, gc.hour, gc.minute);
-    log_boot("world time: day %ld, %02d:%02d", gc.day, gc.hour, gc.minute);
-}
+    long last_tick_ = -1;  // -1 = the artery has not beaten yet
+};
 
-}  // namespace
+static WorldClock g_world_clock;
 
 GameClock world_clock_now() {
-    const long pulses_done = g_last_tick < 0 ? 0 : g_last_tick + 1;
-    return derive(pulses_done);
+    return g_world_clock.now();
 }
 
 void world_clock_subscribe() {
-    events_subscribe(&on_event);
+    events_subscribe(&g_world_clock);
 }
