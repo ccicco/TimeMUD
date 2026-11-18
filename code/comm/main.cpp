@@ -10,6 +10,7 @@
 #include "events.h"
 #include "log.h"
 #include "npc.h"
+#include "obj.h"
 #include "persist.h"
 #include "rooms.h"
 #include "server.h"
@@ -53,6 +54,7 @@ int main(int argc, char** argv) {
     log_init("log");
     persist_load();
     rooms_load();
+    obj_init();                  // the objects stand where the world left them
     log_subscribe_events();       // subscriber 1: the record (forgets)
     world_clock_subscribe();      // subscriber 2: the calendar
     weather_subscribe();          // subscriber 3: the sky

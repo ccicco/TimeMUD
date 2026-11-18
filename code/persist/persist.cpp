@@ -1,11 +1,12 @@
-// The only file this category ever opens. Schema 1 is deliberately
-// boring text so a human can audit it and a later migration can read
-// it: a header line, the sky, one line per entity, numbers only.
+// The only file this category ever opens. Schema 1: header line, the
+// sky, one line per entity, one line per object. Numbers only - a human
+// can audit it and a later migration can read it.
 
 #include "persist.h"
 
 #include "log.h"
 #include "npc.h"
+#include "obj.h"
 #include "weather.h"
 
 #include <cstdio>
@@ -14,6 +15,7 @@
 
 static constexpr int kSaveSchema = 1;
 static constexpr int kMaxSavedEntities = 8;
+static constexpr int kMaxSavedObjects = 4;
 
 struct EntityRec {
     int id;
@@ -24,11 +26,24 @@ struct EntityRec {
     int y;
 };
 
+struct ObjRec {
+    int id;
+    int zone;
+    int room_x;
+    int room_y;
+    int x;
+    int y;
+    int carried;
+    int lit;
+};
+
 struct PersistState {
     bool has_sky = false;
     int sky = -1;
     EntityRec ents[kMaxSavedEntities] = {};
     int count = 0;
+    ObjRec objs[kMaxSavedObjects] = {};
+    int obj_count = 0;
 };
 
 static PersistState g_state;
@@ -60,6 +75,14 @@ void persist_load() {
                        &r.id, &r.zone, &r.room_x, &r.room_y, &r.x, &r.y) == 6
             && g_state.count < kMaxSavedEntities) {
             g_state.ents[g_state.count++] = r;
+            continue;
+        }
+        ObjRec o{};
+        if (std::sscanf(line, "obj %d %d %d %d %d %d %d %d",
+                       &o.id, &o.zone, &o.room_x, &o.room_y,
+                       &o.x, &o.y, &o.carried, &o.lit) == 8
+            && g_state.obj_count < kMaxSavedObjects) {
+            g_state.objs[g_state.obj_count++] = o;
         }
     }
     std::fclose(f);
@@ -86,6 +109,7 @@ void persist_save() {
     std::fprintf(f, "schema %d\n", kSaveSchema);
     weather_dump(f);
     npc_dump(f);
+    obj_dump(f);
     std::fclose(f);
     std::printf("World state saved.\n");
     log_boot("persist: world state saved (schema %d)", kSaveSchema);
@@ -106,6 +130,21 @@ bool persist_get_entity(int id, int* zone, int* room_x,
         *room_y = g_state.ents[i].room_y;
         *x      = g_state.ents[i].x;
         *y      = g_state.ents[i].y;
+        return true;
+    }
+    return false;
+}
+
+bool persist_get_obj(int id, int* zone, int* room_x, int* room_y,
+                     int* x, int* y, int* lit) {
+    for (int i = 0; i < g_state.obj_count; ++i) {
+        if (g_state.objs[i].id != id) continue;
+        *zone   = g_state.objs[i].zone;
+        *room_x = g_state.objs[i].room_x;
+        *room_y = g_state.objs[i].room_y;
+        *x      = g_state.objs[i].x;
+        *y      = g_state.objs[i].y;
+        *lit    = g_state.objs[i].lit;
         return true;
     }
     return false;

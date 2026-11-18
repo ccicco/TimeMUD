@@ -1,16 +1,11 @@
 #pragma once
 
-// events/: the artery, rounds 2-14. R6: envelope v1 (closed, versioned;
-// add never mutate). R7: class port. R8-R9: movement + positions.
-// R11: kSpeech (is_reply loop rule). R13: room conditions. R14: the
-// player arrives - NpcReactEvt gains its promised position fields
-// (amendment v1.2, same pattern as Movement v1.1: the schema's
-// position promise kept), so a renderer knows WHERE an act happened.
-//   sequence_id - monotonic, the event log's primary key. World history.
-//   time        - GameTime; every event is anchored to the world clock.
-//   category    - kSystem / kWorld / kMovement / kSpeech (future: Combat...).
-//   payload     - typed closed variant. Amendments documented in-place.
-//   visibility  - a NUMBER, not bool: 100 = fully perceivable, 0 = none.
+// events/: the artery, rounds 2-17. R6: envelope v1 (closed, versioned;
+// add never mutate). R7: Subscriber port. R11: kSpeech + loop rule.
+// R13: room conditions. R14: NpcReact position fields (v1.2).
+// R17: MovementEvt.lit (v1.3, additive) and ObjEvt - item actions are
+// world history. The schema grows by addition, and every amendment is
+// documented where it lives.
 
 #include <variant>
 
@@ -28,6 +23,11 @@ enum class EventCategory {
     kSpeech,
 };
 
+enum class ObjAction {
+    kTake = 0,
+    kLight = 1,
+};
+
 struct WeatherChangeEvt {
     int prev;
     int now;
@@ -37,10 +37,10 @@ struct WeatherChangeEvt {
     int second;
 };
 
-struct NpcReactEvt {  // v1.2 (R14): room + position added - promised fields
+struct NpcReactEvt {
     const char* name;
     const char* action;
-    const char* room;  // where the act happened (renderer's key)
+    const char* room;
     int x;
     int y;
     long day;
@@ -57,6 +57,7 @@ struct MovementEvt {
     int from_y;
     int to_x;
     int to_y;
+    bool lit;    // v1.3 (R17): does the mover carry light?
     long day;
     int hour;
     int minute;
@@ -83,11 +84,22 @@ struct RoomConditionEvt {
     int second;
 };
 
+struct ObjEvt {   // R17: a hand met an object, and the world remembers
+    const char* who;
+    const char* obj;
+    int action;   // ObjAction value
+    long day;
+    int hour;
+    int minute;
+    int second;
+};
+
 struct Event {
     long sequence_id;
     GameTime time;
     EventCategory category;
-    std::variant<TickEvt, WeatherChangeEvt, NpcReactEvt, MovementEvt, SpeechEvt, RoomConditionEvt> payload;
+    std::variant<TickEvt, WeatherChangeEvt, NpcReactEvt, MovementEvt,
+                 SpeechEvt, RoomConditionEvt, ObjEvt> payload;
     int visibility;
 };
 

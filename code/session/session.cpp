@@ -1,15 +1,14 @@
-// The stranger, R16: EXITS ARE THE GRID'S EDGES. The grove's north
-// birch-line (y=0) opens onto the shrine's southern edge (y=9), and
-// the shrine's south wall opens back. A room boundary crossed is a
-// room-to-room MovementEvt - perceived, rendered, recorded, exactly
-// like Nara's crossings. When the first stateful door is born (a
-// lock, a collapse), exit-state formalizes here; tonight the path
-// stands open, honestly noted. The stranger can follow her home.
+// The stranger, R17: hands. take/light/inventory join the grammar, and
+// the lantern changes what the world can know about you: a lit mover is
+// seen in the dark, an unlit one only heard. The look command knows the
+// dark now, and the lamp - the round's whole thesis fits in a carried
+// flame.
 
 #include "session.h"
 
 #include "events.h"
 #include "npc.h"
+#include "obj.h"
 #include "rooms.h"
 #include "server.h"
 #include "weather.h"
@@ -36,7 +35,13 @@ static void cmd_look() {
     server_write(line);
     std::snprintf(line, sizeof line, "You are at (%d, %d).\n", g_player.x, g_player.y);
     server_write(line);
+    obj_describe_in(g_player.room->name());
     npc_describe_in(g_player.room->name());
+    if (room_dark(*g_player.room) && !obj_lit()) {
+        server_write("The dark is deep here; you see little.\n");
+    } else if (room_dark(*g_player.room) && obj_lit()) {
+        server_write("Your lantern holds back the dark in a circle of gold.\n");
+    }
     if (g_player.y == 0) {
         server_write("Through the north birches: the lamp-lit shine of the shrine.\n");
     } else if (g_player.y == g_player.room->size() - 1) {
@@ -63,8 +68,17 @@ static void cmd_say(const char* text) {
     events_emit(evt);
 }
 
+static void cmd_inventory() {
+    if (obj_carried()) {
+        server_write(obj_lit() ? "You carry: a storm-lantern (lit).\n"
+                               : "You carry: a storm-lantern (unlit).\n");
+    } else {
+        server_write("You carry nothing.\n");
+    }
+}
+
 static void emit_step(const char* from_room, const char* to_room,
-                      int fx, int fy, int nx, int ny) {
+                      int fx, int fy, int nx, int ny, bool lit) {
     Event evt{};
     evt.sequence_id = events_next_sequence();
     evt.time        = GameTime{ world_clock_last_tick(), 1 };
@@ -76,6 +90,7 @@ static void emit_step(const char* from_room, const char* to_room,
     mv.from_y    = fy;
     mv.to_x      = nx;
     mv.to_y      = ny;
+    mv.lit       = lit;
     evt.category   = EventCategory::kMovement;
     evt.payload    = mv;
     evt.visibility = 100;
@@ -93,7 +108,7 @@ static void cross_to(const Room* to, int x, int y) {
     g_player.room = to;
     g_player.x = x;
     g_player.y = y;
-    emit_step(from_room, to->name(), fx, fy, x, y);
+    emit_step(from_room, to->name(), fx, fy, x, y, obj_lit());
 }
 
 static void cmd_go(const char* dir_word) {
@@ -119,11 +134,11 @@ static void cmd_go(const char* dir_word) {
     const bool in_grove = std::strcmp(g_player.room->name(), room_grove().name()) == 0;
     const bool in_shrine = std::strcmp(g_player.room->name(), room_shrine().name()) == 0;
     if (ny < 0 && in_grove && g_player.y == 0) {
-        cross_to(&room_shrine(), g_player.x, edge);   // the north birches open
+        cross_to(&room_shrine(), g_player.x, edge);
         return;
     }
     if (ny > edge && in_shrine && g_player.y == edge) {
-        cross_to(&room_grove(), g_player.x, 0);       // the south wall opens back
+        cross_to(&room_grove(), g_player.x, 0);
         return;
     }
     if (ny < 0 || ny > edge) {
@@ -138,7 +153,7 @@ static void cmd_go(const char* dir_word) {
     const int fy = g_player.y;
     g_player.x = nx;
     g_player.y = ny;
-    emit_step(g_player.room->name(), g_player.room->name(), fx, fy, nx, ny);
+    emit_step(g_player.room->name(), g_player.room->name(), fx, fy, nx, ny, obj_lit());
 }
 
 void session_line(const char* line) {
@@ -166,7 +181,7 @@ void session_line(const char* line) {
         server_write(g_player.name);
         server_write(". You stand under an open sky, rain or shine, in the moonlit grove.\n");
         cmd_look();
-        server_write("Commands: look, go <north|south|east|west>, say <words>, quit.\n");
+        server_write("Commands: look, go <dir>, take <thing>, light <thing>, say <words>, i, quit.\n");
         return;
     }
     char first[16];
@@ -189,6 +204,29 @@ void session_line(const char* line) {
         cmd_go(rest);
         return;
     }
+    if (std::strcmp(first, "take") == 0) {
+        if (obj_take(rest, g_player.name)) {
+            server_write("You take the storm-lantern. Its bracket is rain-proof; the wick is dry.\n");
+        } else {
+            server_write("You see nothing here to take.\n");
+        }
+        return;
+    }
+    if (std::strcmp(first, "light") == 0) {
+        if (!obj_carried()) {
+            server_write("You are not carrying anything to light.\n");
+        } else if (obj_light(rest, g_player.name)) {
+            server_write("Steel scrapes flint; the wick takes. Your lantern burns.\n");
+        } else {
+            server_write("The lantern is already burning.\n");
+        }
+        return;
+    }
+    if (std::strcmp(first, "i") == 0 || std::strcmp(first, "inv") == 0
+        || std::strcmp(first, "inventory") == 0) {
+        cmd_inventory();
+        return;
+    }
     if (std::strcmp(first, "quit") == 0) {
         server_write("Fare well, stranger. The grove will remember your steps.\n");
         server_close_client();
@@ -197,8 +235,8 @@ void session_line(const char* line) {
     server_write("The grove holds no answer to that.\n");
 }
 
-// The player's eyes, R16: crossings render as crossings. Everything else
-// unchanged - same artery, same order, the chronicle files, this talks.
+// The player's eyes. Own item deeds already answered directly by the
+// command grammar; the world's deeds arrive here in arrival order.
 class ClientSink : public Subscriber {
 public:
     void on_event(const Event& evt) override {
@@ -232,6 +270,9 @@ public:
             std::snprintf(out, sizeof out, "%s %s\n", nr.name, nr.action);
             server_write(out);
             return;
+        }
+        if (std::holds_alternative<ObjEvt>(evt.payload)) {
+            return;  // own deeds answered in person at the command; history keeps the rest
         }
         if (std::holds_alternative<MovementEvt>(evt.payload)) {
             const auto& mv = std::get<MovementEvt>(evt.payload);

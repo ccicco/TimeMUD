@@ -1,6 +1,6 @@
-// The world's memory, R13: it records what rooms WEAR now. The sky
-// falls on places as surely as on people - a darkened grove is world
-// history, in arrival order, quoted faithfully.
+// The world's memory, R17: item deeds join the record. A hand met an
+// object - that is as much history as a storm or a greeting, and the
+// chronicle will not rank the worth of events: it keeps arrival order.
 
 #include "chronicle.h"
 
@@ -36,6 +36,8 @@ public:
             write_say(std::get<SpeechEvt>(evt.payload), evt.sequence_id);
         } else if (std::holds_alternative<RoomConditionEvt>(evt.payload)) {
             write_cond(std::get<RoomConditionEvt>(evt.payload), evt.sequence_id);
+        } else if (std::holds_alternative<ObjEvt>(evt.payload)) {
+            write_obj(std::get<ObjEvt>(evt.payload), evt.sequence_id);
         }
     }
 
@@ -84,6 +86,17 @@ private:
         } else {
             std::fprintf(file_, "day %ld, %02d:%02d, seq %ld: %s lightens.\n",
                          rc.day, rc.hour, rc.minute, seq, rc.room);
+        }
+        std::fflush(file_);
+    }
+
+    void write_obj(const ObjEvt& oe, long seq) {
+        if (oe.action == static_cast<int>(ObjAction::kTake)) {
+            std::fprintf(file_, "day %ld, %02d:%02d, seq %ld: %s takes the %s.\n",
+                         oe.day, oe.hour, oe.minute, seq, oe.who, oe.obj);
+        } else {
+            std::fprintf(file_, "day %ld, %02d:%02d, seq %ld: %s lights the %s.\n",
+                         oe.day, oe.hour, oe.minute, seq, oe.who, oe.obj);
         }
         std::fflush(file_);
     }

@@ -1,7 +1,8 @@
-// The inhabitants of zone one, R14b: the wits - perception, weather
-// posture, speech answers, and presence prose. Split from npc.cpp so
-// no translation unit outweighs a phone compiler (the R14a freeze was
-// clang itself dying on the single-file layout).
+// The inhabitants of zone one, R17: the wits - perception, weather
+// posture, speech answers, presence prose. The dark rule learns LIGHT:
+// an unlit arrival in a dark room is only a sound; a lit one is watched
+// and may be greeted. The lantern decides what Kaya knows about the
+// storm, and about you.
 
 #include "npc.h"
 
@@ -26,14 +27,15 @@ void Npc::perceive_movement(const MovementEvt& mv, const GameTime& t) {
     if (std::strcmp(mv.who, agenda_->name) == 0) return;
     if (std::strcmp(mv.to_room, at_room_->name()) != 0) return;
     const GameClock gc = world_clock_now();
-    if (room_dark(*at_room_)) {
+    if (room_dark(*at_room_) && !mv.lit) {
         std::snprintf(spoken_, sizeof spoken_, "hears someone arriving along the edge of the grove.");
         std::printf("%s hears someone arriving along the edge of the grove.\n", agenda_->name);
         act(spoken_, gc, t);
-        return;  // in the dark, every arrival is only a sound - and unhailed
+        return;  // unlit in the dark: a sound, and unhailed
     }
-    std::snprintf(spoken_, sizeof spoken_, "watches %s arrive.", mv.who);
-    std::printf("%s watches %s arrive.\n", agenda_->name, mv.who);
+    std::snprintf(spoken_, sizeof spoken_, mv.lit ? "watches %s arrive, lantern raised." : "watches %s arrive.", mv.who);
+    std::printf(mv.lit ? "%s watches %s arrive, lantern raised.\n" : "%s watches %s arrive.\n",
+                agenda_->name, mv.who);
     act(spoken_, gc, t);
     if (agenda_->greet != nullptr && std::strcmp(greeted_, mv.who) != 0) {
         std::snprintf(greeted_, sizeof greeted_, "%s", mv.who);
