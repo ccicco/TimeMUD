@@ -1,29 +1,47 @@
-// TimeMUD round 1: the heartbeat. comm/ owns the loop; each pass is one tick.
-// Still a stub inside (no event stream yet) - this round makes "Tick." true.
+// TimeMUD round 2: absolute-deadline heartbeat + boot log.
+// Tick N is a scheduled appointment (boot + N*heartbeat), not "100ms after
+// whatever happened last" — the drift fix, so GameTime stays honest.
+
+#include "log.h"
 
 #include <cstdio>
 #include <ctime>
 
 namespace {
 
-constexpr int    kHeartbeatMs = 100;  // one tick per heartbeat
-constexpr int    kTicksToRun = 10;    // smoke-test duration
+constexpr long kHeartbeatMs = 100;  // the floor of tick cadence
+constexpr int  kTicksToRun  = 10;   // smoke-test duration
 
-void sleep_heartbeat() {
-    // POSIX at the boundary: comm/ already owns platform contact.
-    struct timespec ts { kHeartbeatMs / 1000, (kHeartbeatMs % 1000) * 1000000L };
-    nanosleep(&ts, nullptr);
+long now_ms() {
+    timespec ts{};
+    clock_gettime(CLOCK_MONOTONIC, &ts);
+    return ts.tv_sec * 1000 + ts.tv_nsec / 1000000;
+}
+
+void sleep_until(long deadline_ms) {
+    long remaining;
+    while ((remaining = deadline_ms - now_ms()) > 0) {
+        timespec ts{ remaining / 1000, (remaining % 1000) * 1000000L };
+        nanosleep(&ts, nullptr);  // loop because nanosleep can return early on signals
+    }
 }
 
 }  // namespace
 
 int main() {
+    log_init("log");  // runs from the repo root (see Makefile run recipe)
+    const long boot_ms = now_ms();
+
     std::puts("TimeMUD boot: era one, the Age of Chronomancy. Heartbeat 100ms.");
+    log_boot("TimeMUD boot: era one, the Age of Chronomancy. Heartbeat %ldms.", kHeartbeatMs);
+
     for (int tick = 0; tick < kTicksToRun; ++tick) {
-        // Per design: the tick loop drives everything; subscribers arrive later.
         std::printf("Tick %d.\n", tick);
-        sleep_heartbeat();
+        log_boot("tick %d", tick);
+        sleep_until(boot_ms + (tick + 1) * kHeartbeatMs);  // the appointment
     }
+
     std::puts("TimeMUD shutdown: clean.");
+    log_boot("TimeMUD shutdown: clean.");
     return 0;
 }

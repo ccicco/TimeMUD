@@ -29,7 +29,7 @@ $(BUILD)/%.o: %.cpp $(HDR)
 	$(CXX) $(CXXFLAGS) -Iinclude -c $< -o $@
 
 run: all
-	$(BIN)
+	cd $(TOP) && ./build/timemud
 
 clean:
 	rm -rf $(BUILD)
