@@ -1,11 +1,12 @@
-// The inhabitants of zone one, R12: they RESUME now. Save restore - then
-// subscribe - then carry on: the world waits between runs, it does not
-// refashion itself. Everything else is R10-R11 verbatim: posts, patrol,
-// perception, and speech that knows when to stop.
+// The inhabitants of zone one, R14b: bodies and belongings. Instances
+// live here with external linkage so the wits TU can see them; see
+// npc_wits.cpp for the perception and speech halves. Everything an
+// inhabitant DOES is emitted with the position it happened at.
 
 #include "npc.h"
 
 #include "persist.h"
+#include "server.h"
 #include "world_clock.h"
 
 #include <cstdio>
@@ -42,8 +43,8 @@ static const NpcAgenda kOldHunter = {
     "Rain keeps its own counsel.",
 };
 
-static Npc g_shrine_keeper(kShrineKeeper);
-static Npc g_old_hunter(kOldHunter);
+Npc g_shrine_keeper(kShrineKeeper);
+Npc g_old_hunter(kOldHunter);
 
 Npc::Npc(const NpcAgenda& agenda)
     : agenda_(&agenda), at_room_(agenda.home), x_(agenda.start_x), y_(agenda.start_y) {}
@@ -52,7 +53,7 @@ void Npc::restore() {
     int zone = 0, rx = 0, ry = 0, x = 0, y = 0;
     if (!persist_get_entity(agenda_->id, &zone, &rx, &ry, &x, &y)) return;
     const Room* const room = room_at(zone, rx, ry);
-    if (room == nullptr) return;  // a saved place that no longer exists: stand at home
+    if (room == nullptr) return;
     at_room_ = room;
     x_ = x;
     y_ = y;
@@ -66,6 +67,11 @@ void Npc::dump(FILE* f) const {
 void npc_dump(FILE* f) {
     g_shrine_keeper.dump(f);
     g_old_hunter.dump(f);
+}
+
+void npc_describe_in(const char* room) {
+    g_shrine_keeper.describe_in(room);
+    g_old_hunter.describe_in(room);
 }
 
 void Npc::on_event(const Event& evt) {
@@ -89,44 +95,24 @@ void Npc::on_event(const Event& evt) {
     }
 }
 
-void Npc::perceive_movement(const MovementEvt& mv, const GameTime& t) {
-    if (std::strcmp(mv.who, agenda_->name) == 0) return;
-    if (std::strcmp(mv.to_room, at_room_->name()) != 0) return;
-    const Band b = room_dark(*at_room_) ? Band::kEdge : band_between(x_, y_, mv.to_x, mv.to_y);  // in the dark, every arrival is only a sound
-    const GameClock gc = world_clock_now();
-    if (b == Band::kEdge) {
-        std::snprintf(spoken_, sizeof spoken_, "hears someone arriving along the edge of the grove.");
-        std::printf("%s hears someone arriving along the edge of the grove.\n", agenda_->name);
-        act(spoken_, gc, t);
-        return;
-    }
-    std::snprintf(spoken_, sizeof spoken_, "watches %s arrive.", mv.who);
-    std::printf("%s watches %s arrive.\n", agenda_->name, mv.who);
-    act(spoken_, gc, t);
-    if (agenda_->greet != nullptr) {
-        speak(agenda_->greet, false, t);
-    }
-}
-
-void Npc::respond_to_speech(const SpeechEvt& sp, const GameTime& t) {
-    if (sp.is_reply) return;
-    if (std::strcmp(sp.who, agenda_->name) == 0) return;
-    if (std::strcmp(sp.room, at_room_->name()) != 0) return;
-    if (agenda_->reply == nullptr) return;
-    speak(agenda_->reply, true, t);
-}
-
-void Npc::react_to(const WeatherChangeEvt& wc, const GameTime& t) {
-    sky_ = static_cast<WeatherState>(wc.now);
-    const int i = static_cast<int>(sky_);
-    if (i < 0 || i > 3) return;
-    const int tx = agenda_->post_x[i];
-    const int ty = agenda_->post_y[i];
-    if (at_room_ != agenda_->home) move_to(agenda_->home, x_, y_, t);
-    if (x_ != tx || y_ != ty) move_to(at_room_, tx, ty, t);
-    const GameClock gc = world_clock_now();
-    std::printf("%s %s\n", agenda_->name, agenda_->act[i]);
-    act(agenda_->act[i], gc, t);
+void Npc::act(const char* line, const GameClock& gc, const GameTime& t) {
+    NpcReactEvt nr{};
+    nr.name   = agenda_->name;
+    nr.action = line;
+    nr.room   = at_room_->name();
+    nr.x      = x_;
+    nr.y      = y_;
+    nr.day    = gc.day;
+    nr.hour   = gc.hour;
+    nr.minute = gc.minute;
+    nr.second = gc.second;
+    Event evt{};
+    evt.sequence_id = events_next_sequence();
+    evt.time        = t;
+    evt.category    = EventCategory::kWorld;
+    evt.payload     = nr;
+    evt.visibility  = 100;
+    events_emit(evt);
 }
 
 void Npc::speak(const char* text, bool is_reply, const GameTime& t) {
@@ -146,23 +132,6 @@ void Npc::speak(const char* text, bool is_reply, const GameTime& t) {
     evt.time        = t;
     evt.category    = EventCategory::kSpeech;
     evt.payload     = sp;
-    evt.visibility  = 100;
-    events_emit(evt);
-}
-
-void Npc::act(const char* line, const GameClock& gc, const GameTime& t) {
-    NpcReactEvt nr{};
-    nr.name   = agenda_->name;
-    nr.action = line;
-    nr.day    = gc.day;
-    nr.hour   = gc.hour;
-    nr.minute = gc.minute;
-    nr.second = gc.second;
-    Event evt{};
-    evt.sequence_id = events_next_sequence();
-    evt.time        = t;
-    evt.category    = EventCategory::kWorld;
-    evt.payload     = nr;
     evt.visibility  = 100;
     events_emit(evt);
 }
@@ -209,7 +178,7 @@ void Npc::walk(const GameTime& t) {
 }
 
 void npc_subscribe() {
-    g_shrine_keeper.restore();   // resume before perceiving: the world waits, it does not reset
+    g_shrine_keeper.restore();
     g_old_hunter.restore();
     events_subscribe(&g_shrine_keeper);
     events_subscribe(&g_old_hunter);

@@ -52,3 +52,11 @@ GameClock world_clock_now() {
 void world_clock_subscribe() {
     events_subscribe(&g_world_clock);
 }
+
+int world_clock_last_tick() {
+    const GameClock gc = world_clock_now();
+    const long pulses_done =
+        ((gc.day * kHoursPerDay + gc.hour) * kMinutesPerHour + gc.minute) * kPulsesPerMinute
+        + gc.second;
+    return static_cast<int>(pulses_done - 1);
+}

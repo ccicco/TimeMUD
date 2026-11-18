@@ -6,7 +6,7 @@
 #         make -C code run    (build + smoke-run)
 
 CXX      := clang++
-CXXFLAGS := -std=c++20 -Wall -Wextra -O2 -g
+CXXFLAGS := -std=c++20 -Wall -Wextra -O0 -g
 TOP      := $(abspath $(dir $(abspath $(lastword $(MAKEFILE_LIST))))/..)
 BUILD    := $(TOP)/build
 BIN      := $(BUILD)/timemud

@@ -1,10 +1,11 @@
 #pragma once
 
-// events/: the artery, rounds 2-13. R6: Event envelope v1 (closed and
-// versioned - members are ADDED, never mutated). R7: class Subscriber
-// port. R8: kMovement. R9: positions. R11: kSpeech (is_reply loop rule).
-// R13: RoomConditionEvt - rooms have CONDITION now, and the weather
-// happening to them is world history like everything else.
+// events/: the artery, rounds 2-14. R6: envelope v1 (closed, versioned;
+// add never mutate). R7: class port. R8-R9: movement + positions.
+// R11: kSpeech (is_reply loop rule). R13: room conditions. R14: the
+// player arrives - NpcReactEvt gains its promised position fields
+// (amendment v1.2, same pattern as Movement v1.1: the schema's
+// position promise kept), so a renderer knows WHERE an act happened.
 //   sequence_id - monotonic, the event log's primary key. World history.
 //   time        - GameTime; every event is anchored to the world clock.
 //   category    - kSystem / kWorld / kMovement / kSpeech (future: Combat...).
@@ -36,9 +37,12 @@ struct WeatherChangeEvt {
     int second;
 };
 
-struct NpcReactEvt {
+struct NpcReactEvt {  // v1.2 (R14): room + position added - promised fields
     const char* name;
     const char* action;
+    const char* room;  // where the act happened (renderer's key)
+    int x;
+    int y;
     long day;
     int hour;
     int minute;
@@ -70,9 +74,9 @@ struct SpeechEvt {
     int second;
 };
 
-struct RoomConditionEvt {  // R13: a room wore a condition, or shook it off
+struct RoomConditionEvt {
     const char* room;
-    bool dark;    // the first condition: the storm takes unsheltered rooms
+    bool dark;
     long day;
     int hour;
     int minute;
@@ -87,8 +91,6 @@ struct Event {
     int visibility;
 };
 
-// The artery's port: any object that wants to hear the world. Dispatch
-// order = subscription order = boot order.
 class Subscriber {
 public:
     virtual ~Subscriber() = default;

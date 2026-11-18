@@ -21,3 +21,6 @@ struct GameClock {
 
 void world_clock_subscribe();  // call once at boot, after the log subscribes
 GameClock world_clock_now();    // the read seam: current world time by value
+
+#include <cstdio>
+int world_clock_last_tick();  // read seam for sessions: stamp emitted events with the era clock
