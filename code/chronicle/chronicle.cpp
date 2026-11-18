@@ -1,8 +1,7 @@
-// The world's memory, R9: it records goings with GEOMETRY now - every
-// movement line carries the grid positions the event shipped. The text
-// act speaks them as coordinates; the graphical act will read the same
-// numbers as pixels. Still stands before the actors: history written
-// in arrival sequence.
+// The world's memory, R11: it records what was SAID now, quoted, in
+// arrival order, geometry already carried by the goings. Speech is
+// world history like weather and footsteps - era-two scholars will
+// read these first words the way we read gravestones.
 
 #include "chronicle.h"
 
@@ -16,7 +15,6 @@
 class Chronicle : public Subscriber {
 public:
     void open() {
-        // NEVER rotated, NEVER truncated: history compounds across boots.
         file_ = std::fopen("log/history.log", "a");
         if (file_) {
             std::fputs("chronicle begins.\n", file_);
@@ -26,7 +24,8 @@ public:
 
     void on_event(const Event& evt) override {
         if (evt.category != EventCategory::kWorld &&
-            evt.category != EventCategory::kMovement) return;
+            evt.category != EventCategory::kMovement &&
+            evt.category != EventCategory::kSpeech) return;
         if (!file_) return;
         if (std::holds_alternative<WeatherChangeEvt>(evt.payload)) {
             write_sky(std::get<WeatherChangeEvt>(evt.payload), evt.sequence_id);
@@ -34,6 +33,8 @@ public:
             write_npc(std::get<NpcReactEvt>(evt.payload), evt.sequence_id);
         } else if (std::holds_alternative<MovementEvt>(evt.payload)) {
             write_move(std::get<MovementEvt>(evt.payload), evt.sequence_id);
+        } else if (std::holds_alternative<SpeechEvt>(evt.payload)) {
+            write_say(std::get<SpeechEvt>(evt.payload), evt.sequence_id);
         }
     }
 
@@ -41,7 +42,7 @@ private:
     void write_sky(const WeatherChangeEvt& wc, long seq) {
         std::fprintf(file_, "day %ld, %02d:%02d, seq %ld: the sky ",
                      wc.day, wc.hour, wc.minute, seq);
-        if (wc.prev < 0) {  // no sky yet: the world's first weather
+        if (wc.prev < 0) {
             std::fprintf(file_, "settles into %s.\n",
                          weather_name(static_cast<WeatherState>(wc.now)));
         } else {
@@ -59,13 +60,19 @@ private:
     }
 
     void write_move(const MovementEvt& mv, long seq) {
-        if (std::strcmp(mv.from_room, mv.to_room) == 0) {  // walked within the room
+        if (std::strcmp(mv.from_room, mv.to_room) == 0) {
             std::fprintf(file_, "day %ld, %02d:%02d, seq %ld: %s walks across %s to (%d, %d).\n",
                          mv.day, mv.hour, mv.minute, seq, mv.who, mv.to_room, mv.to_x, mv.to_y);
-        } else {                                            // crossed into another room
+        } else {
             std::fprintf(file_, "day %ld, %02d:%02d, seq %ld: %s crosses from %s to %s, arriving at (%d, %d).\n",
                          mv.day, mv.hour, mv.minute, seq, mv.who, mv.from_room, mv.to_room, mv.to_x, mv.to_y);
         }
+        std::fflush(file_);
+    }
+
+    void write_say(const SpeechEvt& sp, long seq) {
+        std::fprintf(file_, "day %ld, %02d:%02d, seq %ld: %s says, \"%s\"\n",
+                     sp.day, sp.hour, sp.minute, seq, sp.who, sp.text);
         std::fflush(file_);
     }
 

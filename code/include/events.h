@@ -1,15 +1,13 @@
 #pragma once
 
-// events/: the artery, rounds 2-9. R6: Event envelope v1 (closed and
+// events/: the artery, rounds 2-11. R6: Event envelope v1 (closed and
 // versioned - members are ADDED, never mutated). R7: class Subscriber
-// port. R8: kMovement. R9 SPATIAL AMENDMENT: MovementEvt gains position
-// fields - the position/range promise from the schema's birth is kept:
-// every room is a 10x10 grid at most, entities live at (room, x, y),
-// and range derives from grid distance when combat lands, so the
-// graphical act inherits correct geometry from day one.
+// port. R8: kMovement. R9: positions in MovementEvt (10x10 grids).
+// R11: kSpeech - speech's payload IS text (the design's one carve-out),
+// with the loop rule built into the schema: no one replies to a reply.
 //   sequence_id - monotonic, the event log's primary key. World history.
 //   time        - GameTime; every event is anchored to the world clock.
-//   category    - kSystem / kWorld / kMovement (future: Speech...).
+//   category    - kSystem / kWorld / kMovement / kSpeech (future: Combat...).
 //   payload     - typed closed variant. Amendments documented in-place.
 //   visibility  - a NUMBER, not bool: 100 = fully perceivable, 0 = none.
 
@@ -20,12 +18,13 @@ struct GameTime {
     int era;
 };
 
-struct TickEvt {};  // the heartbeat itself
+struct TickEvt {};
 
 enum class EventCategory {
     kSystem,
     kWorld,
     kMovement,
+    kSpeech,
 };
 
 struct WeatherChangeEvt {
@@ -46,7 +45,7 @@ struct NpcReactEvt {
     int second;
 };
 
-struct MovementEvt {  // v1.1 (R9): positions added - rooms are 10x10 grids
+struct MovementEvt {
     const char* who;
     const char* from_room;
     const char* to_room;
@@ -60,11 +59,22 @@ struct MovementEvt {  // v1.1 (R9): positions added - rooms are 10x10 grids
     int second;
 };
 
+struct SpeechEvt {
+    const char* who;
+    const char* room;     // where it was said - hearing is room-scoped this round
+    const char* text;
+    bool is_reply;        // the loop rule: no one replies to a reply
+    long day;
+    int hour;
+    int minute;
+    int second;
+};
+
 struct Event {
     long sequence_id;
     GameTime time;
     EventCategory category;
-    std::variant<TickEvt, WeatherChangeEvt, NpcReactEvt, MovementEvt> payload;
+    std::variant<TickEvt, WeatherChangeEvt, NpcReactEvt, MovementEvt, SpeechEvt> payload;
     int visibility;
 };
 
@@ -76,6 +86,6 @@ public:
     virtual void on_event(const Event&) = 0;
 };
 
-void events_subscribe(Subscriber* subscriber);  // once per object, at boot
-void events_emit(const Event& event);            // fans out to every subscriber
-long events_next_sequence();                    // event log key, monotonic
+void events_subscribe(Subscriber* subscriber);
+void events_emit(const Event& event);
+long events_next_sequence();

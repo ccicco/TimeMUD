@@ -1,9 +1,8 @@
-// The inhabitants of zone one, R10: the shrine keeper and the old
-// hunter, two agendas over one class. Perception arrives with the
-// second pair of eyes: any movement in an NPC's own room is sized up
-// by band_between() - watched when close enough, heard unidentified at
-// the grid's edge. The storm rule holds for all who travel, and no one
-// perceives their own footsteps.
+// The inhabitants of zone one, R11: the shrine keeper and the old
+// hunter - who now TALK. A watched arrival earns a greeting; a heard
+// greeting earns a reply; nothing answers a reply, so every
+// conversation ends itself. No one greets what they only heard at the
+// edge: you do not hail an unidentified footstep.
 
 #include "npc.h"
 
@@ -23,6 +22,8 @@ static const NpcAgenda kShrineKeeper = {
       "watches the low clouds from the doorway.",
       "opens the shrine windows to listen to the rain.",
       "shuts the shrine windows against the storm." },
+    "The grove is quiet, this far from the steps.",   // greet (unused this era's run: she is never the witness)
+    "The shrine held. The storm has passed.",         // reply
 };
 
 static const NpcAgenda kOldHunter = {
@@ -35,6 +36,8 @@ static const NpcAgenda kOldHunter = {
       "scans the treeline from the grove's edge.",
       "watches the rain fill the grove's pool.",
       "pulls her cloak tight beneath the old oak." },
+    "The rain speaks, keeper. Welcome to the grove.", // greet: said when she watches an arrival
+    "Rain keeps its own counsel.",                    // reply (unused: no one greets Kaya this run)
 };
 
 static Npc g_shrine_keeper(kShrineKeeper);
@@ -55,6 +58,10 @@ void Npc::on_event(const Event& evt) {
         perceive_movement(std::get<MovementEvt>(evt.payload), evt.time);
         return;
     }
+    if (std::holds_alternative<SpeechEvt>(evt.payload)) {
+        respond_to_speech(std::get<SpeechEvt>(evt.payload), evt.time);
+        return;
+    }
     if (std::holds_alternative<WeatherChangeEvt>(evt.payload)) {
         react_to(std::get<WeatherChangeEvt>(evt.payload), evt.time);
     }
@@ -68,11 +75,23 @@ void Npc::perceive_movement(const MovementEvt& mv, const GameTime& t) {
     if (b == Band::kEdge) {
         std::snprintf(spoken_, sizeof spoken_, "hears someone arriving along the edge of the grove.");
         std::printf("%s hears someone arriving along the edge of the grove.\n", agenda_->name);
-    } else {
-        std::snprintf(spoken_, sizeof spoken_, "watches %s arrive.", mv.who);
-        std::printf("%s watches %s arrive.\n", agenda_->name, mv.who);
+        act(spoken_, gc, t);
+        return;  // you do not greet what you cannot identify
     }
+    std::snprintf(spoken_, sizeof spoken_, "watches %s arrive.", mv.who);
+    std::printf("%s watches %s arrive.\n", agenda_->name, mv.who);
     act(spoken_, gc, t);
+    if (agenda_->greet != nullptr) {
+        speak(agenda_->greet, false, t);  // a face in the rain earns a word
+    }
+}
+
+void Npc::respond_to_speech(const SpeechEvt& sp, const GameTime& t) {
+    if (sp.is_reply) return;  // the loop rule: no one replies to a reply
+    if (std::strcmp(sp.who, agenda_->name) == 0) return;
+    if (std::strcmp(sp.room, at_room_->name()) != 0) return;  // hearing is room-scoped
+    if (agenda_->reply == nullptr) return;
+    speak(agenda_->reply, true, t);
 }
 
 void Npc::react_to(const WeatherChangeEvt& wc, const GameTime& t) {
@@ -86,6 +105,27 @@ void Npc::react_to(const WeatherChangeEvt& wc, const GameTime& t) {
     const GameClock gc = world_clock_now();
     std::printf("%s %s\n", agenda_->name, agenda_->act[i]);
     act(agenda_->act[i], gc, t);
+}
+
+void Npc::speak(const char* text, bool is_reply, const GameTime& t) {
+    const GameClock gc = world_clock_now();
+    std::printf("%s says, \"%s\"\n", agenda_->name, text);
+    SpeechEvt sp{};
+    sp.who      = agenda_->name;
+    sp.room     = at_room_->name();
+    sp.text     = text;
+    sp.is_reply = is_reply;
+    sp.day      = gc.day;
+    sp.hour     = gc.hour;
+    sp.minute   = gc.minute;
+    sp.second   = gc.second;
+    Event evt{};
+    evt.sequence_id = events_next_sequence();
+    evt.time        = t;
+    evt.category    = EventCategory::kSpeech;
+    evt.payload     = sp;
+    evt.visibility  = 100;  // speech in the open; whispers are a later, quieter number
+    events_emit(evt);
 }
 
 void Npc::act(const char* line, const GameClock& gc, const GameTime& t) {
