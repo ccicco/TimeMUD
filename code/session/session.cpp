@@ -1,9 +1,10 @@
-// The stranger, R15: LEGS. go north/south/east/west steps the player
-// across the grove's grid one cell at a time, each step a MovementEvt
-// on the artery - recorded forever by the chronicle, perceived by the
-// inhabitants through band distance and darkness, greeted the way any
-// watched arrival is. Cells are solid: two beings do not share ground.
-// Players remain spawn state: reborn standing at (2, 5) every boot.
+// The stranger, R16: EXITS ARE THE GRID'S EDGES. The grove's north
+// birch-line (y=0) opens onto the shrine's southern edge (y=9), and
+// the shrine's south wall opens back. A room boundary crossed is a
+// room-to-room MovementEvt - perceived, rendered, recorded, exactly
+// like Nara's crossings. When the first stateful door is born (a
+// lock, a collapse), exit-state formalizes here; tonight the path
+// stands open, honestly noted. The stranger can follow her home.
 
 #include "session.h"
 
@@ -36,6 +37,11 @@ static void cmd_look() {
     std::snprintf(line, sizeof line, "You are at (%d, %d).\n", g_player.x, g_player.y);
     server_write(line);
     npc_describe_in(g_player.room->name());
+    if (g_player.y == 0) {
+        server_write("Through the north birches: the lamp-lit shine of the shrine.\n");
+    } else if (g_player.y == g_player.room->size() - 1) {
+        server_write("Southward, the dark of the open grove waits.\n");
+    }
 }
 
 static void cmd_say(const char* text) {
@@ -57,6 +63,39 @@ static void cmd_say(const char* text) {
     events_emit(evt);
 }
 
+static void emit_step(const char* from_room, const char* to_room,
+                      int fx, int fy, int nx, int ny) {
+    Event evt{};
+    evt.sequence_id = events_next_sequence();
+    evt.time        = GameTime{ world_clock_last_tick(), 1 };
+    MovementEvt mv{};
+    mv.who       = g_player.name;
+    mv.from_room = from_room;
+    mv.to_room   = to_room;
+    mv.from_x    = fx;
+    mv.from_y    = fy;
+    mv.to_x      = nx;
+    mv.to_y      = ny;
+    evt.category   = EventCategory::kMovement;
+    evt.payload    = mv;
+    evt.visibility = 100;
+    events_emit(evt);
+}
+
+static void cross_to(const Room* to, int x, int y) {
+    if (npc_occupied(to->name(), x, y)) {
+        server_write("Someone already stands there. You keep your ground.\n");
+        return;
+    }
+    const char* const from_room = g_player.room->name();
+    const int fx = g_player.x;
+    const int fy = g_player.y;
+    g_player.room = to;
+    g_player.x = x;
+    g_player.y = y;
+    emit_step(from_room, to->name(), fx, fy, x, y);
+}
+
 static void cmd_go(const char* dir_word) {
     int nx = g_player.x;
     int ny = g_player.y;
@@ -72,8 +111,23 @@ static void cmd_go(const char* dir_word) {
         server_write("Go where? (north, south, east, west)\n");
         return;
     }
-    if (nx < 0 || ny < 0 || nx >= g_player.room->size() || ny >= g_player.room->size()) {
-        server_write("The birches stand too thick that way; the grove holds you.\n");
+    if (nx < 0 || nx >= g_player.room->size()) {
+        server_write("The birches stand too thick that way; the place holds you.\n");
+        return;
+    }
+    const int edge = g_player.room->size() - 1;
+    const bool in_grove = std::strcmp(g_player.room->name(), room_grove().name()) == 0;
+    const bool in_shrine = std::strcmp(g_player.room->name(), room_shrine().name()) == 0;
+    if (ny < 0 && in_grove && g_player.y == 0) {
+        cross_to(&room_shrine(), g_player.x, edge);   // the north birches open
+        return;
+    }
+    if (ny > edge && in_shrine && g_player.y == edge) {
+        cross_to(&room_grove(), g_player.x, 0);       // the south wall opens back
+        return;
+    }
+    if (ny < 0 || ny > edge) {
+        server_write("The birches stand too thick that way; the place holds you.\n");
         return;
     }
     if (npc_occupied(g_player.room->name(), nx, ny)) {
@@ -84,21 +138,7 @@ static void cmd_go(const char* dir_word) {
     const int fy = g_player.y;
     g_player.x = nx;
     g_player.y = ny;
-    Event evt{};
-    evt.sequence_id = events_next_sequence();
-    evt.time        = GameTime{ world_clock_last_tick(), 1 };
-    MovementEvt mv{};
-    mv.who       = g_player.name;
-    mv.from_room = g_player.room->name();
-    mv.to_room   = g_player.room->name();
-    mv.from_x    = fx;
-    mv.from_y    = fy;
-    mv.to_x      = nx;
-    mv.to_y      = ny;
-    evt.category   = EventCategory::kMovement;
-    evt.payload    = mv;
-    evt.visibility = 100;
-    events_emit(evt);   // the grove will notice: footsteps are world history
+    emit_step(g_player.room->name(), g_player.room->name(), fx, fy, nx, ny);
 }
 
 void session_line(const char* line) {
@@ -157,9 +197,8 @@ void session_line(const char* line) {
     server_write("The grove holds no answer to that.\n");
 }
 
-// The player's eyes, R15: the stranger's own steps render as Your steps;
-// everything the world does nearby renders as the world doing it. Same
-// artery, same order, second renderer - the chronicle files, this talks.
+// The player's eyes, R16: crossings render as crossings. Everything else
+// unchanged - same artery, same order, the chronicle files, this talks.
 class ClientSink : public Subscriber {
 public:
     void on_event(const Event& evt) override {
@@ -200,7 +239,12 @@ public:
             if (!own && std::strcmp(mv.to_room, here) != 0
                       && std::strcmp(mv.from_room, here) != 0) return;
             if (own) {
-                std::snprintf(out, sizeof out, "You walk to (%d, %d).\n", mv.to_x, mv.to_y);
+                if (std::strcmp(mv.from_room, mv.to_room) != 0) {
+                    std::snprintf(out, sizeof out, "You cross into %s, arriving at (%d, %d).\n",
+                                  mv.to_room, mv.to_x, mv.to_y);
+                } else {
+                    std::snprintf(out, sizeof out, "You walk to (%d, %d).\n", mv.to_x, mv.to_y);
+                }
             } else if (std::strcmp(mv.from_room, here) == 0
                        && std::strcmp(mv.to_room, here) == 0) {
                 std::snprintf(out, sizeof out, "%s walks across %s to (%d, %d).\n",
