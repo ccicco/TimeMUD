@@ -1,13 +1,16 @@
 #pragma once
 
-// events/: the artery, rounds 2-8. R6: Event envelope v1 (closed and
+// events/: the artery, rounds 2-9. R6: Event envelope v1 (closed and
 // versioned - members are ADDED, never mutated). R7: class Subscriber
-// port. R8: the second sim category arrives - kMovement, an inhabitant
-// changing place. Repo convention: NO NAMESPACES - classes suffice.
+// port. R8: kMovement. R9 SPATIAL AMENDMENT: MovementEvt gains position
+// fields - the position/range promise from the schema's birth is kept:
+// every room is a 10x10 grid at most, entities live at (room, x, y),
+// and range derives from grid distance when combat lands, so the
+// graphical act inherits correct geometry from day one.
 //   sequence_id - monotonic, the event log's primary key. World history.
 //   time        - GameTime; every event is anchored to the world clock.
-//   category    - kSystem / kWorld / kMovement (R8; future: Speech...).
-//   payload     - typed closed variant. Never mutate existing members.
+//   category    - kSystem / kWorld / kMovement (future: Speech...).
+//   payload     - typed closed variant. Amendments documented in-place.
 //   visibility  - a NUMBER, not bool: 100 = fully perceivable, 0 = none.
 
 #include <variant>
@@ -22,10 +25,10 @@ struct TickEvt {};  // the heartbeat itself
 enum class EventCategory {
     kSystem,
     kWorld,
-    kMovement,  // R8: someone changed place
+    kMovement,
 };
 
-struct WeatherChangeEvt {   // R6: the sky becomes a real World event
+struct WeatherChangeEvt {
     int prev;
     int now;
     long day;
@@ -34,7 +37,7 @@ struct WeatherChangeEvt {   // R6: the sky becomes a real World event
     int second;
 };
 
-struct NpcReactEvt {        // R7: the world's first inhabitant answers the sky
+struct NpcReactEvt {
     const char* name;
     const char* action;
     long day;
@@ -43,10 +46,14 @@ struct NpcReactEvt {        // R7: the world's first inhabitant answers the sky
     int second;
 };
 
-struct MovementEvt {        // R8: an inhabitant crosses the world
+struct MovementEvt {  // v1.1 (R9): positions added - rooms are 10x10 grids
     const char* who;
-    const char* from;
-    const char* to;
+    const char* from_room;
+    const char* to_room;
+    int from_x;
+    int from_y;
+    int to_x;
+    int to_y;
     long day;
     int hour;
     int minute;

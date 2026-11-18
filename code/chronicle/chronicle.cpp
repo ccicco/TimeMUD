@@ -1,7 +1,8 @@
-// The world's memory, R8: it now records doings AND goings - kWorld
-// (the sky, the acts) and kMovement (who walked where, from where to
-// where). Still stands before the actors in boot order: history is
-// written in arrival sequence, anchored by the event log's own keys.
+// The world's memory, R9: it records goings with GEOMETRY now - every
+// movement line carries the grid positions the event shipped. The text
+// act speaks them as coordinates; the graphical act will read the same
+// numbers as pixels. Still stands before the actors: history written
+// in arrival sequence.
 
 #include "chronicle.h"
 
@@ -9,6 +10,7 @@
 #include "weather.h"
 
 #include <cstdio>
+#include <cstring>
 #include <variant>
 
 class Chronicle : public Subscriber {
@@ -24,7 +26,7 @@ public:
 
     void on_event(const Event& evt) override {
         if (evt.category != EventCategory::kWorld &&
-            evt.category != EventCategory::kMovement) return;  // the chronicle records the world's doings and goings
+            evt.category != EventCategory::kMovement) return;
         if (!file_) return;
         if (std::holds_alternative<WeatherChangeEvt>(evt.payload)) {
             write_sky(std::get<WeatherChangeEvt>(evt.payload), evt.sequence_id);
@@ -57,8 +59,13 @@ private:
     }
 
     void write_move(const MovementEvt& mv, long seq) {
-        std::fprintf(file_, "day %ld, %02d:%02d, seq %ld: %s walks from %s to %s.\n",
-                     mv.day, mv.hour, mv.minute, seq, mv.who, mv.from, mv.to);
+        if (std::strcmp(mv.from_room, mv.to_room) == 0) {  // walked within the room
+            std::fprintf(file_, "day %ld, %02d:%02d, seq %ld: %s walks across %s to (%d, %d).\n",
+                         mv.day, mv.hour, mv.minute, seq, mv.who, mv.to_room, mv.to_x, mv.to_y);
+        } else {                                            // crossed into another room
+            std::fprintf(file_, "day %ld, %02d:%02d, seq %ld: %s crosses from %s to %s, arriving at (%d, %d).\n",
+                         mv.day, mv.hour, mv.minute, seq, mv.who, mv.from_room, mv.to_room, mv.to_x, mv.to_y);
+        }
         std::fflush(file_);
     }
 
