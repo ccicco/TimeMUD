@@ -1,0 +1,11 @@
+--- a/code/include/weather.h
++++ b/code/include/weather.h
+@@ -5,6 +5,8 @@ 
+ // read seam arriving with the first category that needs it. Deterministic:
+ // the same world-clock minute always forecasts the same sky; prose scale
+ // (storm intensity etc.) is numbers, rendered names are vocabulary,
+ // config strings when the sim asks for them.
+ 
++#include "world_clock.h"  // the weather check rides the calendar's own boundary
++
+ enum class WeatherState {

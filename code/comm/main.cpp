@@ -1,11 +1,12 @@
-// TimeMUD round 4: the world hears time. comm/ emits GameTime each pass;
-// subscribers answer in boot order: first the log (the record), then the
-// clock (the first piece of the sim proper). Same artery, two listeners,
-// one of which now DOES something with the beat instead of just writing
-// it down.
+// TimeMUD round 5: the sky reads the clock. comm/ emits GameTime each
+// pass; subscribers answer in boot order: the log (the record), the
+// clock (the calendar), the weather (the first READER of world time).
+// Twenty ticks = two game-minutes = two forecast checks: the read seam
+// proven observable, not just present.
 
 #include "events.h"
 #include "log.h"
+#include "weather.h"
 #include "world_clock.h"
 
 #include <cstdio>
@@ -14,7 +15,7 @@
 namespace {
 
 constexpr long kHeartbeatMs = 100;  // the floor of tick cadence
-constexpr int  kTicksToRun  = 10;   // smoke test: exactly one game-second
+constexpr int  kTicksToRun  = 20;   // smoke test: exactly two game-minutes
 constexpr int  kEra         = 1;    // era one, the Age of Chronomancy
 
 long now_ms() {
@@ -36,7 +37,8 @@ void sleep_until(long deadline_ms) {
 int main() {
     log_init("log");
     log_subscribe_game_time();  // subscriber 1: the record
-    world_clock_subscribe();    // subscriber 2: the world
+    world_clock_subscribe();    // subscriber 2: the calendar
+    weather_subscribe();        // subscriber 3: the sky, which reads 2 through the artery
     const long boot_ms = now_ms();
 
     std::puts("TimeMUD boot: era one, the Age of Chronomancy. Heartbeat 100ms.");
