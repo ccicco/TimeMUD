@@ -1,12 +1,12 @@
 #pragma once
 
-// events/: the artery, rounds 2-7. R6 gave it the Event envelope (v1:
-// closed and versioned - members are ADDED, never mutated); R7 gives it
-// a class port: a Subscriber hears the world. Repo convention (set
-// post-R6): NO NAMESPACES - classes suffice; TU-locals are file-static.
+// events/: the artery, rounds 2-8. R6: Event envelope v1 (closed and
+// versioned - members are ADDED, never mutated). R7: class Subscriber
+// port. R8: the second sim category arrives - kMovement, an inhabitant
+// changing place. Repo convention: NO NAMESPACES - classes suffice.
 //   sequence_id - monotonic, the event log's primary key. World history.
 //   time        - GameTime; every event is anchored to the world clock.
-//   category    - kSystem / kWorld (R7: an inhabitant's answer joins the sky).
+//   category    - kSystem / kWorld / kMovement (R8; future: Speech...).
 //   payload     - typed closed variant. Never mutate existing members.
 //   visibility  - a NUMBER, not bool: 100 = fully perceivable, 0 = none.
 
@@ -22,6 +22,7 @@ struct TickEvt {};  // the heartbeat itself
 enum class EventCategory {
     kSystem,
     kWorld,
+    kMovement,  // R8: someone changed place
 };
 
 struct WeatherChangeEvt {   // R6: the sky becomes a real World event
@@ -34,8 +35,18 @@ struct WeatherChangeEvt {   // R6: the sky becomes a real World event
 };
 
 struct NpcReactEvt {        // R7: the world's first inhabitant answers the sky
-    const char* name;       // report vocabulary (config strings later)
+    const char* name;
     const char* action;
+    long day;
+    int hour;
+    int minute;
+    int second;
+};
+
+struct MovementEvt {        // R8: an inhabitant crosses the world
+    const char* who;
+    const char* from;
+    const char* to;
     long day;
     int hour;
     int minute;
@@ -46,7 +57,7 @@ struct Event {
     long sequence_id;
     GameTime time;
     EventCategory category;
-    std::variant<TickEvt, WeatherChangeEvt, NpcReactEvt> payload;
+    std::variant<TickEvt, WeatherChangeEvt, NpcReactEvt, MovementEvt> payload;
     int visibility;
 };
 

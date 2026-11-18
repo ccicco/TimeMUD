@@ -1,13 +1,14 @@
-// TimeMUD round 7: the world's first inhabitant. Convention drop: no
-// namespaces - subscribers are classes (BootLog, WorldClock, Weather,
-// Chronicle, Npc). Boot order is memory order: the recorder stands
-// before the actor, so history is written in arrival sequence. Twenty
-// ticks: storm and rain, each heard, each answered, each remembered.
+// TimeMUD round 8: places, and an agenda. Zone one is surveyed at boot
+// (the shrine, the moonlit grove - coordinates from day one), Nara
+// gains a patrol and its rule (never walk in a storm), and Movement
+// becomes the first event category beyond World. Boot order holds:
+// recorder before actors, memory in arrival sequence.
 
 #include "chronicle.h"
 #include "events.h"
 #include "log.h"
 #include "npc.h"
+#include "rooms.h"
 #include "weather.h"
 #include "world_clock.h"
 
@@ -37,12 +38,13 @@ public:
 
 int main() {
     log_init("log");
+    rooms_load();              // the world survey: zone one has places now
     log_subscribe_events();   // subscriber 1: the record (forgets)
     world_clock_subscribe();  // subscriber 2: the calendar
     weather_subscribe();      // subscriber 3: the sky (emits World events)
     chronicle_init();          // the world's memory opens
     chronicle_subscribe();     // subscriber 4: the recorder - BEFORE the actors
-    npc_subscribe();          // subscriber 5: the inhabitant - perceives and answers
+    npc_subscribe();          // subscriber 5: the inhabitant - perceives, answers, walks
     const long boot_ms = SteadyMs::now();
 
     std::puts("TimeMUD boot: era one, the Age of Chronomancy. Heartbeat 100ms.");
