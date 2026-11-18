@@ -1,0 +1,7 @@
+# Generated: never commit these
+build/
+log/
+
+# Editor / OS noise
+*.swp
+.DS_Store
