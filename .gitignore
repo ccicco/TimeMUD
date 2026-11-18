@@ -5,3 +5,4 @@ log/
 # Editor / OS noise
 *.swp
 .DS_Store
+data/world.state

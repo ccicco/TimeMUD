@@ -1,7 +1,6 @@
-// The world's memory, R11: it records what was SAID now, quoted, in
-// arrival order, geometry already carried by the goings. Speech is
-// world history like weather and footsteps - era-two scholars will
-// read these first words the way we read gravestones.
+// The world's memory, R13: it records what rooms WEAR now. The sky
+// falls on places as surely as on people - a darkened grove is world
+// history, in arrival order, quoted faithfully.
 
 #include "chronicle.h"
 
@@ -35,6 +34,8 @@ public:
             write_move(std::get<MovementEvt>(evt.payload), evt.sequence_id);
         } else if (std::holds_alternative<SpeechEvt>(evt.payload)) {
             write_say(std::get<SpeechEvt>(evt.payload), evt.sequence_id);
+        } else if (std::holds_alternative<RoomConditionEvt>(evt.payload)) {
+            write_cond(std::get<RoomConditionEvt>(evt.payload), evt.sequence_id);
         }
     }
 
@@ -73,6 +74,17 @@ private:
     void write_say(const SpeechEvt& sp, long seq) {
         std::fprintf(file_, "day %ld, %02d:%02d, seq %ld: %s says, \"%s\"\n",
                      sp.day, sp.hour, sp.minute, seq, sp.who, sp.text);
+        std::fflush(file_);
+    }
+
+    void write_cond(const RoomConditionEvt& rc, long seq) {
+        if (rc.dark) {
+            std::fprintf(file_, "day %ld, %02d:%02d, seq %ld: %s falls dark.\n",
+                         rc.day, rc.hour, rc.minute, seq, rc.room);
+        } else {
+            std::fprintf(file_, "day %ld, %02d:%02d, seq %ld: %s lightens.\n",
+                         rc.day, rc.hour, rc.minute, seq, rc.room);
+        }
         std::fflush(file_);
     }
 

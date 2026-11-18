@@ -92,7 +92,7 @@ void Npc::on_event(const Event& evt) {
 void Npc::perceive_movement(const MovementEvt& mv, const GameTime& t) {
     if (std::strcmp(mv.who, agenda_->name) == 0) return;
     if (std::strcmp(mv.to_room, at_room_->name()) != 0) return;
-    const Band b = band_between(x_, y_, mv.to_x, mv.to_y);
+    const Band b = room_dark(*at_room_) ? Band::kEdge : band_between(x_, y_, mv.to_x, mv.to_y);  // in the dark, every arrival is only a sound
     const GameClock gc = world_clock_now();
     if (b == Band::kEdge) {
         std::snprintf(spoken_, sizeof spoken_, "hears someone arriving along the edge of the grove.");

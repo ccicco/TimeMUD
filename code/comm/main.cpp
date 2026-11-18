@@ -1,9 +1,9 @@
-// TimeMUD round 12: the world RESUMES. persist/ opens - the only place
-// a save file ever opens, schema 1, IDs across the boundary - and a
-// clean shutdown writes where everyone stands so the next boot is not
-// a refashioning but a waking. Boot order: load state, survey the
-// world, then subscribers: record, calendar, sky (restored), recorder,
-// then the inhabitants (restored), who perceive, answer and speak.
+// TimeMUD round 13: rooms have STATE. The storm that moved people now
+// moves places: unsheltered rooms fall dark when it arrives and lighten
+// when it lifts; descriptions ASSEMBLE from base + conditions + sky.
+// Boot order: load state, survey, describe, then subscribers - record,
+// calendar, sky, recorder, ROOM STATE, then the inhabitants. In the
+// dark, every arrival is only a sound: perception consults rooms now.
 
 #include "chronicle.h"
 #include "events.h"
@@ -40,18 +40,20 @@ public:
 
 int main() {
     log_init("log");
-    persist_load();              // the world's state, if the world ever saved it
+    persist_load();
     rooms_load();
-    log_subscribe_events();      // subscriber 1: the record (forgets)
-    world_clock_subscribe();     // subscriber 2: the calendar
-    weather_subscribe();         // subscriber 3: the sky
-    int sky = 0;
-    if (persist_get_sky(&sky)) {
-        weather_restore(static_cast<WeatherState>(sky));  // the sky as it last stood
+    log_subscribe_events();       // subscriber 1: the record (forgets)
+    world_clock_subscribe();      // subscriber 2: the calendar
+    weather_subscribe();          // subscriber 3: the sky
+    int saved = -1;
+    if (persist_get_sky(&saved)) {
+        weather_restore(static_cast<WeatherState>(saved));  // the sky as it last stood
     }
-    chronicle_init();            // the world's memory opens
-    chronicle_subscribe();       // subscriber 4: the recorder - BEFORE the actors
-    npc_subscribe();             // subscriber 5+: the inhabitants, resumed from state
+    rooms_describe(saved);        // assembled prose: base + shelter + sky
+    chronicle_init();             // the world's memory opens
+    chronicle_subscribe();        // subscriber 4: the recorder - BEFORE the actors
+    conditions_subscribe();       // subscriber 5: room state - rooms wear their weather
+    npc_subscribe();              // subscriber 6+: the inhabitants, resumed from state
     const long boot_ms = SteadyMs::now();
 
     std::puts("TimeMUD boot: era one, the Age of Chronomancy. Heartbeat 100ms.");
@@ -71,6 +73,6 @@ int main() {
 
     std::puts("TimeMUD shutdown: clean.");
     log_boot("TimeMUD shutdown: clean.");
-    persist_save();              // where everyone stands, for the next waking
+    persist_save();
     return 0;
 }

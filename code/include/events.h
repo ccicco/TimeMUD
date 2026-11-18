@@ -1,10 +1,10 @@
 #pragma once
 
-// events/: the artery, rounds 2-11. R6: Event envelope v1 (closed and
+// events/: the artery, rounds 2-13. R6: Event envelope v1 (closed and
 // versioned - members are ADDED, never mutated). R7: class Subscriber
-// port. R8: kMovement. R9: positions in MovementEvt (10x10 grids).
-// R11: kSpeech - speech's payload IS text (the design's one carve-out),
-// with the loop rule built into the schema: no one replies to a reply.
+// port. R8: kMovement. R9: positions. R11: kSpeech (is_reply loop rule).
+// R13: RoomConditionEvt - rooms have CONDITION now, and the weather
+// happening to them is world history like everything else.
 //   sequence_id - monotonic, the event log's primary key. World history.
 //   time        - GameTime; every event is anchored to the world clock.
 //   category    - kSystem / kWorld / kMovement / kSpeech (future: Combat...).
@@ -61,9 +61,18 @@ struct MovementEvt {
 
 struct SpeechEvt {
     const char* who;
-    const char* room;     // where it was said - hearing is room-scoped this round
+    const char* room;
     const char* text;
-    bool is_reply;        // the loop rule: no one replies to a reply
+    bool is_reply;
+    long day;
+    int hour;
+    int minute;
+    int second;
+};
+
+struct RoomConditionEvt {  // R13: a room wore a condition, or shook it off
+    const char* room;
+    bool dark;    // the first condition: the storm takes unsheltered rooms
     long day;
     int hour;
     int minute;
@@ -74,7 +83,7 @@ struct Event {
     long sequence_id;
     GameTime time;
     EventCategory category;
-    std::variant<TickEvt, WeatherChangeEvt, NpcReactEvt, MovementEvt, SpeechEvt> payload;
+    std::variant<TickEvt, WeatherChangeEvt, NpcReactEvt, MovementEvt, SpeechEvt, RoomConditionEvt> payload;
     int visibility;
 };
 
