@@ -23,6 +23,8 @@
 
 static int g_listen_fd = -1;
 static int g_client_fd = -1;
+static bool g_client_ever = false;   // R38: a knock was once answered - the door knows it served
+static bool g_door_shutdown = false; // R38: the door emptied - the era saves and sleeps
 static char g_inbuf[2048];
 static int g_inlen = 0;
 
@@ -76,6 +78,7 @@ void server_close_client() {
     if (g_client_fd >= 0) {
         ::close(g_client_fd);
         g_client_fd = -1;
+        g_door_shutdown = g_client_ever;   // R38: the door has emptied - save and sleep
     }
     g_inlen = 0;
 }
@@ -92,6 +95,7 @@ static void accept_knock() {
     int one = 1;
     ::setsockopt(fd, IPPROTO_TCP, TCP_NODELAY, &one, sizeof one);
     g_client_fd = fd;
+    g_client_ever = true;   // R38: one stranger came; when they go, the era rests
     g_inlen = 0;
     server_write("The moonlit grove, TimeMUD, era one. What name do you go by, stranger? ");
 }
@@ -163,3 +167,5 @@ void server_serve_until(long deadline_ms) {
     }
     if (now_ms() >= deadline_ms) poll_once(0);   // late ticks still drain the door
 }
+
+bool server_door_shutdown() { return g_door_shutdown; }   // R38: main asks the door

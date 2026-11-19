@@ -8,5 +8,6 @@
 
 void server_start(long port);                  // bind + listen; failure logs and degrades to headless
 void server_serve_until(long deadline_ms);     // serve sockets while waiting for the tick deadline
+bool server_door_shutdown();   // R38: the door emptied - save and sleep (the client will own this duty one day)
 void server_write(const char* text);           // to the client, if one is connected
 void server_close_client();                    // goodbye

@@ -88,6 +88,7 @@ int main(int argc, char** argv) {
         events_emit(evt);
         const long deadline = boot_ms + (tick + 1) * kHeartbeatMs;
         server_serve_until(deadline);
+        if (server_door_shutdown()) break;   // R38: the door emptied - save and sleep
         SteadyMs::sleep_until(deadline);   // THE FLOOR: the appointment is kept, always
     }
 
