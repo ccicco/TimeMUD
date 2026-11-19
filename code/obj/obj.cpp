@@ -1,8 +1,8 @@
-// obj/: the storm-lantern, R19 - carried light answers the dark for
-// its bearer; placed light answers it for the whole room. A burning
-// lantern on the grove's ground means the grove is not truly dark:
-// arrivals there are seen. The peg is where it sleeps; the hand is
-// where it travels; the ground is where it serves.
+// obj/: the storm-lantern, R21 - carried light answers the dark for
+// its bearer; placed light answers it for the whole room; and every
+// deed on the lantern leaves a trace in the ground that remembers.
+// The peg is where it sleeps; the hand is where it travels; the
+// ground is where it serves - and the ground does not forget.
 
 #include "obj.h"
 
@@ -30,6 +30,11 @@ static Lantern g_lantern;
 static bool word_matches(const char* word) {
     return word != nullptr
         && (std::strcmp(word, "lantern") == 0 || std::strcmp(word, "storm-lantern") == 0);
+}
+
+static void stamp_traces(const Room* room, int type, int x, int y) {
+    const GameClock gc = world_clock_now();
+    rooms_add_trace(room, type, x, y, gc.day, gc.hour, gc.minute);
 }
 
 static void record(const char* who, ObjAction action) {
@@ -68,8 +73,9 @@ void obj_init() {
 
 bool obj_take(const char* word, const char* who) {
     if (!word_matches(word) || g_lantern.carried) return false;
-    g_lantern.carried = true;
+    stamp_traces(g_lantern.at, kTraceLanternTaken, g_lantern.x, g_lantern.y);
     record(who, ObjAction::kTake);
+    g_lantern.carried = true;
     return true;
 }
 
@@ -79,12 +85,14 @@ static int chebyshev(int ax, int ay, int bx, int by) {
     return dx > dy ? dx : dy;
 }
 
-bool obj_light(const char* word, const char* who, int px, int py) {
+bool obj_light(const char* word, const char* who, const Room* room,
+               int px, int py) {
     if (!word_matches(word) || g_lantern.lit) return false;
     if (!g_lantern.carried
         && chebyshev(px, py, g_lantern.x, g_lantern.y) > 1) {
         return false;  // it stands elsewhere, out of a flint's reach
     }
+    stamp_traces(room, kTraceLanternLit, px, py);   // a flame was struck HERE
     g_lantern.lit = true;
     record(who, ObjAction::kLight);
     return true;
@@ -96,6 +104,7 @@ bool obj_drop(const char* word, const char* who, const Room* room, int x, int y)
     g_lantern.x = x;
     g_lantern.y = y;
     g_lantern.carried = false;
+    stamp_traces(room, kTraceLanternDropped, x, y);
     record(who, ObjAction::kDrop);   // the hand takes the deed; history keeps the name
     return true;
 }

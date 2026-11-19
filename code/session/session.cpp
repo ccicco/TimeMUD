@@ -1,7 +1,8 @@
-// The stranger, R19: the hand opens. drop sets the lantern down where
-// you stand - and a burning lantern on the ground is the room's light,
-// not just yours: storms blacken the sky, but arrivals there are seen.
-// Lighting works by proximity now: carried, or standing beside it.
+// The stranger, R21: the ground remembers. look now reads the room's
+// trace ring back as assembly - the last few deeds done in a place,
+// oldest first, prose rendered from numbers only. And a deed of flame
+// knows WHERE it happened: obj_light carries the room it was struck
+// in, carried or beside it.
 
 #include "session.h"
 
@@ -28,7 +29,7 @@ struct Player {
 static Player g_player;
 
 static void cmd_look() {
-    char line[256];
+    char line[300];
     std::snprintf(line, sizeof line, "You stand in %s: %s.\n",
                   g_player.room->name(), g_player.room->base());
     server_write(line);
@@ -44,6 +45,31 @@ static void cmd_look() {
         } else {
             server_write("The dark is deep here; you see little.\n");
         }
+    }
+    bool any_trace = false;
+    for (int i = 0; i < kTracesPerRoom; ++i) {
+        int type = 0, tx = 0, ty = 0, th = 0, tm = 0;
+        long td = 0;
+        if (!rooms_read_trace(g_player.room->name(), i,
+                             &type, &tx, &ty, &td, &th, &tm)) break;
+        if (!any_trace) {
+            server_write("The ground remembers:\n");
+            any_trace = true;
+        }
+        if (type == kTraceLanternDropped) {
+            std::snprintf(line, sizeof line,
+                "  a lantern was set down at (%d, %d), day %ld, %02d:%02d.\n", tx, ty, td, th, tm);
+        } else if (type == kTraceLanternLit) {
+            std::snprintf(line, sizeof line,
+                "  a flame was struck in this place, day %ld, %02d:%02d.\n", td, th, tm);
+        } else if (type == kTraceLanternTaken) {
+            std::snprintf(line, sizeof line,
+                "  a lantern was lifted from this ground, day %ld, %02d:%02d.\n", td, th, tm);
+        } else {
+            std::snprintf(line, sizeof line,
+                "  darkness fell across this place, day %ld, %02d:%02d.\n", td, th, tm);
+        }
+        server_write(line);
     }
     if (g_player.y == 0) {
         server_write("Through the north birches: the lamp-lit shine of the shrine.\n");
@@ -218,14 +244,14 @@ void session_line(const char* line) {
         return;
     }
     if (std::strcmp(first, "light") == 0) {
-        if (obj_carried()) {
-            if (obj_light(rest, g_player.name, g_player.x, g_player.y)) {
+        if (obj_light(rest, g_player.name, g_player.room, g_player.x, g_player.y)) {
+            if (obj_carried()) {
                 server_write("Steel scrapes flint; the wick takes. Your lantern burns.\n");
             } else {
-                server_write("The lantern is already burning.\n");
+                server_write("You crouch by the storm-lantern. Steel scrapes flint; the wick takes.\n");
             }
-        } else if (obj_light(rest, g_player.name, g_player.x, g_player.y)) {
-            server_write("You crouch by the storm-lantern. Steel scrapes flint; the wick takes.\n");
+        } else if (obj_carried() || obj_room_light(g_player.room->name())) {
+            server_write("The lantern is already burning.\n");
         } else {
             server_write("There is nothing within reach to light.\n");
         }
@@ -254,7 +280,7 @@ void session_line(const char* line) {
     server_write("The grove holds no answer to that.\n");
 }
 
-// The player's ears and eyes; distance law unchanged from R18.
+// The player's ears and eyes; distance law unchanged since R18.
 class ClientSink : public Subscriber {
 public:
     void on_event(const Event& evt) override {

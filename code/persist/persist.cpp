@@ -1,21 +1,24 @@
 // The only file this category ever opens. Schema 1: header line, the
-// sky, one line per entity, one line per object. Numbers only - a human
-// can audit it and a later migration can read it.
+// sky, one line per entity, one per object, one per room trace (R21,
+// additive). Numbers only - a human can audit it and a later
+// migration can read it.
 
 #include "persist.h"
 
 #include "log.h"
 #include "npc.h"
 #include "obj.h"
+#include "rooms.h"
 #include "weather.h"
 
 #include <cstdio>
 #include <sys/stat.h>
 #include <sys/types.h>
 
-static constexpr int kSaveSchema = 1;
+static constexpr int kSaveSchema = 1;   // additive lines keep schema 1: obj (R17), traces (R21)
 static constexpr int kMaxSavedEntities = 8;
 static constexpr int kMaxSavedObjects = 4;
+static constexpr int kMaxSavedTraces = 16;
 
 struct EntityRec {
     int id;
@@ -37,6 +40,18 @@ struct ObjRec {
     int lit;
 };
 
+struct TraceRec {
+    int zone;
+    int room_x;
+    int room_y;
+    int type;
+    int x;
+    int y;
+    long day;
+    int hour;
+    int minute;
+};
+
 struct PersistState {
     bool has_sky = false;
     int sky = -1;
@@ -44,6 +59,8 @@ struct PersistState {
     int count = 0;
     ObjRec objs[kMaxSavedObjects] = {};
     int obj_count = 0;
+    TraceRec traces[kMaxSavedTraces] = {};
+    int trace_count = 0;
 };
 
 static PersistState g_state;
@@ -83,6 +100,14 @@ void persist_load() {
                        &o.x, &o.y, &o.carried, &o.lit) == 8
             && g_state.obj_count < kMaxSavedObjects) {
             g_state.objs[g_state.obj_count++] = o;
+            continue;
+        }
+        TraceRec tr{};
+        if (std::sscanf(line, "room-trace %d %d %d %d %d %d %ld %d %d",
+                       &tr.zone, &tr.room_x, &tr.room_y, &tr.type, &tr.x, &tr.y,
+                       &tr.day, &tr.hour, &tr.minute) == 9
+            && g_state.trace_count < kMaxSavedTraces) {
+            g_state.traces[g_state.trace_count++] = tr;   // the ground's memory resumes
         }
     }
     std::fclose(f);
@@ -110,6 +135,7 @@ void persist_save() {
     weather_dump(f);
     npc_dump(f);
     obj_dump(f);
+    rooms_dump(f);   // R21: the ground's memory joins the chorus
     std::fclose(f);
     std::printf("World state saved.\n");
     log_boot("persist: world state saved (schema %d)", kSaveSchema);
@@ -148,4 +174,15 @@ bool persist_get_obj(int id, int* zone, int* room_x, int* room_y,
         return true;
     }
     return false;
+}
+
+bool persist_get_trace(int idx, int* zone, int* room_x, int* room_y,
+                       int* type, int* x, int* y,
+                       long* day, int* hour, int* minute) {
+    if (idx < 0 || idx >= g_state.trace_count) return false;
+    const TraceRec& t = g_state.traces[idx];
+    *zone = t.zone; *room_x = t.room_x; *room_y = t.room_y;
+    *type = t.type; *x = t.x; *y = t.y;
+    *day = t.day; *hour = t.hour; *minute = t.minute;
+    return true;
 }

@@ -51,3 +51,20 @@ const Room* room_at(int zone, int x, int y);
 void rooms_describe(int sky);          // assembled prose: base + shelter + the sky as it stands
 void conditions_subscribe();           // R13: rooms wear their weather
 bool room_dark(const Room& room);      // the darkness a room wears right now
+
+// R21: the room's short memory. Four traces per room, oldest evicted;
+// the chronicle keeps the long history, these keep what the GROUND
+// knows. Types are numbers end to end - never prose in persist.
+#include <cstdio>
+
+constexpr int kTracesPerRoom = 4;
+constexpr int kTraceLanternDropped = 1;
+constexpr int kTraceLanternLit     = 2;
+constexpr int kTraceLanternTaken   = 3;
+constexpr int kTraceDarkFell       = 4;
+
+void rooms_add_trace(const Room* room, int type, int x, int y,
+                     long day, int hour, int minute);
+bool rooms_read_trace(const char* room, int idx, int* type, int* x, int* y,
+                      long* day, int* hour, int* minute);  // oldest first
+void rooms_dump(FILE* f);
