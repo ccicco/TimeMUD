@@ -27,6 +27,21 @@ struct Player {
 
 static Player g_player;
 
+static const char* day_phase(int hour) {
+    if (hour >= 20 || hour < 5) return "night holds the land";
+    if (hour < 8) return "the light is young";
+    if (hour < 12) return "morning walks the grove";
+    if (hour < 17) return "afternoon leans on the birches";
+    return "evening gathers";
+}
+
+static void trace_time(char* out, int n, long td, int th, int tm) {
+    const long today = world_clock_now().day;
+    if (td >= today) std::snprintf(out, n, "earlier today, %02d:%02d", th, tm);
+    else if (td == today - 1) std::snprintf(out, n, "yesterday, %02d:%02d", th, tm);
+    else std::snprintf(out, n, "%ld days ago, %02d:%02d", today - td, th, tm);
+}
+
 static void cmd_look() {
     char line[300];
     std::snprintf(line, sizeof line, "You stand in %s: %s.\n",
@@ -34,6 +49,12 @@ static void cmd_look() {
     server_write(line);
     std::snprintf(line, sizeof line, "You are at (%d, %d).\n", g_player.x, g_player.y);
     server_write(line);
+    {
+        const GameClock gc_now = world_clock_now();
+        std::snprintf(line, sizeof line, "It is day %ld, %02d:%02d - %s.\n",
+                      gc_now.day, gc_now.hour, gc_now.minute, day_phase(gc_now.hour));
+        server_write(line);
+    }
     obj_describe_in(g_player.room->name());
     npc_describe_in(g_player.room->name());
     if (room_dark(*g_player.room)) {
@@ -55,21 +76,23 @@ static void cmd_look() {
             server_write("The ground remembers:\n");
             any_trace = true;
         }
+        char rel[48];
+        trace_time(rel, static_cast<int>(sizeof rel), td, th, tm);
         if (type == kTraceLanternDropped) {
             std::snprintf(line, sizeof line,
-                "  a lantern was set down at (%d, %d), day %ld, %02d:%02d.\n", tx, ty, td, th, tm);
+                "  a lantern was set down at (%d, %d), %s.\n", tx, ty, rel);
         } else if (type == kTraceLanternLit) {
             std::snprintf(line, sizeof line,
-                "  a flame was struck in this place, day %ld, %02d:%02d.\n", td, th, tm);
+                "  a flame was struck in this place, %s.\n", rel);
         } else if (type == kTraceLanternTaken) {
             std::snprintf(line, sizeof line,
-                "  a lantern was lifted from this ground, day %ld, %02d:%02d.\n", td, th, tm);
+                "  a lantern was lifted from this ground, %s.\n", rel);
         } else if (type == kTraceFound) {
             std::snprintf(line, sizeof line,
-                "  something was found in the pool's shallows, day %ld, %02d:%02d.\n", td, th, tm);
+                "  something was found in the pool's shallows, %s.\n", rel);
         } else {
             std::snprintf(line, sizeof line,
-                "  darkness fell across this place, day %ld, %02d:%02d.\n", td, th, tm);
+                "  darkness fell across this place, %s.\n", rel);
         }
         server_write(line);
     }
