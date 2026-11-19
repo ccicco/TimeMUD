@@ -83,8 +83,8 @@ static const NpcAgenda kWanderer = {
     "settles beneath the birches, hood down, watching the dark.",
     "shakes the dew from his cloak at first light.",
     4,
-    { 9, 0, 0, 3 },
-    { 8, 9, 9, 0 },
+    { 9, 0, 3, 3 },
+    { 8, 9, 6, 0 },
 };
 
 Npc g_shrine_keeper(kShrineKeeper);
@@ -233,7 +233,10 @@ void Npc::walk(const GameTime& t) {
     if (gc.minute % 3 != 0) return;                                // R41: a waypoint every third game-minute - the world murmurs
     const int i = patrol_ptr_ % agenda_->patrol_n;                  // R41: the pendulum is retired; citizens keep errands
     ++patrol_ptr_;
-    move_to(at_room_, agenda_->patrol_x[i], agenda_->patrol_y[i], t);
+    const int tx = agenda_->patrol_x[i];
+    const int ty = agenda_->patrol_y[i];
+    if (x_ == tx && y_ == ty) return;                                // R45: the stepper wears the R24 guard - standing on a waypoint is silence, and the circuit moves on
+    move_to(at_room_, tx, ty, t);
 }
 
 void npc_subscribe() {
