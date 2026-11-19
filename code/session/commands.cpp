@@ -379,9 +379,13 @@ static void render_ring() {
 
 static void render_lantern() {
     if (obj_lantern_here(g_player.room, g_player.x, g_player.y)) {
-        server_write(obj_lit()
-            ? "The storm-lantern burns in your hand: steel bracket, rain-proof, wick steady.\n"
-            : "A storm-lantern - steel bracket, rain-proof, wick dry for the striking.\n");
+        if (obj_lit()) {
+            server_write("The storm-lantern burns in your hand: steel bracket, rain-proof, wick steady.\n");
+        } else if (obj_lantern_burning()) {
+            server_write("The storm-lantern burns where it stands: steel bracket, rain-proof, wick steady.\n");
+        } else {
+            server_write("A storm-lantern - steel bracket, rain-proof, wick dry for the striking.\n");
+        }
     } else {
         server_write("There is no lantern close enough to study.\n");
     }

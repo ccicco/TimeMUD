@@ -151,6 +151,7 @@ void obj_describe_in(const char* room) {
 }
 
 bool obj_carried() { return g_lantern.carried; }
+bool obj_lantern_burning() { return g_lantern.lit; }   // R35: the flame itself, carried or at rest
 bool obj_lit()     { return g_lantern.carried && g_lantern.lit; }
 
 bool obj_room_light(const char* room) {

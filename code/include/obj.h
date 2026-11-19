@@ -18,6 +18,7 @@ bool obj_light(const char* word, const char* who, const Room* room,
 bool obj_drop(const char* word, const char* who, const Room* room, int x, int y);
 void obj_describe_in(const char* room);               // presence prose to the client
 bool obj_carried();
+bool obj_lantern_burning();                           // does the flame itself burn? carried or at rest
 bool obj_lit();                                       // does the PLAYER carry light?
 bool obj_room_light(const char* room);               // does light burn IN this room?
 void obj_dump(FILE* f);                              // persist: position + state, numbers only
