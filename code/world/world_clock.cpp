@@ -1,7 +1,9 @@
-// The era clock, R7 class form: WorldClock is a Subscriber; the read
-// seam world_clock_now() reads the one clock instance. Derives from
-// the tick (the authoritative counter), never its own accumulator -
-// a stalled heartbeat cannot desync the calendar.
+// The era clock, R20: the clock becomes a SPEAKER on the artery, not
+// just its reader. On every turn of the hour it emits HourEvt - and
+// rooms listen, because darkness has a second source now: night
+// arrives on the world's own schedule, no storm required. The night
+// rule is this file's only new sentence: hours 20 through 24, and 0
+// before 5. Timescale unchanged, derived from the tick as ever.
 
 #include "events.h"
 #include "log.h"
@@ -20,6 +22,21 @@ public:
         const GameClock gc = derive(pulses_done);
         std::printf("World time: day %ld, %02d:%02d.\n", gc.day, gc.hour, gc.minute);
         log_boot("world time: day %ld, %02d:%02d", gc.day, gc.hour, gc.minute);
+        if (gc.hour != last_hour_) {
+            last_hour_ = gc.hour;
+            HourEvt he{};
+            he.day    = gc.day;
+            he.hour   = gc.hour;
+            he.minute = gc.minute;
+            he.second = gc.second;
+            Event hevt{};
+            hevt.sequence_id = events_next_sequence();
+            hevt.time        = evt.time;
+            hevt.category    = EventCategory::kWorld;
+            hevt.payload     = he;
+            hevt.visibility  = 100;
+            events_emit(hevt);  // dusk and dawn are public knowledge
+        }
     }
 
     GameClock now() const {
@@ -40,7 +57,8 @@ private:
         return gc;
     }
 
-    long last_tick_ = -1;  // -1 = the artery has not beaten yet
+    long last_tick_ = -1;
+    int  last_hour_ = -1;  // -1: the first hour boundary after boot announces itself
 };
 
 static WorldClock g_world_clock;

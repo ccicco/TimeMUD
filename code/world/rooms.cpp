@@ -1,9 +1,11 @@
-// Zone one, surveyed and now STATEFUL, R13. RoomState is a Subscriber:
-// when a storm arrives, unsheltered rooms fall dark; when it lifts,
-// they lighten again - shelter is the shrine's lamp-lit immunity. The
-// chronicle records every fall and lift; and room_dark is a PROPERTTY
-// now, not a mood: perception consults it (in the dark, every arrival
-// is only a sound).
+// Zone one, surveyed and STATEFUL, R20. Darkness has two masters now:
+// the storm (R13) and the NIGHT (R20). RoomState listens to both:
+// WeatherChangeEvt carries the storm, HourEvt carries the hour, and
+// the dark a room wears is: unsheltered AND (storm OR night). Shelter
+// remains the shrine's immunity - its lamps hold against weather and
+// hour alike. The chronicle records every fall and lift; perception,
+// light, and distance all read room_dark(), so night works everywhere
+// for free the moment it is true.
 
 #include "rooms.h"
 
@@ -31,41 +33,43 @@ const Room* room_at(int zone, int x, int y) {
 class RoomState : public Subscriber {
 public:
     void on_event(const Event& evt) override {
-        if (!std::holds_alternative<WeatherChangeEvt>(evt.payload)) return;
-        const auto& wc = std::get<WeatherChangeEvt>(evt.payload);
-        const bool storm_now    = wc.now  == static_cast<int>(WeatherState::kStorm);
-        const bool storm_before = wc.prev == static_cast<int>(WeatherState::kStorm);
-        if (storm_now == storm_before) return;
-        if (!kShrine.sheltered()) resolve(kShrine, dark_shrine_, storm_now, wc, evt.time);
-        if (!kGrove.sheltered())  resolve(kGrove,  dark_grove_,  storm_now, wc, evt.time);
+        if (std::holds_alternative<WeatherChangeEvt>(evt.payload)) {
+            const auto& wc = std::get<WeatherChangeEvt>(evt.payload);
+            storm_ = (wc.now == static_cast<int>(WeatherState::kStorm));
+            apply(kGrove, dark_grove_, wc.day, wc.hour, wc.minute, wc.second, evt.time);
+        } else if (std::holds_alternative<HourEvt>(evt.payload)) {
+            const auto& he = std::get<HourEvt>(evt.payload);
+            const bool night_now = night(he.hour);
+            if (night_now != night_) {
+                night_ = night_now;
+                apply(kGrove, dark_grove_, he.day, he.hour, he.minute, he.second, evt.time);
+            }
+        }
+        // the shrine is sheltered: neither storm nor hour darkens its lamps
     }
 
     bool dark(const Room& room) const {
-        if (&room == &kShrine) return dark_shrine_;
-        if (&room == &kGrove)  return dark_grove_;
-        return false;
+        if (&room == &kGrove) return dark_grove_;
+        return false;   // shelter and lamps hold
     }
 
 private:
-    void resolve(const Room& room, bool& flag, bool storm_now,
-                 const WeatherChangeEvt& wc, const GameTime& t) {
-        if (storm_now && !flag) {
-            flag = true;
-            emit_change(room, true, wc, t);
-        } else if (!storm_now && flag) {
-            flag = false;
-            emit_change(room, false, wc, t);
-        }
+    static bool night(int hour) {
+        return hour >= 20 || hour < 5;   // the night rule, the clock's teeth
     }
 
-    void emit_change(const Room& room, bool dark, const WeatherChangeEvt& wc, const GameTime& t) {
+    void apply(const Room& room, bool& flag, long day, int hour,
+               int minute, int second, const GameTime& t) {
+        const bool dark_now = !room.sheltered() && (storm_ || night_);
+        if (dark_now == flag) return;
+        flag = dark_now;
         RoomConditionEvt rc{};
         rc.room   = room.name();
-        rc.dark   = dark;
-        rc.day    = wc.day;
-        rc.hour   = wc.hour;
-        rc.minute = wc.minute;
-        rc.second = wc.second;
+        rc.dark   = dark_now;
+        rc.day    = day;
+        rc.hour   = hour;
+        rc.minute = minute;
+        rc.second = second;
         Event evt{};
         evt.sequence_id = events_next_sequence();
         evt.time        = t;
@@ -75,8 +79,9 @@ private:
         events_emit(evt);
     }
 
-    bool dark_shrine_ = false;
-    bool dark_grove_  = false;
+    bool storm_     = false;
+    bool night_    = false;
+    bool dark_grove_ = false;
 };
 
 static RoomState g_room_state;
