@@ -1,0 +1,31 @@
+The moonlit grove, TimeMUD, era one. What name do you go by, stranger? 
+Welcome, Curtiss. You stand under an open sky, rain or shine, in the moonlit grove.
+You stand in the moonlit grove: an open circle of birch and pool.
+You are at (2, 5).
+It is day 3, 19:05 - evening gathers.
+A brass ring, green with age, rests at the lip of the pool.
+A storm-lantern burns here, holding the dark at a distance.
+Kaya the old hunter stands at (9, 9).
+Oren the wanderer stands at (9, 0).
+Lantern light pools from the ground where the storm-lantern burns.
+The ground remembers:
+  darkness fell across this place, earlier today, 06:55.
+  darkness fell across this place, earlier today, 18:56.
+  darkness fell across this place, earlier today, 19:01.
+  darkness fell across this place, earlier today, 19:05.
+Commands: look [ring/lantern/pool/moon], go <dir>, take lantern, light lantern, drop lantern, search pool, say <words>, i, quit.
+the moonlit grove falls dark.
+the moonlit grove falls dark.
+the moonlit grove falls dark.
+the moonlit grove falls dark.
+the moonlit grove falls dark.
+the moonlit grove falls dark.
+the moonlit grove falls dark.
+the moonlit grove falls dark.
+the moonlit grove falls dark.
+the moonlit grove falls dark.
+the moonlit grove falls dark.
+the moonlit grove falls dark.
+the moonlit grove falls dark.
+the moonlit grove falls dark.
+TimeMUD is closing down. Fare well, stranger.

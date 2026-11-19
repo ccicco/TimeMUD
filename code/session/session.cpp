@@ -69,6 +69,20 @@ public:
             server_write(out);
             return;
         }
+        if (std::holds_alternative<HourEvt>(evt.payload)) {
+            const auto& he = std::get<HourEvt>(evt.payload);
+            if (g_player.room != nullptr && !g_player.room->sheltered()) {
+                if (he.hour == 19) {
+                    std::snprintf(out, sizeof out, "The light thins; dusk gathers over %s.\n", here);
+                    server_write(out);
+                } else if (he.hour == 5) {
+                    std::snprintf(out, sizeof out, "The sky pales; first light gathers over %s.\n", here);
+                    server_write(out);
+                }
+            }
+            return;
+        }
+
         if (std::holds_alternative<RoomConditionEvt>(evt.payload)) {
             const auto& rc = std::get<RoomConditionEvt>(evt.payload);
             if (std::strcmp(rc.room, here) != 0) return;
