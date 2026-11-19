@@ -44,6 +44,18 @@ struct NpcAgenda {
     int patrol_y[4];
 };
 
+// R46: memory grows up. A face is remembered for a season; a full
+// memory forgets its least-recently-met friend first. Greeting and
+// answering keep the same law - one memory design, two ledgers.
+constexpr int kFaceMemory = 4;        // citizens of zone one hold four faces
+constexpr long kFaceFadeHours = 6;   // a working day, and the face fades
+
+struct FaceMem {
+    char name[32];
+    long day;
+    int hour;               // the hour this face was last met
+};
+
 class Npc : public Subscriber {
 public:
     explicit Npc(const NpcAgenda& agenda);
@@ -63,6 +75,7 @@ private:
     void move_to(const Room* room, int x, int y, const GameTime& t);
     void act(const char* line, const GameClock& gc, const GameTime& t);
     void speak(const char* text, bool is_reply, const GameTime& t);
+    bool face_recalled(FaceMem* mem, int& count, const char* who, bool record);   // R46: the aging memory, one law for greeting and answering
 
     const NpcAgenda* agenda_;
     const Room* at_room_;
@@ -72,8 +85,10 @@ private:
     bool night_ = false;
     int patrol_ptr_ = 0;      // R41: the circuits walk their routes in order
     char spoken_[160];
-    char greeted_[32] = {};
-    char replied_[32] = {};
+    FaceMem faces_[kFaceMemory];     // R46: greeted faces, aged not socketed
+    int face_count_ = 0;
+    FaceMem answered_[kFaceMemory]; // R46: answered voices, the same law
+    int answer_count_ = 0;
 };
 
 void npc_subscribe();

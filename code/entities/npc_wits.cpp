@@ -53,8 +53,8 @@ void Npc::perceive_movement(const MovementEvt& mv, const GameTime& t) {
     std::printf(mv.lit ? "%s watches %s arrive, lantern raised.\n" : "%s watches %s arrive.\n",
                 agenda_->name, mv.who);
     act(spoken_, gc, t);
-    if (agenda_->greet != nullptr && std::strcmp(greeted_, mv.who) != 0) {
-        std::snprintf(greeted_, sizeof greeted_, "%s", mv.who);
+    // R46: hail only a face not young in memory; recording and checking are one act
+    if (agenda_->greet != nullptr && !face_recalled(faces_, face_count_, mv.who, true)) {
         speak(agenda_->greet, false, t);
     }
 }
@@ -71,8 +71,9 @@ void Npc::respond_to_speech(const SpeechEvt& sp, const GameTime& t) {
         return;  // heard a voice, not its words: no reply, no memory spent
     }
     if (agenda_->reply == nullptr) return;
-    if (std::strcmp(replied_, sp.who) == 0) return;  // memory v0: answered once
-    std::snprintf(replied_, sizeof replied_, "%s", sp.who);
+    // R46: memory v1 - the same aging list answers the voices;
+    // twice in a season is silence, a season later the voice is new
+    if (face_recalled(answered_, answer_count_, sp.who, true)) return;
     speak(agenda_->reply, true, t);
 }
 
@@ -109,4 +110,36 @@ void Npc::on_hour(const HourEvt& he, const GameTime& t) {
     }
     std::printf("%s %s\n", agenda_->name, agenda_->dawn_act);
     act(agenda_->dawn_act, gc, t);
+}
+
+// R46: THE AGING MEMORY. One law, two ledgers: a face hailed and a
+// voice answered sit in the same kind of list. A face is YOUNG for
+// kFaceFadeHours after its last meeting; young faces are not hailed
+// or answered twice. Recording a meeting refreshes its hour, takes a
+// faded slot, fills an empty one, or - when memory is full - forgets
+// the least-recently-met friend first. Returns true when young.
+bool Npc::face_recalled(FaceMem* mem, int& count, const char* who, bool record) {
+    const GameClock gc = world_clock_now();
+    int young_i = -1;
+    int faded_i = -1;
+    int oldest_i = 0;
+    long oldest_stamp = 0;
+    for (int i = 0; i < count; ++i) {
+        const long age = (gc.day - mem[i].day) * 24 + (gc.hour - mem[i].hour);
+        if (age < kFaceFadeHours && std::strcmp(mem[i].name, who) == 0) young_i = i;
+        const long stamp = mem[i].day * 24 + mem[i].hour;
+        if (i == 0 || stamp < oldest_stamp) { oldest_stamp = stamp; oldest_i = i; }
+        if (age >= kFaceFadeHours && faded_i < 0) faded_i = i;
+    }
+    if (young_i >= 0) {
+        if (record) { mem[young_i].day = gc.day; mem[young_i].hour = gc.hour; }
+        return true;
+    }
+    if (!record) return false;
+    const int slot = faded_i >= 0 ? faded_i
+                   : (count < kFaceMemory ? count++ : oldest_i);
+    std::snprintf(mem[slot].name, sizeof mem[slot].name, "%s", who);
+    mem[slot].day = gc.day;
+    mem[slot].hour = gc.hour;
+    return false;
 }
