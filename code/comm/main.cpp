@@ -21,6 +21,7 @@
 #include <cstdio>
 #include <cstdlib>
 #include <ctime>
+#include <cstring>   // R49: the fast flag is read by name
 
 static constexpr long kHeartbeatMs = 10;
 static constexpr int  kEra         = 1;
@@ -51,6 +52,7 @@ int main(int argc, char** argv) {
         if (ticks_to_run > 100000) ticks_to_run = 100000;
     }
 
+    const bool fast = (argc > 2 && std::strcmp(argv[2], "fast") == 0);   // R49: the headless timescale
     log_init("log");
     persist_load();
     rooms_load();
@@ -86,10 +88,12 @@ int main(int argc, char** argv) {
         evt.payload     = TickEvt{};
         evt.visibility  = 100;
         events_emit(evt);
-        const long deadline = boot_ms + (tick + 1) * kHeartbeatMs;
-        server_serve_until(deadline);
-        if (server_door_shutdown()) break;   // R38: the door emptied - save and sleep
-        SteadyMs::sleep_until(deadline);   // THE FLOOR: the appointment is kept, always
+        if (!fast) {   // R49: the floor stands for theater; statecraft research runs the clock bare
+            const long deadline = boot_ms + (tick + 1) * kHeartbeatMs;
+            server_serve_until(deadline);
+            if (server_door_shutdown()) break;   // R38: the door emptied - save and sleep
+            SteadyMs::sleep_until(deadline);   // THE FLOOR: the appointment is kept, always
+        }
     }
 
     std::puts("TimeMUD shutdown: clean.");
