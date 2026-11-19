@@ -1,0 +1,1651 @@
+The moonlit grove, TimeMUD, era one. What name do you go by, stranger? 
+Welcome, Curtiss. You stand under an open sky, rain or shine, in the moonlit grove.
+You stand in the moonlit grove: an open circle of birch and pool.
+You are at (2, 5).
+It is day 3, 14:48 - afternoon leans on the birches.
+A brass ring, green with age, rests at the lip of the pool.
+A storm-lantern burns here, holding the dark at a distance.
+Nara the shrine keeper stands at (0, 5).
+Kaya the old hunter stands at (5, 9).
+Oren the wanderer stands at (3, 0).
+The ground remembers:
+  darkness fell across this place, earlier today, 19:53.
+  darkness fell across this place, earlier today, 19:57.
+  darkness fell across this place, earlier today, 20:00.
+  darkness fell across this place, earlier today, 00:31.
+Commands: look [ring/lantern/pool/moon], go <dir>, take lantern, light lantern, drop lantern, search pool, say <words>, i, quit.
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Nara the shrine keeper listens to a voice from across the grove, its words lost in the distance.
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Kaya the old hunter listens to a voice from across the grove, its words lost in the distance.
+Oren the wanderer says, "A roof out here? Only the sky's."
+Nara the shrine keeper walks across the moonlit grove to (1, 1).
+Nara the shrine keeper watches Kaya the old hunter arrive.
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer says, "A roof out here? Only the sky's."
+Kaya the old hunter walks across the moonlit grove to (5, 3).
+Nara the shrine keeper watches Oren the wanderer arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Kaya the old hunter watches Oren the wanderer arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+A voice drifts across the moonlit grove, too far to make out the words.
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer walks across the moonlit grove to (9, 8).
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Kaya the old hunter says, "Rain keeps its own counsel."
+A voice drifts across the moonlit grove, too far to make out the words.
+Nara the shrine keeper walks across the moonlit grove to (7, 2).
+Nara the shrine keeper watches Kaya the old hunter arrive.
+A voice drifts across the moonlit grove, too far to make out the words.
+A voice drifts across the moonlit grove, too far to make out the words.
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Oren the wanderer watches Kaya the old hunter arrive.
+A voice drifts across the moonlit grove, too far to make out the words.
+A voice drifts across the moonlit grove, too far to make out the words.
+Kaya the old hunter walks across the moonlit grove to (9, 5).
+Nara the shrine keeper watches Oren the wanderer arrive.
+A voice drifts across the moonlit grove, too far to make out the words.
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Kaya the old hunter watches Oren the wanderer arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+A voice drifts across the moonlit grove, too far to make out the words.
+Oren the wanderer walks across the moonlit grove to (0, 9).
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+A voice drifts across the moonlit grove, too far to make out the words.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Kaya the old hunter listens to a voice from across the grove, its words lost in the distance.
+Oren the wanderer says, "A roof out here? Only the sky's."
+Nara the shrine keeper walks across the moonlit grove to (3, 7).
+Nara the shrine keeper watches Kaya the old hunter arrive.
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer says, "A roof out here? Only the sky's."
+Kaya the old hunter walks across the moonlit grove to (0, 5).
+Nara the shrine keeper watches Oren the wanderer arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Kaya the old hunter watches Oren the wanderer arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Oren the wanderer says, "Storms pass. So do I."
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer walks across the moonlit grove to (0, 9).
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer says, "A roof out here? Only the sky's."
+Nara the shrine keeper walks across the moonlit grove to (0, 5).
+Nara the shrine keeper watches Kaya the old hunter arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer says, "Storms pass. So do I."
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer says, "A roof out here? Only the sky's."
+Kaya the old hunter walks across the moonlit grove to (5, 9).
+Nara the shrine keeper watches Oren the wanderer arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Kaya the old hunter watches Oren the wanderer arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer walks across the moonlit grove to (3, 0).
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Nara the shrine keeper listens to a voice from across the grove, its words lost in the distance.
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Kaya the old hunter listens to a voice from across the grove, its words lost in the distance.
+Oren the wanderer says, "A roof out here? Only the sky's."
+Nara the shrine keeper walks across the moonlit grove to (1, 1).
+Nara the shrine keeper watches Kaya the old hunter arrive.
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer says, "A roof out here? Only the sky's."
+Kaya the old hunter walks across the moonlit grove to (5, 3).
+Nara the shrine keeper watches Oren the wanderer arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Kaya the old hunter watches Oren the wanderer arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+A voice drifts across the moonlit grove, too far to make out the words.
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer walks across the moonlit grove to (9, 8).
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Kaya the old hunter says, "Rain keeps its own counsel."
+A voice drifts across the moonlit grove, too far to make out the words.
+Nara the shrine keeper walks across the moonlit grove to (7, 2).
+Nara the shrine keeper watches Kaya the old hunter arrive.
+A voice drifts across the moonlit grove, too far to make out the words.
+A voice drifts across the moonlit grove, too far to make out the words.
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Oren the wanderer watches Kaya the old hunter arrive.
+A voice drifts across the moonlit grove, too far to make out the words.
+A voice drifts across the moonlit grove, too far to make out the words.
+Kaya the old hunter walks across the moonlit grove to (9, 5).
+Nara the shrine keeper watches Oren the wanderer arrive.
+A voice drifts across the moonlit grove, too far to make out the words.
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Kaya the old hunter watches Oren the wanderer arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+A voice drifts across the moonlit grove, too far to make out the words.
+Oren the wanderer walks across the moonlit grove to (0, 9).
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+A voice drifts across the moonlit grove, too far to make out the words.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Kaya the old hunter listens to a voice from across the grove, its words lost in the distance.
+Oren the wanderer says, "A roof out here? Only the sky's."
+Nara the shrine keeper walks across the moonlit grove to (3, 7).
+Nara the shrine keeper watches Kaya the old hunter arrive.
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer says, "A roof out here? Only the sky's."
+Kaya the old hunter walks across the moonlit grove to (0, 5).
+Nara the shrine keeper watches Oren the wanderer arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Kaya the old hunter watches Oren the wanderer arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Oren the wanderer says, "Storms pass. So do I."
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer walks across the moonlit grove to (0, 9).
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer says, "A roof out here? Only the sky's."
+Nara the shrine keeper walks across the moonlit grove to (0, 5).
+Nara the shrine keeper watches Kaya the old hunter arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer says, "Storms pass. So do I."
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer says, "A roof out here? Only the sky's."
+Kaya the old hunter walks across the moonlit grove to (5, 9).
+Nara the shrine keeper watches Oren the wanderer arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Kaya the old hunter watches Oren the wanderer arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer walks across the moonlit grove to (3, 0).
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Nara the shrine keeper listens to a voice from across the grove, its words lost in the distance.
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Kaya the old hunter listens to a voice from across the grove, its words lost in the distance.
+Oren the wanderer says, "A roof out here? Only the sky's."
+Nara the shrine keeper walks across the moonlit grove to (1, 1).
+Nara the shrine keeper watches Kaya the old hunter arrive.
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer says, "A roof out here? Only the sky's."
+Kaya the old hunter walks across the moonlit grove to (5, 3).
+Nara the shrine keeper watches Oren the wanderer arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Kaya the old hunter watches Oren the wanderer arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+A voice drifts across the moonlit grove, too far to make out the words.
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer walks across the moonlit grove to (9, 8).
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Kaya the old hunter says, "Rain keeps its own counsel."
+A voice drifts across the moonlit grove, too far to make out the words.
+Nara the shrine keeper walks across the moonlit grove to (7, 2).
+Nara the shrine keeper watches Kaya the old hunter arrive.
+A voice drifts across the moonlit grove, too far to make out the words.
+A voice drifts across the moonlit grove, too far to make out the words.
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Oren the wanderer watches Kaya the old hunter arrive.
+A voice drifts across the moonlit grove, too far to make out the words.
+A voice drifts across the moonlit grove, too far to make out the words.
+Kaya the old hunter walks across the moonlit grove to (9, 5).
+Nara the shrine keeper watches Oren the wanderer arrive.
+A voice drifts across the moonlit grove, too far to make out the words.
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Kaya the old hunter watches Oren the wanderer arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+A voice drifts across the moonlit grove, too far to make out the words.
+Oren the wanderer walks across the moonlit grove to (0, 9).
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+A voice drifts across the moonlit grove, too far to make out the words.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Kaya the old hunter listens to a voice from across the grove, its words lost in the distance.
+Oren the wanderer says, "A roof out here? Only the sky's."
+Nara the shrine keeper walks across the moonlit grove to (3, 7).
+Nara the shrine keeper watches Kaya the old hunter arrive.
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer says, "A roof out here? Only the sky's."
+Kaya the old hunter walks across the moonlit grove to (0, 5).
+Nara the shrine keeper watches Oren the wanderer arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Kaya the old hunter watches Oren the wanderer arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Oren the wanderer says, "Storms pass. So do I."
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer walks across the moonlit grove to (0, 9).
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer says, "A roof out here? Only the sky's."
+Nara the shrine keeper walks across the moonlit grove to (0, 5).
+Nara the shrine keeper watches Kaya the old hunter arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer says, "Storms pass. So do I."
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer says, "A roof out here? Only the sky's."
+Kaya the old hunter walks across the moonlit grove to (5, 9).
+Nara the shrine keeper watches Oren the wanderer arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Kaya the old hunter watches Oren the wanderer arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer walks across the moonlit grove to (3, 0).
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Nara the shrine keeper listens to a voice from across the grove, its words lost in the distance.
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Kaya the old hunter listens to a voice from across the grove, its words lost in the distance.
+Oren the wanderer says, "A roof out here? Only the sky's."
+Nara the shrine keeper walks across the moonlit grove to (1, 1).
+Nara the shrine keeper watches Kaya the old hunter arrive.
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer says, "A roof out here? Only the sky's."
+Kaya the old hunter walks across the moonlit grove to (5, 3).
+Nara the shrine keeper watches Oren the wanderer arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Kaya the old hunter watches Oren the wanderer arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+A voice drifts across the moonlit grove, too far to make out the words.
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer walks across the moonlit grove to (9, 8).
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Kaya the old hunter says, "Rain keeps its own counsel."
+A voice drifts across the moonlit grove, too far to make out the words.
+Nara the shrine keeper walks across the moonlit grove to (7, 2).
+Nara the shrine keeper watches Kaya the old hunter arrive.
+A voice drifts across the moonlit grove, too far to make out the words.
+A voice drifts across the moonlit grove, too far to make out the words.
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Oren the wanderer watches Kaya the old hunter arrive.
+A voice drifts across the moonlit grove, too far to make out the words.
+A voice drifts across the moonlit grove, too far to make out the words.
+Kaya the old hunter walks across the moonlit grove to (9, 5).
+Nara the shrine keeper watches Oren the wanderer arrive.
+A voice drifts across the moonlit grove, too far to make out the words.
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Kaya the old hunter watches Oren the wanderer arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+A voice drifts across the moonlit grove, too far to make out the words.
+Oren the wanderer walks across the moonlit grove to (0, 9).
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+A voice drifts across the moonlit grove, too far to make out the words.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Kaya the old hunter listens to a voice from across the grove, its words lost in the distance.
+Oren the wanderer says, "A roof out here? Only the sky's."
+Nara the shrine keeper walks across the moonlit grove to (3, 7).
+Nara the shrine keeper watches Kaya the old hunter arrive.
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer says, "A roof out here? Only the sky's."
+Kaya the old hunter walks across the moonlit grove to (0, 5).
+Nara the shrine keeper watches Oren the wanderer arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Kaya the old hunter watches Oren the wanderer arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Oren the wanderer says, "Storms pass. So do I."
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer walks across the moonlit grove to (0, 9).
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer says, "A roof out here? Only the sky's."
+Nara the shrine keeper walks across the moonlit grove to (0, 5).
+Nara the shrine keeper watches Kaya the old hunter arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer says, "Storms pass. So do I."
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer says, "A roof out here? Only the sky's."
+Kaya the old hunter walks across the moonlit grove to (5, 9).
+Nara the shrine keeper watches Oren the wanderer arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Kaya the old hunter watches Oren the wanderer arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer walks across the moonlit grove to (3, 0).
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Nara the shrine keeper listens to a voice from across the grove, its words lost in the distance.
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Kaya the old hunter listens to a voice from across the grove, its words lost in the distance.
+Oren the wanderer says, "A roof out here? Only the sky's."
+Nara the shrine keeper walks across the moonlit grove to (1, 1).
+Nara the shrine keeper watches Kaya the old hunter arrive.
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer says, "A roof out here? Only the sky's."
+Kaya the old hunter walks across the moonlit grove to (5, 3).
+Nara the shrine keeper watches Oren the wanderer arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Kaya the old hunter watches Oren the wanderer arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+A voice drifts across the moonlit grove, too far to make out the words.
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer walks across the moonlit grove to (9, 8).
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Kaya the old hunter says, "Rain keeps its own counsel."
+A voice drifts across the moonlit grove, too far to make out the words.
+Nara the shrine keeper walks across the moonlit grove to (7, 2).
+Nara the shrine keeper watches Kaya the old hunter arrive.
+A voice drifts across the moonlit grove, too far to make out the words.
+A voice drifts across the moonlit grove, too far to make out the words.
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Oren the wanderer watches Kaya the old hunter arrive.
+A voice drifts across the moonlit grove, too far to make out the words.
+A voice drifts across the moonlit grove, too far to make out the words.
+Kaya the old hunter walks across the moonlit grove to (9, 5).
+Nara the shrine keeper watches Oren the wanderer arrive.
+A voice drifts across the moonlit grove, too far to make out the words.
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Kaya the old hunter watches Oren the wanderer arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+A voice drifts across the moonlit grove, too far to make out the words.
+Oren the wanderer walks across the moonlit grove to (0, 9).
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+A voice drifts across the moonlit grove, too far to make out the words.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Kaya the old hunter listens to a voice from across the grove, its words lost in the distance.
+Oren the wanderer says, "A roof out here? Only the sky's."
+Nara the shrine keeper walks across the moonlit grove to (3, 7).
+Nara the shrine keeper watches Kaya the old hunter arrive.
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer says, "A roof out here? Only the sky's."
+Kaya the old hunter walks across the moonlit grove to (0, 5).
+Nara the shrine keeper watches Oren the wanderer arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Kaya the old hunter watches Oren the wanderer arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Oren the wanderer says, "Storms pass. So do I."
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer walks across the moonlit grove to (0, 9).
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer says, "A roof out here? Only the sky's."
+Nara the shrine keeper walks across the moonlit grove to (0, 5).
+Nara the shrine keeper watches Kaya the old hunter arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer says, "Storms pass. So do I."
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer says, "A roof out here? Only the sky's."
+Kaya the old hunter walks across the moonlit grove to (5, 9).
+Nara the shrine keeper watches Oren the wanderer arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Kaya the old hunter watches Oren the wanderer arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer walks across the moonlit grove to (3, 0).
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Nara the shrine keeper listens to a voice from across the grove, its words lost in the distance.
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Kaya the old hunter listens to a voice from across the grove, its words lost in the distance.
+Oren the wanderer says, "A roof out here? Only the sky's."
+Nara the shrine keeper walks across the moonlit grove to (1, 1).
+Nara the shrine keeper watches Kaya the old hunter arrive.
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer says, "A roof out here? Only the sky's."
+Kaya the old hunter walks across the moonlit grove to (5, 3).
+Nara the shrine keeper watches Oren the wanderer arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Kaya the old hunter watches Oren the wanderer arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+A voice drifts across the moonlit grove, too far to make out the words.
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer walks across the moonlit grove to (9, 8).
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Kaya the old hunter says, "Rain keeps its own counsel."
+A voice drifts across the moonlit grove, too far to make out the words.
+Nara the shrine keeper walks across the moonlit grove to (7, 2).
+Nara the shrine keeper watches Kaya the old hunter arrive.
+A voice drifts across the moonlit grove, too far to make out the words.
+A voice drifts across the moonlit grove, too far to make out the words.
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Oren the wanderer watches Kaya the old hunter arrive.
+A voice drifts across the moonlit grove, too far to make out the words.
+A voice drifts across the moonlit grove, too far to make out the words.
+Kaya the old hunter walks across the moonlit grove to (9, 5).
+Nara the shrine keeper watches Oren the wanderer arrive.
+A voice drifts across the moonlit grove, too far to make out the words.
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Kaya the old hunter watches Oren the wanderer arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+A voice drifts across the moonlit grove, too far to make out the words.
+Oren the wanderer walks across the moonlit grove to (0, 9).
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+A voice drifts across the moonlit grove, too far to make out the words.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Kaya the old hunter listens to a voice from across the grove, its words lost in the distance.
+Oren the wanderer says, "A roof out here? Only the sky's."
+Nara the shrine keeper walks across the moonlit grove to (3, 7).
+Nara the shrine keeper watches Kaya the old hunter arrive.
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer says, "A roof out here? Only the sky's."
+Kaya the old hunter walks across the moonlit grove to (0, 5).
+Nara the shrine keeper watches Oren the wanderer arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Kaya the old hunter watches Oren the wanderer arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Oren the wanderer says, "Storms pass. So do I."
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer walks across the moonlit grove to (0, 9).
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer says, "A roof out here? Only the sky's."
+Nara the shrine keeper walks across the moonlit grove to (0, 5).
+Nara the shrine keeper watches Kaya the old hunter arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer says, "Storms pass. So do I."
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer says, "A roof out here? Only the sky's."
+Kaya the old hunter walks across the moonlit grove to (5, 9).
+Nara the shrine keeper watches Oren the wanderer arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Kaya the old hunter watches Oren the wanderer arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer walks across the moonlit grove to (3, 0).
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Nara the shrine keeper listens to a voice from across the grove, its words lost in the distance.
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Kaya the old hunter listens to a voice from across the grove, its words lost in the distance.
+Oren the wanderer says, "A roof out here? Only the sky's."
+Nara the shrine keeper walks across the moonlit grove to (1, 1).
+Nara the shrine keeper watches Kaya the old hunter arrive.
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer says, "A roof out here? Only the sky's."
+Kaya the old hunter walks across the moonlit grove to (5, 3).
+Nara the shrine keeper watches Oren the wanderer arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Kaya the old hunter watches Oren the wanderer arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+A voice drifts across the moonlit grove, too far to make out the words.
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer walks across the moonlit grove to (9, 8).
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Kaya the old hunter says, "Rain keeps its own counsel."
+A voice drifts across the moonlit grove, too far to make out the words.
+Nara the shrine keeper walks across the moonlit grove to (7, 2).
+Nara the shrine keeper watches Kaya the old hunter arrive.
+A voice drifts across the moonlit grove, too far to make out the words.
+A voice drifts across the moonlit grove, too far to make out the words.
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Oren the wanderer watches Kaya the old hunter arrive.
+A voice drifts across the moonlit grove, too far to make out the words.
+A voice drifts across the moonlit grove, too far to make out the words.
+Kaya the old hunter walks across the moonlit grove to (9, 5).
+Nara the shrine keeper watches Oren the wanderer arrive.
+A voice drifts across the moonlit grove, too far to make out the words.
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Kaya the old hunter watches Oren the wanderer arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+A voice drifts across the moonlit grove, too far to make out the words.
+Oren the wanderer walks across the moonlit grove to (0, 9).
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+A voice drifts across the moonlit grove, too far to make out the words.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Kaya the old hunter listens to a voice from across the grove, its words lost in the distance.
+Oren the wanderer says, "A roof out here? Only the sky's."
+Nara the shrine keeper walks across the moonlit grove to (3, 7).
+Nara the shrine keeper watches Kaya the old hunter arrive.
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer says, "A roof out here? Only the sky's."
+Kaya the old hunter walks across the moonlit grove to (0, 5).
+Nara the shrine keeper watches Oren the wanderer arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Kaya the old hunter watches Oren the wanderer arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Oren the wanderer says, "Storms pass. So do I."
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer walks across the moonlit grove to (0, 9).
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer says, "A roof out here? Only the sky's."
+Nara the shrine keeper walks across the moonlit grove to (0, 5).
+Nara the shrine keeper watches Kaya the old hunter arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer says, "Storms pass. So do I."
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer says, "A roof out here? Only the sky's."
+Kaya the old hunter walks across the moonlit grove to (5, 9).
+Nara the shrine keeper watches Oren the wanderer arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Kaya the old hunter watches Oren the wanderer arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer walks across the moonlit grove to (3, 0).
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Nara the shrine keeper listens to a voice from across the grove, its words lost in the distance.
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Kaya the old hunter listens to a voice from across the grove, its words lost in the distance.
+Oren the wanderer says, "A roof out here? Only the sky's."
+Nara the shrine keeper walks across the moonlit grove to (1, 1).
+Nara the shrine keeper watches Kaya the old hunter arrive.
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer says, "A roof out here? Only the sky's."
+Kaya the old hunter walks across the moonlit grove to (5, 3).
+Nara the shrine keeper watches Oren the wanderer arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Kaya the old hunter watches Oren the wanderer arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+A voice drifts across the moonlit grove, too far to make out the words.
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer walks across the moonlit grove to (9, 8).
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Kaya the old hunter says, "Rain keeps its own counsel."
+A voice drifts across the moonlit grove, too far to make out the words.
+Nara the shrine keeper walks across the moonlit grove to (7, 2).
+Nara the shrine keeper watches Kaya the old hunter arrive.
+A voice drifts across the moonlit grove, too far to make out the words.
+A voice drifts across the moonlit grove, too far to make out the words.
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Oren the wanderer watches Kaya the old hunter arrive.
+A voice drifts across the moonlit grove, too far to make out the words.
+A voice drifts across the moonlit grove, too far to make out the words.
+Kaya the old hunter walks across the moonlit grove to (9, 5).
+Nara the shrine keeper watches Oren the wanderer arrive.
+A voice drifts across the moonlit grove, too far to make out the words.
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Kaya the old hunter watches Oren the wanderer arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+A voice drifts across the moonlit grove, too far to make out the words.
+Oren the wanderer walks across the moonlit grove to (0, 9).
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+A voice drifts across the moonlit grove, too far to make out the words.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Kaya the old hunter listens to a voice from across the grove, its words lost in the distance.
+Oren the wanderer says, "A roof out here? Only the sky's."
+Nara the shrine keeper walks across the moonlit grove to (3, 7).
+Nara the shrine keeper watches Kaya the old hunter arrive.
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer says, "A roof out here? Only the sky's."
+Kaya the old hunter walks across the moonlit grove to (0, 5).
+Nara the shrine keeper watches Oren the wanderer arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Kaya the old hunter watches Oren the wanderer arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Oren the wanderer says, "Storms pass. So do I."
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer walks across the moonlit grove to (0, 9).
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer says, "A roof out here? Only the sky's."
+Nara the shrine keeper walks across the moonlit grove to (0, 5).
+Nara the shrine keeper watches Kaya the old hunter arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer says, "Storms pass. So do I."
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer says, "A roof out here? Only the sky's."
+Kaya the old hunter walks across the moonlit grove to (5, 9).
+Nara the shrine keeper watches Oren the wanderer arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Kaya the old hunter watches Oren the wanderer arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer walks across the moonlit grove to (3, 0).
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Nara the shrine keeper listens to a voice from across the grove, its words lost in the distance.
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Kaya the old hunter listens to a voice from across the grove, its words lost in the distance.
+Oren the wanderer says, "A roof out here? Only the sky's."
+Nara the shrine keeper walks across the moonlit grove to (1, 1).
+Nara the shrine keeper watches Kaya the old hunter arrive.
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer says, "A roof out here? Only the sky's."
+Kaya the old hunter walks across the moonlit grove to (5, 3).
+Nara the shrine keeper watches Oren the wanderer arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Kaya the old hunter watches Oren the wanderer arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+A voice drifts across the moonlit grove, too far to make out the words.
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer walks across the moonlit grove to (9, 8).
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Kaya the old hunter says, "Rain keeps its own counsel."
+A voice drifts across the moonlit grove, too far to make out the words.
+Nara the shrine keeper walks across the moonlit grove to (7, 2).
+Nara the shrine keeper watches Kaya the old hunter arrive.
+A voice drifts across the moonlit grove, too far to make out the words.
+A voice drifts across the moonlit grove, too far to make out the words.
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Oren the wanderer watches Kaya the old hunter arrive.
+A voice drifts across the moonlit grove, too far to make out the words.
+A voice drifts across the moonlit grove, too far to make out the words.
+Kaya the old hunter walks across the moonlit grove to (9, 5).
+Nara the shrine keeper watches Oren the wanderer arrive.
+A voice drifts across the moonlit grove, too far to make out the words.
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Kaya the old hunter watches Oren the wanderer arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+A voice drifts across the moonlit grove, too far to make out the words.
+Oren the wanderer walks across the moonlit grove to (0, 9).
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+A voice drifts across the moonlit grove, too far to make out the words.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Kaya the old hunter listens to a voice from across the grove, its words lost in the distance.
+Oren the wanderer says, "A roof out here? Only the sky's."
+Nara the shrine keeper walks across the moonlit grove to (3, 7).
+Nara the shrine keeper watches Kaya the old hunter arrive.
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer says, "A roof out here? Only the sky's."
+Kaya the old hunter walks across the moonlit grove to (0, 5).
+Nara the shrine keeper watches Oren the wanderer arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Kaya the old hunter watches Oren the wanderer arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Oren the wanderer says, "Storms pass. So do I."
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer walks across the moonlit grove to (0, 9).
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer says, "A roof out here? Only the sky's."
+Nara the shrine keeper walks across the moonlit grove to (0, 5).
+Nara the shrine keeper watches Kaya the old hunter arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer says, "Storms pass. So do I."
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer says, "A roof out here? Only the sky's."
+Kaya the old hunter walks across the moonlit grove to (5, 9).
+Nara the shrine keeper watches Oren the wanderer arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Kaya the old hunter watches Oren the wanderer arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer walks across the moonlit grove to (3, 0).
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Nara the shrine keeper listens to a voice from across the grove, its words lost in the distance.
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Kaya the old hunter listens to a voice from across the grove, its words lost in the distance.
+Oren the wanderer says, "A roof out here? Only the sky's."
+Nara the shrine keeper walks across the moonlit grove to (1, 1).
+Nara the shrine keeper watches Kaya the old hunter arrive.
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer says, "A roof out here? Only the sky's."
+Kaya the old hunter walks across the moonlit grove to (5, 3).
+Nara the shrine keeper watches Oren the wanderer arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Kaya the old hunter watches Oren the wanderer arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+A voice drifts across the moonlit grove, too far to make out the words.
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer walks across the moonlit grove to (9, 8).
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Kaya the old hunter says, "Rain keeps its own counsel."
+A voice drifts across the moonlit grove, too far to make out the words.
+Nara the shrine keeper walks across the moonlit grove to (7, 2).
+Nara the shrine keeper watches Kaya the old hunter arrive.
+A voice drifts across the moonlit grove, too far to make out the words.
+A voice drifts across the moonlit grove, too far to make out the words.
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Oren the wanderer watches Kaya the old hunter arrive.
+A voice drifts across the moonlit grove, too far to make out the words.
+A voice drifts across the moonlit grove, too far to make out the words.
+Kaya the old hunter walks across the moonlit grove to (9, 5).
+Nara the shrine keeper watches Oren the wanderer arrive.
+A voice drifts across the moonlit grove, too far to make out the words.
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Kaya the old hunter watches Oren the wanderer arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+A voice drifts across the moonlit grove, too far to make out the words.
+Oren the wanderer walks across the moonlit grove to (0, 9).
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+A voice drifts across the moonlit grove, too far to make out the words.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Kaya the old hunter listens to a voice from across the grove, its words lost in the distance.
+Oren the wanderer says, "A roof out here? Only the sky's."
+Nara the shrine keeper walks across the moonlit grove to (3, 7).
+Nara the shrine keeper watches Kaya the old hunter arrive.
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer says, "A roof out here? Only the sky's."
+Kaya the old hunter walks across the moonlit grove to (0, 5).
+Nara the shrine keeper watches Oren the wanderer arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Kaya the old hunter watches Oren the wanderer arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Oren the wanderer says, "Storms pass. So do I."
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer walks across the moonlit grove to (0, 9).
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer says, "A roof out here? Only the sky's."
+Nara the shrine keeper walks across the moonlit grove to (0, 5).
+Nara the shrine keeper watches Kaya the old hunter arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer says, "Storms pass. So do I."
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer says, "A roof out here? Only the sky's."
+Kaya the old hunter walks across the moonlit grove to (5, 9).
+Nara the shrine keeper watches Oren the wanderer arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Kaya the old hunter watches Oren the wanderer arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer walks across the moonlit grove to (3, 0).
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Nara the shrine keeper listens to a voice from across the grove, its words lost in the distance.
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Kaya the old hunter listens to a voice from across the grove, its words lost in the distance.
+Oren the wanderer says, "A roof out here? Only the sky's."
+Nara the shrine keeper walks across the moonlit grove to (1, 1).
+Nara the shrine keeper watches Kaya the old hunter arrive.
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer says, "A roof out here? Only the sky's."
+Kaya the old hunter walks across the moonlit grove to (5, 3).
+Nara the shrine keeper watches Oren the wanderer arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Kaya the old hunter watches Oren the wanderer arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+A voice drifts across the moonlit grove, too far to make out the words.
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer walks across the moonlit grove to (9, 8).
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Kaya the old hunter says, "Rain keeps its own counsel."
+A voice drifts across the moonlit grove, too far to make out the words.
+Nara the shrine keeper walks across the moonlit grove to (7, 2).
+Nara the shrine keeper watches Kaya the old hunter arrive.
+A voice drifts across the moonlit grove, too far to make out the words.
+A voice drifts across the moonlit grove, too far to make out the words.
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Oren the wanderer watches Kaya the old hunter arrive.
+A voice drifts across the moonlit grove, too far to make out the words.
+A voice drifts across the moonlit grove, too far to make out the words.
+Kaya the old hunter walks across the moonlit grove to (9, 5).
+Nara the shrine keeper watches Oren the wanderer arrive.
+A voice drifts across the moonlit grove, too far to make out the words.
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Kaya the old hunter watches Oren the wanderer arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+A voice drifts across the moonlit grove, too far to make out the words.
+Oren the wanderer walks across the moonlit grove to (0, 9).
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+A voice drifts across the moonlit grove, too far to make out the words.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Kaya the old hunter listens to a voice from across the grove, its words lost in the distance.
+Oren the wanderer says, "A roof out here? Only the sky's."
+Nara the shrine keeper walks across the moonlit grove to (3, 7).
+Nara the shrine keeper watches Kaya the old hunter arrive.
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer says, "A roof out here? Only the sky's."
+Kaya the old hunter walks across the moonlit grove to (0, 5).
+Nara the shrine keeper watches Oren the wanderer arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Kaya the old hunter watches Oren the wanderer arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Oren the wanderer says, "Storms pass. So do I."
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer walks across the moonlit grove to (0, 9).
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer says, "A roof out here? Only the sky's."
+Nara the shrine keeper walks across the moonlit grove to (0, 5).
+Nara the shrine keeper watches Kaya the old hunter arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer says, "Storms pass. So do I."
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer says, "A roof out here? Only the sky's."
+Kaya the old hunter walks across the moonlit grove to (5, 9).
+Nara the shrine keeper watches Oren the wanderer arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Kaya the old hunter watches Oren the wanderer arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer walks across the moonlit grove to (3, 0).
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Nara the shrine keeper listens to a voice from across the grove, its words lost in the distance.
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Kaya the old hunter listens to a voice from across the grove, its words lost in the distance.
+Oren the wanderer says, "A roof out here? Only the sky's."
+Nara the shrine keeper walks across the moonlit grove to (1, 1).
+Nara the shrine keeper watches Kaya the old hunter arrive.
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer says, "A roof out here? Only the sky's."
+Kaya the old hunter walks across the moonlit grove to (5, 3).
+Nara the shrine keeper watches Oren the wanderer arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Kaya the old hunter watches Oren the wanderer arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+A voice drifts across the moonlit grove, too far to make out the words.
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer walks across the moonlit grove to (9, 8).
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Kaya the old hunter says, "Rain keeps its own counsel."
+A voice drifts across the moonlit grove, too far to make out the words.
+Nara the shrine keeper walks across the moonlit grove to (7, 2).
+Nara the shrine keeper watches Kaya the old hunter arrive.
+A voice drifts across the moonlit grove, too far to make out the words.
+A voice drifts across the moonlit grove, too far to make out the words.
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Oren the wanderer watches Kaya the old hunter arrive.
+A voice drifts across the moonlit grove, too far to make out the words.
+A voice drifts across the moonlit grove, too far to make out the words.
+Kaya the old hunter walks across the moonlit grove to (9, 5).
+Nara the shrine keeper watches Oren the wanderer arrive.
+A voice drifts across the moonlit grove, too far to make out the words.
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Kaya the old hunter watches Oren the wanderer arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+A voice drifts across the moonlit grove, too far to make out the words.
+Oren the wanderer walks across the moonlit grove to (0, 9).
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+A voice drifts across the moonlit grove, too far to make out the words.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Kaya the old hunter listens to a voice from across the grove, its words lost in the distance.
+Oren the wanderer says, "A roof out here? Only the sky's."
+Nara the shrine keeper walks across the moonlit grove to (3, 7).
+Nara the shrine keeper watches Kaya the old hunter arrive.
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer says, "A roof out here? Only the sky's."
+Kaya the old hunter walks across the moonlit grove to (0, 5).
+Nara the shrine keeper watches Oren the wanderer arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Kaya the old hunter watches Oren the wanderer arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Oren the wanderer says, "Storms pass. So do I."
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer walks across the moonlit grove to (0, 9).
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer says, "A roof out here? Only the sky's."
+Nara the shrine keeper walks across the moonlit grove to (0, 5).
+Nara the shrine keeper watches Kaya the old hunter arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer says, "Storms pass. So do I."
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer says, "A roof out here? Only the sky's."
+Kaya the old hunter walks across the moonlit grove to (5, 9).
+Nara the shrine keeper watches Oren the wanderer arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Kaya the old hunter watches Oren the wanderer arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer walks across the moonlit grove to (3, 0).
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Nara the shrine keeper listens to a voice from across the grove, its words lost in the distance.
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Kaya the old hunter listens to a voice from across the grove, its words lost in the distance.
+Oren the wanderer says, "A roof out here? Only the sky's."
+Nara the shrine keeper walks across the moonlit grove to (1, 1).
+Nara the shrine keeper watches Kaya the old hunter arrive.
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer says, "A roof out here? Only the sky's."
+Kaya the old hunter walks across the moonlit grove to (5, 3).
+Nara the shrine keeper watches Oren the wanderer arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Kaya the old hunter watches Oren the wanderer arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+A voice drifts across the moonlit grove, too far to make out the words.
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer walks across the moonlit grove to (9, 8).
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Kaya the old hunter says, "Rain keeps its own counsel."
+A voice drifts across the moonlit grove, too far to make out the words.
+Nara the shrine keeper walks across the moonlit grove to (7, 2).
+Nara the shrine keeper watches Kaya the old hunter arrive.
+A voice drifts across the moonlit grove, too far to make out the words.
+A voice drifts across the moonlit grove, too far to make out the words.
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Oren the wanderer watches Kaya the old hunter arrive.
+A voice drifts across the moonlit grove, too far to make out the words.
+A voice drifts across the moonlit grove, too far to make out the words.
+Kaya the old hunter walks across the moonlit grove to (9, 5).
+Nara the shrine keeper watches Oren the wanderer arrive.
+A voice drifts across the moonlit grove, too far to make out the words.
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Kaya the old hunter watches Oren the wanderer arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+A voice drifts across the moonlit grove, too far to make out the words.
+Oren the wanderer walks across the moonlit grove to (0, 9).
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+A voice drifts across the moonlit grove, too far to make out the words.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Kaya the old hunter listens to a voice from across the grove, its words lost in the distance.
+Oren the wanderer says, "A roof out here? Only the sky's."
+Nara the shrine keeper walks across the moonlit grove to (3, 7).
+Nara the shrine keeper watches Kaya the old hunter arrive.
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer says, "A roof out here? Only the sky's."
+Kaya the old hunter walks across the moonlit grove to (0, 5).
+Nara the shrine keeper watches Oren the wanderer arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Kaya the old hunter watches Oren the wanderer arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Oren the wanderer says, "Storms pass. So do I."
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer walks across the moonlit grove to (0, 9).
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer says, "A roof out here? Only the sky's."
+Nara the shrine keeper walks across the moonlit grove to (0, 5).
+Nara the shrine keeper watches Kaya the old hunter arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer says, "Storms pass. So do I."
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer says, "A roof out here? Only the sky's."
+Kaya the old hunter walks across the moonlit grove to (5, 9).
+Nara the shrine keeper watches Oren the wanderer arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Kaya the old hunter watches Oren the wanderer arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer walks across the moonlit grove to (3, 0).
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Nara the shrine keeper listens to a voice from across the grove, its words lost in the distance.
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Kaya the old hunter listens to a voice from across the grove, its words lost in the distance.
+Oren the wanderer says, "A roof out here? Only the sky's."
+Nara the shrine keeper walks across the moonlit grove to (1, 1).
+Nara the shrine keeper watches Kaya the old hunter arrive.
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer says, "A roof out here? Only the sky's."
+Kaya the old hunter walks across the moonlit grove to (5, 3).
+Nara the shrine keeper watches Oren the wanderer arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Kaya the old hunter watches Oren the wanderer arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+A voice drifts across the moonlit grove, too far to make out the words.
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer walks across the moonlit grove to (9, 8).
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Kaya the old hunter says, "Rain keeps its own counsel."
+A voice drifts across the moonlit grove, too far to make out the words.
+Nara the shrine keeper walks across the moonlit grove to (7, 2).
+Nara the shrine keeper watches Kaya the old hunter arrive.
+A voice drifts across the moonlit grove, too far to make out the words.
+A voice drifts across the moonlit grove, too far to make out the words.
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Oren the wanderer watches Kaya the old hunter arrive.
+A voice drifts across the moonlit grove, too far to make out the words.
+A voice drifts across the moonlit grove, too far to make out the words.
+Kaya the old hunter walks across the moonlit grove to (9, 5).
+Nara the shrine keeper watches Oren the wanderer arrive.
+A voice drifts across the moonlit grove, too far to make out the words.
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Kaya the old hunter watches Oren the wanderer arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+A voice drifts across the moonlit grove, too far to make out the words.
+Oren the wanderer walks across the moonlit grove to (0, 9).
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+A voice drifts across the moonlit grove, too far to make out the words.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Kaya the old hunter listens to a voice from across the grove, its words lost in the distance.
+Oren the wanderer says, "A roof out here? Only the sky's."
+Nara the shrine keeper walks across the moonlit grove to (3, 7).
+Nara the shrine keeper watches Kaya the old hunter arrive.
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer says, "A roof out here? Only the sky's."
+Kaya the old hunter walks across the moonlit grove to (0, 5).
+Nara the shrine keeper watches Oren the wanderer arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Kaya the old hunter watches Oren the wanderer arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Oren the wanderer says, "Storms pass. So do I."
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer walks across the moonlit grove to (0, 9).
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer says, "A roof out here? Only the sky's."
+Nara the shrine keeper walks across the moonlit grove to (0, 5).
+Nara the shrine keeper watches Kaya the old hunter arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer says, "Storms pass. So do I."
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer says, "A roof out here? Only the sky's."
+Kaya the old hunter walks across the moonlit grove to (5, 9).
+Nara the shrine keeper watches Oren the wanderer arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Kaya the old hunter watches Oren the wanderer arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer walks across the moonlit grove to (3, 0).
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Nara the shrine keeper listens to a voice from across the grove, its words lost in the distance.
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Kaya the old hunter listens to a voice from across the grove, its words lost in the distance.
+Oren the wanderer says, "A roof out here? Only the sky's."
+Nara the shrine keeper walks across the moonlit grove to (1, 1).
+Nara the shrine keeper watches Kaya the old hunter arrive.
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer says, "A roof out here? Only the sky's."
+Kaya the old hunter walks across the moonlit grove to (5, 3).
+Nara the shrine keeper watches Oren the wanderer arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Kaya the old hunter watches Oren the wanderer arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+A voice drifts across the moonlit grove, too far to make out the words.
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer walks across the moonlit grove to (9, 8).
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Kaya the old hunter says, "Rain keeps its own counsel."
+A voice drifts across the moonlit grove, too far to make out the words.
+Nara the shrine keeper walks across the moonlit grove to (7, 2).
+Nara the shrine keeper watches Kaya the old hunter arrive.
+A voice drifts across the moonlit grove, too far to make out the words.
+A voice drifts across the moonlit grove, too far to make out the words.
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Oren the wanderer watches Kaya the old hunter arrive.
+A voice drifts across the moonlit grove, too far to make out the words.
+A voice drifts across the moonlit grove, too far to make out the words.
+Kaya the old hunter walks across the moonlit grove to (9, 5).
+Nara the shrine keeper watches Oren the wanderer arrive.
+A voice drifts across the moonlit grove, too far to make out the words.
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Kaya the old hunter watches Oren the wanderer arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+A voice drifts across the moonlit grove, too far to make out the words.
+Oren the wanderer walks across the moonlit grove to (0, 9).
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+A voice drifts across the moonlit grove, too far to make out the words.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Kaya the old hunter listens to a voice from across the grove, its words lost in the distance.
+Oren the wanderer says, "A roof out here? Only the sky's."
+Nara the shrine keeper walks across the moonlit grove to (3, 7).
+Nara the shrine keeper watches Kaya the old hunter arrive.
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer says, "A roof out here? Only the sky's."
+Kaya the old hunter walks across the moonlit grove to (0, 5).
+Nara the shrine keeper watches Oren the wanderer arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Kaya the old hunter watches Oren the wanderer arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Oren the wanderer says, "Storms pass. So do I."
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer walks across the moonlit grove to (0, 9).
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer says, "A roof out here? Only the sky's."
+Nara the shrine keeper walks across the moonlit grove to (0, 5).
+Nara the shrine keeper watches Kaya the old hunter arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer says, "Storms pass. So do I."
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer says, "A roof out here? Only the sky's."
+Kaya the old hunter walks across the moonlit grove to (5, 9).
+Nara the shrine keeper watches Oren the wanderer arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Kaya the old hunter watches Oren the wanderer arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer walks across the moonlit grove to (3, 0).
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Nara the shrine keeper listens to a voice from across the grove, its words lost in the distance.
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Kaya the old hunter listens to a voice from across the grove, its words lost in the distance.
+Oren the wanderer says, "A roof out here? Only the sky's."
+Nara the shrine keeper walks across the moonlit grove to (1, 1).
+Nara the shrine keeper watches Kaya the old hunter arrive.
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer says, "A roof out here? Only the sky's."
+Kaya the old hunter walks across the moonlit grove to (5, 3).
+Nara the shrine keeper watches Oren the wanderer arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Kaya the old hunter watches Oren the wanderer arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+A voice drifts across the moonlit grove, too far to make out the words.
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer walks across the moonlit grove to (9, 8).
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Kaya the old hunter says, "Rain keeps its own counsel."
+A voice drifts across the moonlit grove, too far to make out the words.
+Nara the shrine keeper walks across the moonlit grove to (7, 2).
+Nara the shrine keeper watches Kaya the old hunter arrive.
+A voice drifts across the moonlit grove, too far to make out the words.
+A voice drifts across the moonlit grove, too far to make out the words.
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Oren the wanderer watches Kaya the old hunter arrive.
+A voice drifts across the moonlit grove, too far to make out the words.
+A voice drifts across the moonlit grove, too far to make out the words.
+Kaya the old hunter walks across the moonlit grove to (9, 5).
+Nara the shrine keeper watches Oren the wanderer arrive.
+A voice drifts across the moonlit grove, too far to make out the words.
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Kaya the old hunter watches Oren the wanderer arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+A voice drifts across the moonlit grove, too far to make out the words.
+Oren the wanderer walks across the moonlit grove to (0, 9).
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer listens to a voice from across the grove, its words lost in the distance.
+A voice drifts across the moonlit grove, too far to make out the words.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Kaya the old hunter listens to a voice from across the grove, its words lost in the distance.
+Oren the wanderer says, "A roof out here? Only the sky's."
+Nara the shrine keeper walks across the moonlit grove to (3, 7).
+Nara the shrine keeper watches Kaya the old hunter arrive.
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Oren the wanderer says, "A roof out here? Only the sky's."
+Kaya the old hunter walks across the moonlit grove to (0, 5).
+Nara the shrine keeper watches Oren the wanderer arrive.
+Kaya the old hunter says, "Rain keeps its own counsel."
+Nara the shrine keeper says, "The grove is quiet, this far from the steps."
+Kaya the old hunter watches Oren the wanderer arrive.
+Nara the shrine keeper says, "The shrine held. The storm has passed."
+Oren the wanderer says, "Storms pass. So do I."
+Kaya the old hunter says, "The rain speaks, keeper. Welcome to the grove."
+Oren the wanderer walks across the moonlit grove to (0, 9).
+Nara the shrine keeper crosses from the moonlit grove to the shrine.
+Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter walks across the moonlit grove to (5, 5).
+Kaya the old hunter strings her bow by the pool.
+Kaya the old hunter watches Oren the wanderer arrive.
+Oren the wanderer walks across the moonlit grove to (6, 3).
+Oren the wanderer turns his face up to a clearing sky.
+The sky turns from overcast to clear.
+Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter walks across the moonlit grove to (5, 9).
+Kaya the old hunter watches Oren the wanderer arrive.
+Oren the wanderer walks across the moonlit grove to (3, 0).
+Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter walks across the moonlit grove to (5, 3).
+Kaya the old hunter watches Oren the wanderer arrive.
+Oren the wanderer walks across the moonlit grove to (9, 8).
+Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter walks across the moonlit grove to (9, 5).
+Kaya the old hunter watches Oren the wanderer arrive.
+Oren the wanderer walks across the moonlit grove to (0, 9).
+Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter walks across the moonlit grove to (0, 5).
+Kaya the old hunter watches Oren the wanderer arrive.
+Oren the wanderer walks across the moonlit grove to (0, 9).
+Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter walks across the moonlit grove to (5, 9).
+Kaya the old hunter watches Oren the wanderer arrive.
+Oren the wanderer walks across the moonlit grove to (3, 0).
+Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter walks across the moonlit grove to (5, 3).
+Kaya the old hunter watches Oren the wanderer arrive.
+Oren the wanderer walks across the moonlit grove to (9, 8).
+Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter walks across the moonlit grove to (9, 5).
+Kaya the old hunter watches Oren the wanderer arrive.
+Oren the wanderer walks across the moonlit grove to (0, 9).
+Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter walks across the moonlit grove to (0, 5).
+Kaya the old hunter watches Oren the wanderer arrive.
+Oren the wanderer walks across the moonlit grove to (0, 9).
+Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter walks across the moonlit grove to (5, 9).
+Kaya the old hunter watches Oren the wanderer arrive.
+Oren the wanderer walks across the moonlit grove to (3, 0).
+Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter walks across the moonlit grove to (5, 3).
+Kaya the old hunter watches Oren the wanderer arrive.
+Oren the wanderer walks across the moonlit grove to (9, 8).
+Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter walks across the moonlit grove to (9, 5).
+Kaya the old hunter watches Oren the wanderer arrive.
+Oren the wanderer walks across the moonlit grove to (0, 9).
+Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter walks across the moonlit grove to (0, 5).
+Kaya the old hunter watches Oren the wanderer arrive.
+Oren the wanderer walks across the moonlit grove to (0, 9).
+Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter walks across the moonlit grove to (5, 9).
+Kaya the old hunter watches Oren the wanderer arrive.
+Oren the wanderer walks across the moonlit grove to (3, 0).
+Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter walks across the moonlit grove to (5, 3).
+Kaya the old hunter watches Oren the wanderer arrive.
+Oren the wanderer walks across the moonlit grove to (9, 8).
+Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter walks across the moonlit grove to (9, 5).
+Kaya the old hunter watches Oren the wanderer arrive.
+Oren the wanderer walks across the moonlit grove to (0, 9).
+Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter walks across the moonlit grove to (0, 5).
+Kaya the old hunter watches Oren the wanderer arrive.
+Oren the wanderer walks across the moonlit grove to (0, 9).
+Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter walks across the moonlit grove to (5, 9).
+Kaya the old hunter watches Oren the wanderer arrive.
+Oren the wanderer walks across the moonlit grove to (3, 0).
+Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter walks across the moonlit grove to (5, 3).
+Kaya the old hunter watches Oren the wanderer arrive.
+Oren the wanderer walks across the moonlit grove to (9, 8).
+Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter walks across the moonlit grove to (9, 5).
+Kaya the old hunter watches Oren the wanderer arrive.
+Oren the wanderer walks across the moonlit grove to (0, 9).
+Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter walks across the moonlit grove to (0, 5).
+Kaya the old hunter watches Oren the wanderer arrive.
+Oren the wanderer walks across the moonlit grove to (0, 9).
+The light thins; dusk gathers over the moonlit grove.
+Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter walks across the moonlit grove to (5, 9).
+Kaya the old hunter watches Oren the wanderer arrive.
+Oren the wanderer walks across the moonlit grove to (3, 0).
+Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter walks across the moonlit grove to (5, 3).
+Kaya the old hunter watches Oren the wanderer arrive.
+Oren the wanderer walks across the moonlit grove to (9, 8).
+Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter walks across the moonlit grove to (9, 5).
+Kaya the old hunter watches Oren the wanderer arrive.
+Oren the wanderer walks across the moonlit grove to (0, 9).
+Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter walks across the moonlit grove to (0, 5).
+Kaya the old hunter watches Oren the wanderer arrive.
+Oren the wanderer walks across the moonlit grove to (0, 9).
+Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter walks across the moonlit grove to (5, 9).
+Kaya the old hunter watches Oren the wanderer arrive.
+Oren the wanderer walks across the moonlit grove to (3, 0).
+Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter walks across the moonlit grove to (5, 3).
+Kaya the old hunter watches Oren the wanderer arrive.
+Oren the wanderer walks across the moonlit grove to (9, 8).
+Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter walks across the moonlit grove to (9, 5).
+Kaya the old hunter watches Oren the wanderer arrive.
+Oren the wanderer walks across the moonlit grove to (0, 9).
+Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter walks across the moonlit grove to (0, 5).
+Kaya the old hunter watches Oren the wanderer arrive.
+Oren the wanderer walks across the moonlit grove to (0, 9).
+Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter walks across the moonlit grove to (5, 9).
+Kaya the old hunter watches Oren the wanderer arrive.
+Oren the wanderer walks across the moonlit grove to (3, 0).
+Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter walks across the moonlit grove to (5, 3).
+Kaya the old hunter watches Oren the wanderer arrive.
+Oren the wanderer walks across the moonlit grove to (9, 8).
+Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter walks across the moonlit grove to (9, 5).
+Kaya the old hunter watches Oren the wanderer arrive.
+Oren the wanderer walks across the moonlit grove to (0, 9).
+Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter walks across the moonlit grove to (0, 5).
+Kaya the old hunter watches Oren the wanderer arrive.
+Oren the wanderer walks across the moonlit grove to (0, 9).
+Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter walks across the moonlit grove to (5, 9).
+Kaya the old hunter watches Oren the wanderer arrive.
+Oren the wanderer walks across the moonlit grove to (3, 0).
+Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter walks across the moonlit grove to (5, 3).
+Kaya the old hunter watches Oren the wanderer arrive.
+Oren the wanderer walks across the moonlit grove to (9, 8).
+Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter walks across the moonlit grove to (9, 5).
+Kaya the old hunter watches Oren the wanderer arrive.
+Oren the wanderer walks across the moonlit grove to (0, 9).
+Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter walks across the moonlit grove to (0, 5).
+Kaya the old hunter watches Oren the wanderer arrive.
+Oren the wanderer walks across the moonlit grove to (0, 9).
+Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter walks across the moonlit grove to (5, 9).
+Kaya the old hunter watches Oren the wanderer arrive.
+Oren the wanderer walks across the moonlit grove to (3, 0).
+Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter walks across the moonlit grove to (5, 3).
+Kaya the old hunter watches Oren the wanderer arrive.
+Oren the wanderer walks across the moonlit grove to (9, 8).
+Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter walks across the moonlit grove to (9, 5).
+Kaya the old hunter watches Oren the wanderer arrive.
+Oren the wanderer walks across the moonlit grove to (0, 9).
+Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter walks across the moonlit grove to (0, 5).
+Kaya the old hunter watches Oren the wanderer arrive.
+Oren the wanderer walks across the moonlit grove to (0, 9).
+Fare well, stranger. The grove will remember your steps.

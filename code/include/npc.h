@@ -8,6 +8,12 @@
 // a citizen is retired for the night. The class spans npc.cpp (bodies)
 // and npc_wits.cpp (perception/speech); compile weight is a design
 // surface.
+//
+// R41: THE KEEPER ERRANDS - each agenda carries a patrol circuit; walk()
+// paces waypoints every third game-minute and stays in the room it
+// stands in; the cross-the-edge pendulum is retired (crossings return
+// only when the world gives them a reason); Kaya and Oren gain their
+// first day motion.
 
 #include "events.h"
 #include "rooms.h"
@@ -33,6 +39,9 @@ struct NpcAgenda {
     int night_y;
     const char* night_act;    // ...and what they do there
     const char* dawn_act;     // ...and what they say when the light returns
+    int patrol_n;             // R41: the day circuit is data, like the weather posts
+    int patrol_x[4];
+    int patrol_y[4];
 };
 
 class Npc : public Subscriber {
@@ -61,6 +70,7 @@ private:
     int y_;
     WeatherState sky_ = WeatherState::kUnset;
     bool night_ = false;
+    int patrol_ptr_ = 0;      // R41: the circuits walk their routes in order
     char spoken_[160];
     char greeted_[32] = {};
     char replied_[32] = {};

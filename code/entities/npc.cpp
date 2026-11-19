@@ -5,6 +5,11 @@
 // at nightfall and returns at first light, and Oren - who owns no
 // roof and no memory - simply settles where he stands and watches the
 // dark come in.
+//
+// R41: the pendulum dies here - Nara commuted shrine-grove every
+// minute by construction, and Kaya and Oren had no day motion at
+// all under a calm sky; walk() becomes a waypoint stepper on patrol
+// circuits, one waypoint every third game-minute, in-room only.
 
 #include "npc.h"
 
@@ -33,6 +38,9 @@ static const NpcAgenda kShrineKeeper = {
     &room_shrine(), 1, 1,
     "banks the shrine lamps against the night.",
     "unbolts the shrine doors at first light.",
+    4,
+    { 1, 7, 3, 0 },
+    { 1, 2, 7, 5 },
 };
 
 static const NpcAgenda kOldHunter = {
@@ -52,6 +60,9 @@ static const NpcAgenda kOldHunter = {
     &room_shrine(), 5, 3,
     "takes shelter in the shrine for the night.",
     "returns to the grove at first light.",
+    4,
+    { 5, 9, 0, 5 },
+    { 3, 5, 5, 9 },
 };
 
 static const NpcAgenda kWanderer = {
@@ -71,6 +82,9 @@ static const NpcAgenda kWanderer = {
     &room_grove(), 9, 8,
     "settles beneath the birches, hood down, watching the dark.",
     "shakes the dew from his cloak at first light.",
+    4,
+    { 9, 0, 0, 3 },
+    { 8, 9, 9, 0 },
 };
 
 Npc g_shrine_keeper(kShrineKeeper);
@@ -215,12 +229,11 @@ void Npc::move_to(const Room* room, int x, int y, const GameTime& t) {
 void Npc::walk(const GameTime& t) {
     if (night_) return;                                            // R26: the night stills the patrol - a citizen holds her post
     if (sky_ == WeatherState::kStorm) return;
-    if (agenda_->other == nullptr) return;
-    if (at_room_ == agenda_->home) {
-        move_to(agenda_->other, x_, 0, t);              // R26: keep the column, arrive at the adjoining edge - the player R16 geometry
-    } else if (at_room_ == agenda_->other) {
-        move_to(agenda_->home, x_, agenda_->home->size() - 1, t);   // R26: out means headed home - never a walk in the room she stands in
-    }
+    const GameClock gc = world_clock_now();
+    if (gc.minute % 3 != 0) return;                                // R41: a waypoint every third game-minute - the world murmurs
+    const int i = patrol_ptr_ % agenda_->patrol_n;                  // R41: the pendulum is retired; citizens keep errands
+    ++patrol_ptr_;
+    move_to(at_room_, agenda_->patrol_x[i], agenda_->patrol_y[i], t);
 }
 
 void npc_subscribe() {
