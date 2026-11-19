@@ -35,6 +35,20 @@ void Npc::perceive_movement(const MovementEvt& mv, const GameTime& t) {
         act(spoken_, gc, t);
         return;  // unlit in the dark: a sound, and unhailed
     }
+    const Band band = band_between(x_, y_, mv.to_x, mv.to_y);   // R42: the eyes wear the band law (R18), measured to the arrival cell
+    if (band == Band::kEdge) {   // across the world width: steps, not faces
+        std::snprintf(spoken_, sizeof spoken_, "hears %s moving at the far edge of the room.", mv.who);
+        std::printf("%s hears %s moving at the far edge of the room.\n", agenda_->name, mv.who);
+        act(spoken_, gc, t);
+        return;
+    }
+    if (band == Band::kFar) {    // noticed, not hailed: a nod across the room
+        std::snprintf(spoken_, sizeof spoken_, "notices %s across the room.", mv.who);
+        std::printf("%s notices %s across the room.\n", agenda_->name, mv.who);
+        act(spoken_, gc, t);
+        return;
+    }
+    // near or melee: the old welcome, frozen verbatim
     std::snprintf(spoken_, sizeof spoken_, mv.lit ? "watches %s arrive, lantern raised." : "watches %s arrive.", mv.who);
     std::printf(mv.lit ? "%s watches %s arrive, lantern raised.\n" : "%s watches %s arrive.\n",
                 agenda_->name, mv.who);
