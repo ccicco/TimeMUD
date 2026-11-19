@@ -350,6 +350,14 @@ public:
             const bool own = std::strcmp(mv.who, g_player.name) == 0;
             if (!own && std::strcmp(mv.to_room, here) != 0
                       && std::strcmp(mv.from_room, here) != 0) return;
+            const bool unseen = !own && !mv.lit
+                && room_dark(*g_player.room) && !obj_lit()
+                && !obj_room_light(here);   // R26: the player has ears - an unlit mover in the dark is a sound, not a sight
+            if (unseen) {
+                std::snprintf(out, sizeof out, "You hear someone moving in the dark.\n");
+                server_write(out);
+                return;
+            }
             if (own) {
                 if (std::strcmp(mv.from_room, mv.to_room) != 0) {
                     std::snprintf(out, sizeof out, "You cross into %s, arriving at (%d, %d).\n",

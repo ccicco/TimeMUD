@@ -213,9 +213,14 @@ void Npc::move_to(const Room* room, int x, int y, const GameTime& t) {
 }
 
 void Npc::walk(const GameTime& t) {
+    if (night_) return;                                            // R26: the night stills the patrol - a citizen holds her post
     if (sky_ == WeatherState::kStorm) return;
     if (agenda_->other == nullptr) return;
-    move_to(agenda_->other, 0, y_, t);
+    if (at_room_ == agenda_->home) {
+        move_to(agenda_->other, x_, 0, t);              // R26: keep the column, arrive at the adjoining edge - the player R16 geometry
+    } else if (at_room_ == agenda_->other) {
+        move_to(agenda_->home, x_, agenda_->home->size() - 1, t);   // R26: out means headed home - never a walk in the room she stands in
+    }
 }
 
 void npc_subscribe() {
