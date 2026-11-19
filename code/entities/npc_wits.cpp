@@ -1,8 +1,8 @@
-// The inhabitants of zone one, R17: the wits - perception, weather
-// posture, speech answers, presence prose. The dark rule learns LIGHT:
-// an unlit arrival in a dark room is only a sound; a lit one is watched
-// and may be greeted. The lantern decides what Kaya knows about the
-// storm, and about you.
+// The inhabitants of zone one, R18: the wits. Speech joins the band law
+// this round (fog-of-war step four): words carry clear across melee and
+// near ground, and at the room's edges they thin to a voice with no
+// words in it - noticed, never answered, because you cannot reply to
+// what you did not hear. Memory only records words actually heard.
 
 #include "npc.h"
 
@@ -46,7 +46,14 @@ void Npc::perceive_movement(const MovementEvt& mv, const GameTime& t) {
 void Npc::respond_to_speech(const SpeechEvt& sp, const GameTime& t) {
     if (sp.is_reply) return;
     if (std::strcmp(sp.who, agenda_->name) == 0) return;
-    if (std::strcmp(sp.room, at_room_->name()) != 0) return;
+    if (std::strcmp(sp.room, at_room_->name()) != 0) return;   // walls are walls: cross-room words do not travel
+    if (band_between(x_, y_, sp.x, sp.y) == Band::kEdge) {
+        const GameClock gc = world_clock_now();
+        std::snprintf(spoken_, sizeof spoken_, "listens to a voice from across the grove, its words lost in the distance.");
+        std::printf("%s listens to a voice from across the grove, its words lost.\n", agenda_->name);
+        act(spoken_, gc, t);
+        return;  // heard a voice, not its words: no reply, no memory spent
+    }
     if (agenda_->reply == nullptr) return;
     if (std::strcmp(replied_, sp.who) == 0) return;  // memory v0: answered once
     std::snprintf(replied_, sizeof replied_, "%s", sp.who);

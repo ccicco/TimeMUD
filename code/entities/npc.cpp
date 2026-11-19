@@ -121,6 +121,8 @@ void Npc::speak(const char* text, bool is_reply, const GameTime& t) {
     SpeechEvt sp{};
     sp.who      = agenda_->name;
     sp.room     = at_room_->name();
+    sp.x        = x_;
+    sp.y        = y_;
     sp.text     = text;
     sp.is_reply = is_reply;
     sp.day      = gc.day;

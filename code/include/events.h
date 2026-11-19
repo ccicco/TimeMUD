@@ -1,11 +1,11 @@
 #pragma once
 
-// events/: the artery, rounds 2-17. R6: envelope v1 (closed, versioned;
+// events/: the artery, rounds 2-18. R6: envelope v1 (closed, versioned;
 // add never mutate). R7: Subscriber port. R11: kSpeech + loop rule.
-// R13: room conditions. R14: NpcReact position fields (v1.2).
-// R17: MovementEvt.lit (v1.3, additive) and ObjEvt - item actions are
-// world history. The schema grows by addition, and every amendment is
-// documented where it lives.
+// R13: room conditions. R14: NpcReact positions (v1.2). R17: Movement
+// lit + ObjEvt. R18: SpeechEvt v1.4 gains the speaker's x,y - words
+// travel and thin with distance, and every listener can measure how
+// far they carried. The schema grows by addition, documented here.
 
 #include <variant>
 
@@ -69,6 +69,8 @@ struct SpeechEvt {
     const char* room;
     const char* text;
     bool is_reply;
+    int x;       // v1.4 (R18): where the words were spoken
+    int y;
     long day;
     int hour;
     int minute;

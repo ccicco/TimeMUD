@@ -1,8 +1,8 @@
-// The stranger, R17: hands. take/light/inventory join the grammar, and
-// the lantern changes what the world can know about you: a lit mover is
-// seen in the dark, an unlit one only heard. The look command knows the
-// dark now, and the lamp - the round's whole thesis fits in a carried
-// flame.
+// The stranger, R18: speech joins the band law. Your words carry the
+// same distance everyone else's do - near the pool, Kaya hears you
+// whole; from a far corner, she hears only a voice. And the same law
+// serves you: words spoken at a room's far edge reach you as sound
+// alone. The voice is the same, the distance writes the meaning.
 
 #include "session.h"
 
@@ -62,6 +62,8 @@ static void cmd_say(const char* text) {
     sp.room     = g_player.room->name();
     sp.text     = text;
     sp.is_reply = false;
+    sp.x        = g_player.x;
+    sp.y        = g_player.y;
     evt.category   = EventCategory::kSpeech;
     evt.payload    = sp;
     evt.visibility = 100;
@@ -235,8 +237,9 @@ void session_line(const char* line) {
     server_write("The grove holds no answer to that.\n");
 }
 
-// The player's eyes. Own item deeds already answered directly by the
-// command grammar; the world's deeds arrive here in arrival order.
+// The player's ears, R18: words at a room's far edge reach the player as
+// a voice only. Everything else renders as it happened, where it
+// happened, when it happened.
 class ClientSink : public Subscriber {
 public:
     void on_event(const Event& evt) override {
@@ -303,6 +306,12 @@ public:
         if (std::holds_alternative<SpeechEvt>(evt.payload)) {
             const auto& sp = std::get<SpeechEvt>(evt.payload);
             if (std::strcmp(sp.room, here) != 0) return;
+            if (std::strcmp(sp.who, g_player.name) != 0
+                && band_between(g_player.x, g_player.y, sp.x, sp.y) == Band::kEdge) {
+                std::snprintf(out, sizeof out, "A voice drifts across %s, too far to make out the words.\n", here);
+                server_write(out);
+                return;
+            }
             std::snprintf(out, sizeof out, "%s says, \"%s\"\n", sp.who, sp.text);
             server_write(out);
             return;
