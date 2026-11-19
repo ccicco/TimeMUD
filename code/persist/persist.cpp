@@ -9,6 +9,7 @@
 #include "npc.h"
 #include "obj.h"
 #include "rooms.h"
+#include "world_clock.h"   // R29: the save holds the day now
 #include "weather.h"
 
 #include <cstdio>
@@ -54,6 +55,10 @@ struct TraceRec {
 
 struct PersistState {
     bool has_sky = false;
+    bool has_time = false;   // R29: the clock in the save
+    long t_day = 0;
+    int  t_hour = 0;
+    int  t_minute = 0;
     int sky = -1;
     EntityRec ents[kMaxSavedEntities] = {};
     int count = 0;
@@ -85,6 +90,12 @@ void persist_load() {
         if (std::sscanf(line, "sky %d", &sky) == 1) {
             g_state.sky = sky;
             g_state.has_sky = true;
+            continue;
+        }
+        long tday = 0; int thour = 0, tminute = 0;
+        if (std::sscanf(line, "time %ld %d %d", &tday, &thour, &tminute) == 3) {
+            g_state.t_day = tday; g_state.t_hour = thour; g_state.t_minute = tminute;
+            g_state.has_time = true;
             continue;
         }
         EntityRec r{};
@@ -132,6 +143,10 @@ void persist_save() {
     }
     std::fprintf(f, "# timemud world state - schema %d\n", kSaveSchema);
     std::fprintf(f, "schema %d\n", kSaveSchema);
+    {
+        const GameClock gc = world_clock_now();
+        std::fprintf(f, "time %ld %d %d\n", gc.day, gc.hour, gc.minute);   // R29: the day joins the save
+    }
     weather_dump(f);
     npc_dump(f);
     obj_dump(f);
@@ -184,5 +199,11 @@ bool persist_get_trace(int idx, int* zone, int* room_x, int* room_y,
     *zone = t.zone; *room_x = t.room_x; *room_y = t.room_y;
     *type = t.type; *x = t.x; *y = t.y;
     *day = t.day; *hour = t.hour; *minute = t.minute;
+    return true;
+}
+
+bool persist_get_time(long* day, int* hour, int* minute) {
+    if (!g_state.has_time) return false;
+    *day = g_state.t_day; *hour = g_state.t_hour; *minute = g_state.t_minute;
     return true;
 }

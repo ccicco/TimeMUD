@@ -4,6 +4,10 @@
 // arrives on the world's own schedule, no storm required. The night
 // rule is this file's only new sentence: hours 20 through 24, and 0
 // before 5. Timescale unchanged, derived from the tick as ever.
+// R29: THE CLOCK RESUMES. world_clock_restore() offsets every
+// derivation by the saved day/hour/minute, so a boot continues the
+// day it left: the chronicle stays absolute memory, the save is where
+// the clock STOOD, and 'yesterday' is a word the ground can say.
 
 #include "events.h"
 #include "log.h"
@@ -11,6 +15,8 @@
 
 #include <cstdio>
 #include <variant>
+
+static long g_base_minutes = 0;   // R29: resumed time, minutes since era start
 
 class WorldClock : public Subscriber {
 public:
@@ -48,7 +54,7 @@ private:
     static GameClock derive(long pulses_done) {
         constexpr long kMinPerDay = kMinutesPerHour * kHoursPerDay;
         GameClock gc{};
-        const long minute_total = pulses_done / kPulsesPerMinute;
+        const long minute_total = g_base_minutes + pulses_done / kPulsesPerMinute;
         gc.day    = minute_total / kMinPerDay;
         long rem  = minute_total % kMinPerDay;
         gc.hour   = static_cast<int>(rem / kMinutesPerHour);
@@ -62,6 +68,11 @@ private:
 };
 
 static WorldClock g_world_clock;
+
+void world_clock_restore(long day, int hour, int minute) {
+    g_base_minutes = day * kHoursPerDay * kMinutesPerHour
+                   + hour * kMinutesPerHour + minute;   // R29: the day resumes where it stood
+}
 
 GameClock world_clock_now() {
     return g_world_clock.now();

@@ -22,7 +22,7 @@
 #include <cstdlib>
 #include <ctime>
 
-static constexpr long kHeartbeatMs = 100;
+static constexpr long kHeartbeatMs = 10;
 static constexpr int  kEra         = 1;
 static constexpr long kPort        = 2600;
 
@@ -61,6 +61,10 @@ int main(int argc, char** argv) {
     int saved = -1;
     if (persist_get_sky(&saved)) {
         weather_restore(static_cast<WeatherState>(saved));
+    }
+    long tday = 0; int thour = 0, tminute = 0;
+    if (persist_get_time(&tday, &thour, &tminute)) {
+        world_clock_restore(tday, thour, tminute);   // R29: the clock resumes where it stood
     }
     rooms_describe(saved);
     chronicle_init();             // the world's memory opens

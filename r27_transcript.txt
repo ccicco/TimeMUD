@@ -2,84 +2,57 @@ The moonlit grove, TimeMUD, era one. What name do you go by, stranger?
 Welcome, Curtiss. You stand under an open sky, rain or shine, in the moonlit grove.
 You stand in the moonlit grove: an open circle of birch and pool.
 You are at (2, 5).
-It is day 0, 00:01 - night holds the land.
+It is day 1, 00:24 - night holds the land.
 A brass ring, green with age, rests at the lip of the pool.
 A storm-lantern sits here, cold and dark.
 Oren the wanderer stands at (9, 0).
 The dark is deep here; you see little.
 The ground remembers:
-  darkness fell across this place, earlier today, 00:01.
-  darkness fell across this place, earlier today, 00:01.
-  darkness fell across this place, earlier today, 00:01.
-  darkness fell across this place, earlier today, 00:01.
+  darkness fell across this place, yesterday, 19:56.
+  darkness fell across this place, yesterday, 20:00.
+  darkness fell across this place, earlier today, 00:13.
+  darkness fell across this place, earlier today, 00:15.
 Commands: look, go <dir>, take/light/drop lantern, search pool, say <words>, i, quit.
+You hear someone moving in the dark.
+Oren the wanderer crouches by the pool, watching the rain ripple it.
+The sky turns from storm to rain.
+You hear someone moving in the dark.
+Oren the wanderer shakes the mist from his boots.
+The sky turns from rain to overcast.
+You hear someone moving in the dark.
+Oren the wanderer turns his face up to a clearing sky.
+The sky turns from overcast to clear.
+You hear someone moving in the dark.
+Oren the wanderer stands still in the storm, letting it pass.
+The sky turns from clear to storm.
+You hear someone moving in the dark.
+Oren the wanderer crouches by the pool, watching the rain ripple it.
+The sky turns from storm to rain.
+You hear someone moving in the dark.
+Oren the wanderer shakes the mist from his boots.
+The sky turns from rain to overcast.
+You hear someone moving in the dark.
+Oren the wanderer turns his face up to a clearing sky.
+The sky turns from overcast to clear.
+You hear someone moving in the dark.
+Oren the wanderer stands still in the storm, letting it pass.
+The sky turns from clear to storm.
 You hear someone moving in the dark.
 Oren the wanderer crouches by the pool, watching the rain ripple it.
 The sky turns from storm to rain.
 You stand in the moonlit grove: an open circle of birch and pool.
 You are at (2, 5).
-It is day 0, 00:02 - night holds the land.
+It is day 1, 00:33 - night holds the land.
 A brass ring, green with age, rests at the lip of the pool.
 A storm-lantern sits here, cold and dark.
 Oren the wanderer stands at (6, 3).
 The dark is deep here; you see little.
 The ground remembers:
-  darkness fell across this place, earlier today, 00:01.
-  darkness fell across this place, earlier today, 00:01.
-  darkness fell across this place, earlier today, 00:01.
-  darkness fell across this place, earlier today, 00:01.
+  darkness fell across this place, yesterday, 19:56.
+  darkness fell across this place, yesterday, 20:00.
+  darkness fell across this place, earlier today, 00:13.
+  darkness fell across this place, earlier today, 00:15.
 You hear someone moving in the dark.
 Oren the wanderer shakes the mist from his boots.
 The sky turns from rain to overcast.
-You hear someone moving in the dark.
-Oren the wanderer turns his face up to a clearing sky.
-The sky turns from overcast to clear.
-You hear someone moving in the dark.
-Oren the wanderer stands still in the storm, letting it pass.
-The sky turns from clear to storm.
-You hear someone moving in the dark.
-Oren the wanderer crouches by the pool, watching the rain ripple it.
-The sky turns from storm to rain.
-You hear someone moving in the dark.
-Oren the wanderer shakes the mist from his boots.
-The sky turns from rain to overcast.
-You hear someone moving in the dark.
-Oren the wanderer turns his face up to a clearing sky.
-The sky turns from overcast to clear.
-You hear someone moving in the dark.
-Oren the wanderer stands still in the storm, letting it pass.
-The sky turns from clear to storm.
-You hear someone moving in the dark.
-Oren the wanderer crouches by the pool, watching the rain ripple it.
-The sky turns from storm to rain.
-You hear someone moving in the dark.
-Oren the wanderer shakes the mist from his boots.
-The sky turns from rain to overcast.
-You hear someone moving in the dark.
-Oren the wanderer turns his face up to a clearing sky.
-The sky turns from overcast to clear.
-You hear someone moving in the dark.
-Oren the wanderer stands still in the storm, letting it pass.
-The sky turns from clear to storm.
-You hear someone moving in the dark.
-Oren the wanderer crouches by the pool, watching the rain ripple it.
-The sky turns from storm to rain.
-You hear someone moving in the dark.
-Oren the wanderer shakes the mist from his boots.
-The sky turns from rain to overcast.
-You hear someone moving in the dark.
-Oren the wanderer turns his face up to a clearing sky.
-The sky turns from overcast to clear.
-You hear someone moving in the dark.
-Oren the wanderer stands still in the storm, letting it pass.
-The sky turns from clear to storm.
-You hear someone moving in the dark.
-Oren the wanderer crouches by the pool, watching the rain ripple it.
-The sky turns from storm to rain.
-You hear someone moving in the dark.
-Oren the wanderer shakes the mist from his boots.
-The sky turns from rain to overcast.
-You hear someone moving in the dark.
-Oren the wanderer turns his face up to a clearing sky.
-The sky turns from overcast to clear.
 TimeMUD is closing down. Fare well, stranger.

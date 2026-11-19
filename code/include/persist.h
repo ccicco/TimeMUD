@@ -17,3 +17,4 @@ bool persist_get_obj(int id, int* zone, int* room_x, int* room_y,
 bool persist_get_trace(int idx, int* zone, int* room_x, int* room_y,
                        int* type, int* x, int* y,
                        long* day, int* hour, int* minute);
+bool persist_get_time(long* day, int* hour, int* minute);  // R29: the clock resumes
