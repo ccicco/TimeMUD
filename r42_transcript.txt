@@ -2,7 +2,7 @@ The moonlit grove, TimeMUD, era one. What name do you go by, stranger?
 Welcome, Curtiss. You stand under an open sky, rain or shine, in the moonlit grove.
 You stand in the moonlit grove: an open circle of birch and pool.
 You are at (2, 5).
-It is day 3, 12:50 - afternoon leans on the birches.
+It is day 3, 11:55 - morning walks the grove.
 A brass ring, green with age, rests at the lip of the pool.
 A storm-lantern burns here, holding the dark at a distance.
 Kaya the old hunter stands at (0, 5).
@@ -18,6 +18,13 @@ Kaya the old hunter walks across the moonlit grove to (5, 9).
 Kaya the old hunter hears Oren the wanderer moving at the far edge of the room.
 Oren the wanderer walks across the moonlit grove to (3, 0).
 Oren the wanderer watches Kaya the old hunter arrive.
+Kaya the old hunter walks across the moonlit grove to (0, 3).
+Kaya the old hunter scans the treeline from the grove's edge.
+Kaya the old hunter notices Oren the wanderer across the room.
+Oren the wanderer walks across the moonlit grove to (0, 9).
+Oren the wanderer shakes the mist from his boots.
+The sky turns from rain to overcast.
+Oren the wanderer notices Kaya the old hunter across the room.
 Kaya the old hunter walks across the moonlit grove to (5, 3).
 Kaya the old hunter notices Oren the wanderer across the room.
 Oren the wanderer walks across the moonlit grove to (9, 8).
