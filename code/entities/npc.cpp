@@ -1,7 +1,10 @@
-// The inhabitants of zone one, R14b: bodies and belongings. Instances
-// live here with external linkage so the wits TU can see them; see
-// npc_wits.cpp for the perception and speech halves. Everything an
-// inhabitant DOES is emitted with the position it happened at.
+// The inhabitants of zone one, R22: bodies and belongings. Instances
+// live here with external linkage so the wits TU can see them. R22:
+// the persist-split in flesh - Nara and Kaya RESUME (their npc lines
+// reload), but Oren the wanderer has persisted=false: dump() skips
+// him, restore() never looks; every boot he is born again on the same
+// patch of grove. The women carry the world's memory; the wanderer
+// carries its reset.
 
 #include "npc.h"
 
@@ -26,6 +29,7 @@ static const NpcAgenda kShrineKeeper = {
       "shuts the shrine windows against the storm." },
     "The grove is quiet, this far from the steps.",
     "The shrine held. The storm has passed.",
+    true,
 };
 
 static const NpcAgenda kOldHunter = {
@@ -41,15 +45,34 @@ static const NpcAgenda kOldHunter = {
       "pulls her cloak tight beneath the old oak." },
     "The rain speaks, keeper. Welcome to the grove.",
     "Rain keeps its own counsel.",
+    true,
+};
+
+static const NpcAgenda kWanderer = {
+    4,
+    "Oren the wanderer",
+    &room_grove(), nullptr,
+    6, 3,
+    { 6, 0, 6, 9 },
+    { 3, 9, 3, 0 },
+    { "turns his face up to a clearing sky.",
+      "shakes the mist from his boots.",
+      "crouches by the pool, watching the rain ripple it.",
+      "stands still in the storm, letting it pass." },
+    "A roof out here? Only the sky's.",
+    "Storms pass. So do I.",
+    false,   // the persist-split in flesh: no npc line is ever written
 };
 
 Npc g_shrine_keeper(kShrineKeeper);
 Npc g_old_hunter(kOldHunter);
+Npc g_wanderer(kWanderer);
 
 Npc::Npc(const NpcAgenda& agenda)
     : agenda_(&agenda), at_room_(agenda.home), x_(agenda.start_x), y_(agenda.start_y) {}
 
 void Npc::restore() {
+    if (!agenda_->persisted) return;   // the wanderer resumes nothing
     int zone = 0, rx = 0, ry = 0, x = 0, y = 0;
     if (!persist_get_entity(agenda_->id, &zone, &rx, &ry, &x, &y)) return;
     const Room* const room = room_at(zone, rx, ry);
@@ -60,6 +83,7 @@ void Npc::restore() {
 }
 
 void Npc::dump(FILE* f) const {
+    if (!agenda_->persisted) return;   // reset is a property, not a habit
     std::fprintf(f, "npc %d %d %d %d %d %d\n",
                  agenda_->id, at_room_->zone(), at_room_->x(), at_room_->y(), x_, y_);
 }
@@ -67,11 +91,13 @@ void Npc::dump(FILE* f) const {
 void npc_dump(FILE* f) {
     g_shrine_keeper.dump(f);
     g_old_hunter.dump(f);
+    g_wanderer.dump(f);
 }
 
 void npc_describe_in(const char* room) {
     g_shrine_keeper.describe_in(room);
     g_old_hunter.describe_in(room);
+    g_wanderer.describe_in(room);
 }
 
 void Npc::on_event(const Event& evt) {
@@ -103,7 +129,7 @@ void Npc::act(const char* line, const GameClock& gc, const GameTime& t) {
     nr.x      = x_;
     nr.y      = y_;
     nr.day    = gc.day;
-    nr.hour   = gc.hour;
+    nr.hour = gc.hour;
     nr.minute = gc.minute;
     nr.second = gc.second;
     Event evt{};
@@ -182,8 +208,10 @@ void Npc::walk(const GameTime& t) {
 void npc_subscribe() {
     g_shrine_keeper.restore();
     g_old_hunter.restore();
+    g_wanderer.restore();
     events_subscribe(&g_shrine_keeper);
     events_subscribe(&g_old_hunter);
+    events_subscribe(&g_wanderer);
 }
 
 bool Npc::is_at(const char* room, int x, int y) const {
@@ -191,5 +219,6 @@ bool Npc::is_at(const char* room, int x, int y) const {
 }
 
 bool npc_occupied(const char* room, int x, int y) {
-    return g_shrine_keeper.is_at(room, x, y) || g_old_hunter.is_at(room, x, y);
+    return g_shrine_keeper.is_at(room, x, y) || g_old_hunter.is_at(room, x, y)
+        || g_wanderer.is_at(room, x, y);
 }

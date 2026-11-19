@@ -1,11 +1,14 @@
 #pragma once
 
-// entities/: inhabitants, R7-R15. NPCs are DATA-DRIVEN (NpcAgenda) and
+// entities/: inhabitants, R7-R22. NPCs are DATA-DRIVEN (NpcAgenda) and
 // MINDFUL (memory v0: a face greeted once, answered once). R15: cells
 // are physical - npc_occupied() makes coordinates solid, and players
 // moving on the grid are perceived through the same band machinery as
-// any other arrival. The class spans npc.cpp (bodies) and npc_wits.cpp
-// (perception/speech); compile weight is a design surface.
+// any other arrival. R22: the persist-split made structural - residents
+// have persisted=true (resume each boot), the wanderer persisted=false
+// (born fresh; no npc line written, none read). The class spans
+// npc.cpp (bodies) and npc_wits.cpp (perception/speech); compile weight
+// is a design surface.
 
 #include "events.h"
 #include "rooms.h"
@@ -25,6 +28,7 @@ struct NpcAgenda {
     const char* act[4];
     const char* greet;
     const char* reply;
+    bool persisted;   // R22: residents resume where they stood; the wanderer is born fresh each boot
 };
 
 class Npc : public Subscriber {
