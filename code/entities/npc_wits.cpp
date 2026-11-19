@@ -54,8 +54,14 @@ void Npc::perceive_movement(const MovementEvt& mv, const GameTime& t) {
                 agenda_->name, mv.who);
     act(spoken_, gc, t);
     // R46: hail only a face not young in memory; recording and checking are one act
-    if (agenda_->greet != nullptr && !face_recalled(faces_, face_count_, mv.who, true)) {
-        speak(agenda_->greet, false, t);
+    // R47: the hail knows its face - a line written for one voice does
+    // not greet another; the recorded peer hears greet, the rest hear greet_other
+    const char* greet = agenda_->greet;
+    if (agenda_->greet_face != nullptr && std::strcmp(agenda_->greet_face, mv.who) != 0) {
+        greet = agenda_->greet_other;
+    }
+    if (greet != nullptr && !face_recalled(faces_, face_count_, mv.who, true)) {
+        speak(greet, false, t);
     }
 }
 

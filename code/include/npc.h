@@ -32,6 +32,8 @@ struct NpcAgenda {
     int post_y[4];
     const char* act[4];
     const char* greet;
+    const char* greet_other;   // R47: the hail for faces the greet was not written for
+    const char* greet_face;    // R47: the one face the greet was written for (nullptr: every face)
     const char* reply;
     bool persisted;   // R22: residents resume; the wanderer is born fresh
     const Room* night_room;   // R23: where this citizen retires at nightfall

@@ -33,6 +33,8 @@ static const NpcAgenda kShrineKeeper = {
       "opens the shrine windows to listen to the rain.",
       "shuts the shrine windows against the storm." },
     "The grove is quiet, this far from the steps.",
+    "The shrine keeps its doors open, stranger.",
+    "Kaya the old hunter",
     "The shrine held. The storm has passed.",
     true,
     &room_shrine(), 1, 1,
@@ -55,6 +57,8 @@ static const NpcAgenda kOldHunter = {
       "watches the rain fill the grove's pool.",
       "pulls her cloak tight beneath the old oak." },
     "The rain speaks, keeper. Welcome to the grove.",
+    "The grove does not ask names of whoever walks in from the rain.",
+    "Nara the shrine keeper",
     "Rain keeps its own counsel.",
     true,
     &room_shrine(), 5, 3,
@@ -77,6 +81,8 @@ static const NpcAgenda kWanderer = {
       "crouches by the pool, watching the rain ripple it.",
       "stands still in the storm, letting it pass." },
     "A roof out here? Only the sky's.",
+    nullptr,   // R47: the roof-line fits every face
+    nullptr,
     "Storms pass. So do I.",
     false,   // the persist-split in flesh: no npc line is ever written
     &room_grove(), 9, 8,
