@@ -228,45 +228,8 @@ static void cmd_search(const char* word) {
     }
 }
 
-// ---- the examine path, R30, at home in the table ----
 
-static void cmd_examine(const char* word) {
-    if (room_dark(*g_player.room) && !obj_lit() && !obj_room_light(g_player.room->name())) {
-        server_write("Too dark to study anything here.\n");
-        return;
-    }
-    if (std::strcmp(word, "ring") == 0 || std::strcmp(word, "brass ring") == 0) {
-        if (obj_ring_here(g_player.room, g_player.x, g_player.y)) {
-            server_write("A brass ring, green with the pool's patina, half-sunk in the silt.\n");
-            server_write("Its face is worked with a tiny sun crossed by a single line:\n");
-            server_write("the mark of the chronomancers, the ring-makers of the old era.\n");
-            server_write("Whoever wore it drowned a world ago. The pool keeps it still.\n");
-        } else if (obj_ring_found()) {
-            server_write("The ring rests at the pool's lip, a little way off. Go closer.\n");
-        } else {
-            server_write("You see no ring here.\n");
-        }
-        return;
-    }
-    if (std::strcmp(word, "lantern") == 0 || std::strcmp(word, "storm-lantern") == 0) {
-        if (obj_lantern_here(g_player.room, g_player.x, g_player.y)) {
-            server_write(obj_lit()
-                ? "The storm-lantern burns in your hand: steel bracket, rain-proof, wick steady.\n"
-                : "A storm-lantern - steel bracket, rain-proof, wick dry for the striking.\n");
-        } else {
-            server_write("There is no lantern close enough to study.\n");
-        }
-        return;
-    }
-    if (std::strcmp(word, "pool") == 0) {
-        server_write(obj_ring_found() && std::strcmp(g_player.room->name(), "the moonlit grove") == 0
-            ? "The pool is still water and old secrets. The brass ring waits at its lip.\n"
-            : "The pool keeps its counsel.\n");
-        return;
-    }
-    server_write("You see nothing of that name to study.\n");
-}
-
+static void cmd_examine(const char* word);
 // ---- thin uniform handlers: the table's voice ----
 
 static void h_look(const Args& a)      { if (a.rest[0] != 0) cmd_examine(a.rest); else cmd_look(); }
@@ -317,7 +280,7 @@ static void h_quit(const Args& a) {
 // ---- THE TABLE: dispatch and help walk the same rows ----
 
 static const Command kCommands[] = {
-    {"look",      {"l", 0},                "[ring/lantern/pool]", h_look},
+    {"look",      {"l", 0},                "@nouns", h_look},
     {"go",        {0},                    "<dir>",               h_go},
     {"take",      {0},                    "lantern",             h_take},
     {"light",     {0},                    "lantern",             h_light},
@@ -380,14 +343,100 @@ void command_run(const char* line) {
     server_write("The grove holds no answer to that.\n");
 }
 
+
+// ---- the noun registry, R31: things as data ----
+// A thing is a row: its spoken names, and a render that speaks its
+// prose in every state it can be met in. The facts stay in obj/rooms
+// (the R24 boundary): renders ASK obj_ring_here and friends; prose
+// lives here. cmd_examine WALKS the registry; commands_help READS it
+// for the look row's syntax - the help line remains unable to drift:
+// a noun added to kNouns appears in help the same boot. The deed verbs
+// (take/light/drop/search) keep their obj facts this round; the join
+// migrates one verb at a time.
+
+struct Noun {
+    const char* names[4];      // what the player may call it
+    void (*render)();          // prose, all variants, session speaks
+};
+
+static void render_ring() {
+    if (obj_ring_here(g_player.room, g_player.x, g_player.y)) {
+        server_write("A brass ring, green with the pool's patina, half-sunk in the silt.\n");
+        server_write("Its face is worked with a tiny sun crossed by a single line:\n");
+        server_write("the mark of the chronomancers, the ring-makers of the old era.\n");
+        server_write("Whoever wore it drowned a world ago. The pool keeps it still.\n");
+    } else if (obj_ring_found()) {
+        server_write("The ring rests at the pool's lip, a little way off. Go closer.\n");
+    } else {
+        server_write("You see no ring here.\n");
+    }
+}
+
+static void render_lantern() {
+    if (obj_lantern_here(g_player.room, g_player.x, g_player.y)) {
+        server_write(obj_lit()
+            ? "The storm-lantern burns in your hand: steel bracket, rain-proof, wick steady.\n"
+            : "A storm-lantern - steel bracket, rain-proof, wick dry for the striking.\n");
+    } else {
+        server_write("There is no lantern close enough to study.\n");
+    }
+}
+
+static void render_pool() {
+    server_write(obj_ring_found() && std::strcmp(g_player.room->name(), "the moonlit grove") == 0
+        ? "The pool is still water and old secrets. The brass ring waits at its lip.\n"
+        : "The pool keeps its counsel.\n");
+}
+
+static void render_moon() {
+    if (std::strcmp(g_player.room->name(), "the moonlit grove") == 0) {
+        server_write("You look up. The moon rides above the birches, small, cold, and generous with borrowed light.\n");
+        server_write("The grove takes its name from that light. Whoever owned the ring walked under it too.\n");
+    } else {
+        server_write("The lamp-lit timber roof keeps the moon off your shoulders here.\n");
+    }
+}
+
+static const Noun kNouns[] = {
+    {{"ring", "brass ring", 0},    render_ring},
+    {{"lantern", "storm-lantern", 0}, render_lantern},
+    {{"pool", 0},                   render_pool},
+    {{"moon", 0},                   render_moon},
+};
+
+static void cmd_examine(const char* word) {
+    if (room_dark(*g_player.room) && !obj_lit() && !obj_room_light(g_player.room->name())) {
+        server_write("Too dark to study anything here.\n");
+        return;
+    }
+    constexpr int n = int(sizeof kNouns / sizeof kNouns[0]);
+    for (int k = 0; k < n; ++k) {
+        for (int m = 0; m < 4 && kNouns[k].names[m] != nullptr; ++m) {
+            if (std::strcmp(word, kNouns[k].names[m]) == 0) {
+                kNouns[k].render();
+                return;
+            }
+        }
+    }
+    server_write("You see nothing of that name to study.\n");
+}
+
 void commands_help() {
-    char out[300];
+    char out[320];
     int off = std::snprintf(out, sizeof out, "Commands:");
     constexpr int n = int(sizeof kCommands / sizeof kCommands[0]);
+    constexpr int nn = int(sizeof kNouns / sizeof kNouns[0]);
     for (int i = 0; i < n; ++i) {
         const Command& c = kCommands[i];
         off += std::snprintf(out + off, sizeof out - off, "%s", i > 0 ? ", " : " ");
-        if (c.syntax[0] != 0) {
+        if (c.syntax[0] == '@') {
+            off += std::snprintf(out + off, sizeof out - off, "%s [", c.verb);
+            for (int m = 0; m < nn; ++m) {
+                off += std::snprintf(out + off, sizeof out - off, "%s%s",
+                                      m > 0 ? "/" : "", kNouns[m].names[0]);
+            }
+            off += std::snprintf(out + off, sizeof out - off, "]");
+        } else if (c.syntax[0] != 0) {
             off += std::snprintf(out + off, sizeof out - off, "%s %s", c.verb, c.syntax);
         } else {
             off += std::snprintf(out + off, sizeof out - off, "%s", c.verb);

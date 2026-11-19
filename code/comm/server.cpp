@@ -107,44 +107,57 @@ static void feed(char b) {
     if (g_inlen < static_cast<int>(sizeof g_inbuf) - 1) g_inbuf[g_inlen++] = b;
 }
 
+
+// THE DOOR KEEPS ITS APPOINTMENT (R31 finding, three rounds measured):
+// the old loop polled only while a tick had time left, so a world-heavy
+// tick that overran its deadline returned without ever polling - input
+// was served from tick SLACK, and a chatty world starved the player for
+// seconds at a time (measured ~15s per command in the R30 flood and
+// the daylight greet-storm). On overrun the door still gets one
+// zero-timeout poll: queued commands drain every tick, late or not.
+
+static void poll_once(int timeout_ms) {
+    pollfd fds[2];
+    int n = 0;
+    int listen_idx = -1;
+    int client_idx = -1;
+    if (g_listen_fd >= 0) {
+        fds[n].fd = g_listen_fd;
+        fds[n].events = POLLIN;
+        fds[n].revents = 0;
+        listen_idx = n++;
+    }
+    if (g_client_fd >= 0) {
+        fds[n].fd = g_client_fd;
+        fds[n].events = POLLIN;
+        fds[n].revents = 0;
+        client_idx = n++;
+    }
+    if (n == 0) return;      // headless with no door: sleep is pure heartbeat
+    const int rc = ::poll(fds, static_cast<nfds_t>(n), timeout_ms);
+    if (rc <= 0) return;     // timeout or EINTR: an appointment, not an error
+    if (listen_idx >= 0 && (fds[listen_idx].revents & POLLIN)) accept_knock();
+    if (client_idx >= 0 && (fds[client_idx].revents & POLLIN)) {
+        char tmp[1024];
+        const ssize_t r = ::recv(g_client_fd, tmp, sizeof tmp, 0);
+        if (r < 0) {
+            if (errno == EAGAIN or errno == EWOULDBLOCK or errno == EINTR) return;
+            server_close_client();
+            return;
+        }
+        if (r == 0) {
+            server_close_client();
+            return;
+        }
+        for (ssize_t i = 0; i < r; ++i) feed(tmp[i]);
+    }
+}
+
 void server_serve_until(long deadline_ms) {
     while (now_ms() < deadline_ms) {
-        pollfd fds[2];
-        int n = 0;
-        int listen_idx = -1;
-        int client_idx = -1;
-        if (g_listen_fd >= 0) {
-            fds[n].fd = g_listen_fd;
-            fds[n].events = POLLIN;
-            fds[n].revents = 0;
-            listen_idx = n++;
-        }
-        if (g_client_fd >= 0) {
-            fds[n].fd = g_client_fd;
-            fds[n].events = POLLIN;
-            fds[n].revents = 0;
-            client_idx = n++;
-        }
-        if (n == 0) return;      // headless with no door: sleep is pure heartbeat
         long remain = deadline_ms - now_ms();
         if (remain > 100) remain = 100;
-        fds[0].revents = 0;      // be explicit: nothing carries over between waits
-        const int rc = ::poll(fds, static_cast<nfds_t>(n), static_cast<int>(remain));
-        if (rc <= 0) continue;  // timeout or EINTR: an appointment, not an error
-        if (listen_idx >= 0 && (fds[listen_idx].revents & POLLIN)) accept_knock();
-        if (client_idx >= 0 && (fds[client_idx].revents & POLLIN)) {
-            char tmp[1024];
-            const ssize_t r = ::recv(g_client_fd, tmp, sizeof tmp, 0);
-            if (r < 0) {
-                if (errno == EAGAIN or errno == EWOULDBLOCK or errno == EINTR) continue;  // not yet: poll woke early
-                server_close_client();
-                continue;
-            }
-            if (r == 0) {
-                server_close_client();
-                continue;
-            }
-            for (ssize_t i = 0; i < r; ++i) feed(tmp[i]);
-        }
+        poll_once(static_cast<int>(remain));
     }
+    if (now_ms() >= deadline_ms) poll_once(0);   // late ticks still drain the door
 }
