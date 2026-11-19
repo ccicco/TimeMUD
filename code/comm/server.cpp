@@ -140,6 +140,8 @@ static void poll_once(int timeout_ms) {
     if (client_idx >= 0 && (fds[client_idx].revents & POLLIN)) {
         char tmp[1024];
         const ssize_t r = ::recv(g_client_fd, tmp, sizeof tmp, 0);
+        int qa = 1;
+        ::setsockopt(g_client_fd, IPPROTO_TCP, TCP_QUICKACK, &qa, sizeof qa);
         if (r < 0) {
             if (errno == EAGAIN or errno == EWOULDBLOCK or errno == EINTR) return;
             server_close_client();

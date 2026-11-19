@@ -1,0 +1,113 @@
+The moonlit grove, TimeMUD, era one. What name do you go by, stranger? 
+Welcome, Curtiss. You stand under an open sky, rain or shine, in the moonlit grove.
+You stand in the moonlit grove: an open circle of birch and pool.
+You are at (2, 5).
+It is day 1, 22:50 - night holds the land.
+A brass ring, green with age, rests at the lip of the pool.
+A storm-lantern burns here, holding the dark at a distance.
+Oren the wanderer stands at (9, 0).
+Lantern light pools from the ground where the storm-lantern burns.
+The ground remembers:
+  darkness fell across this place, earlier today, 19:51.
+  darkness fell across this place, earlier today, 19:55.
+  darkness fell across this place, earlier today, 19:59.
+  darkness fell across this place, earlier today, 22:41.
+Commands: look [ring/lantern/pool/moon], go <dir>, take lantern, light lantern, drop lantern, search pool, say <words>, i, quit.
+Oren the wanderer walks across the moonlit grove to (6, 3).
+Oren the wanderer crouches by the pool, watching the rain ripple it.
+The sky turns from storm to rain.
+Oren the wanderer walks across the moonlit grove to (0, 9).
+Oren the wanderer shakes the mist from his boots.
+The sky turns from rain to overcast.
+Oren the wanderer walks across the moonlit grove to (6, 3).
+Oren the wanderer turns his face up to a clearing sky.
+The sky turns from overcast to clear.
+Oren the wanderer walks across the moonlit grove to (9, 0).
+Oren the wanderer stands still in the storm, letting it pass.
+The sky turns from clear to storm.
+Oren the wanderer walks across the moonlit grove to (6, 3).
+Oren the wanderer crouches by the pool, watching the rain ripple it.
+The sky turns from storm to rain.
+Oren the wanderer walks across the moonlit grove to (0, 9).
+Oren the wanderer shakes the mist from his boots.
+The sky turns from rain to overcast.
+Oren the wanderer walks across the moonlit grove to (6, 3).
+Oren the wanderer turns his face up to a clearing sky.
+The sky turns from overcast to clear.
+Oren the wanderer walks across the moonlit grove to (9, 0).
+Oren the wanderer stands still in the storm, letting it pass.
+The sky turns from clear to storm.
+Oren the wanderer walks across the moonlit grove to (6, 3).
+Oren the wanderer crouches by the pool, watching the rain ripple it.
+The sky turns from storm to rain.
+Oren the wanderer walks across the moonlit grove to (0, 9).
+Oren the wanderer shakes the mist from his boots.
+The sky turns from rain to overcast.
+Oren the wanderer walks across the moonlit grove to (6, 3).
+Oren the wanderer turns his face up to a clearing sky.
+The sky turns from overcast to clear.
+Oren the wanderer walks across the moonlit grove to (9, 0).
+Oren the wanderer stands still in the storm, letting it pass.
+The sky turns from clear to storm.
+Oren the wanderer walks across the moonlit grove to (6, 3).
+Oren the wanderer crouches by the pool, watching the rain ripple it.
+The sky turns from storm to rain.
+Oren the wanderer walks across the moonlit grove to (0, 9).
+Oren the wanderer shakes the mist from his boots.
+The sky turns from rain to overcast.
+Oren the wanderer walks across the moonlit grove to (6, 3).
+Oren the wanderer turns his face up to a clearing sky.
+The sky turns from overcast to clear.
+Oren the wanderer walks across the moonlit grove to (9, 0).
+Oren the wanderer stands still in the storm, letting it pass.
+The sky turns from clear to storm.
+Oren the wanderer walks across the moonlit grove to (6, 3).
+Oren the wanderer crouches by the pool, watching the rain ripple it.
+The sky turns from storm to rain.
+Oren the wanderer walks across the moonlit grove to (0, 9).
+Oren the wanderer shakes the mist from his boots.
+The sky turns from rain to overcast.
+Oren the wanderer walks across the moonlit grove to (6, 3).
+Oren the wanderer turns his face up to a clearing sky.
+The sky turns from overcast to clear.
+Oren the wanderer walks across the moonlit grove to (9, 0).
+Oren the wanderer stands still in the storm, letting it pass.
+The sky turns from clear to storm.
+Oren the wanderer walks across the moonlit grove to (6, 3).
+Oren the wanderer crouches by the pool, watching the rain ripple it.
+The sky turns from storm to rain.
+Oren the wanderer walks across the moonlit grove to (0, 9).
+Oren the wanderer shakes the mist from his boots.
+The sky turns from rain to overcast.
+Oren the wanderer walks across the moonlit grove to (6, 3).
+Oren the wanderer turns his face up to a clearing sky.
+The sky turns from overcast to clear.
+Oren the wanderer walks across the moonlit grove to (9, 0).
+Oren the wanderer stands still in the storm, letting it pass.
+The sky turns from clear to storm.
+Oren the wanderer walks across the moonlit grove to (6, 3).
+Oren the wanderer crouches by the pool, watching the rain ripple it.
+The sky turns from storm to rain.
+Oren the wanderer walks across the moonlit grove to (0, 9).
+Oren the wanderer shakes the mist from his boots.
+The sky turns from rain to overcast.
+Oren the wanderer walks across the moonlit grove to (6, 3).
+Oren the wanderer turns his face up to a clearing sky.
+The sky turns from overcast to clear.
+Oren the wanderer walks across the moonlit grove to (9, 0).
+Oren the wanderer stands still in the storm, letting it pass.
+The sky turns from clear to storm.
+Oren the wanderer walks across the moonlit grove to (6, 3).
+Oren the wanderer crouches by the pool, watching the rain ripple it.
+The sky turns from storm to rain.
+Oren the wanderer says, "Storms pass. So do I."
+Curtiss says, "A"
+Curtiss says, "B"
+Curtiss says, "C"
+Curtiss says, "D"
+Curtiss says, "E"
+Curtiss says, "F"
+Curtiss says, "G"
+Curtiss says, "H"
+Curtiss says, "I"
+Fare well, stranger. The grove will remember your steps.
