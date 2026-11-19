@@ -237,7 +237,7 @@ static void h_go(const Args& a)       { cmd_go(a.rest); }
 static void h_search(const Args& a)   { cmd_search(a.rest); }
 static void h_say(const Args& a)      { cmd_say(a.rest); }
 
-enum Deed : unsigned { kDeedNone = 0, kDeedTake = 1 };
+enum Deed : unsigned { kDeedNone = 0, kDeedTake = 1, kDeedLight = 2 };
 static const char* noun_deeded(const char* word, unsigned deed);
 static void h_take(const Args& a) {
     const char* thing = noun_deeded(a.rest, kDeedTake);
@@ -249,7 +249,8 @@ static void h_take(const Args& a) {
 }
 
 static void h_light(const Args& a) {
-    if (obj_light(a.rest, g_player.name, g_player.room, g_player.x, g_player.y)) {
+    const char* thing = noun_deeded(a.rest, kDeedLight);
+    if (thing != nullptr && obj_light(thing, g_player.name, g_player.room, g_player.x, g_player.y)) {
         if (obj_carried()) {
             server_write("Steel scrapes flint; the wick takes. Your lantern burns.\n");
         } else {
@@ -403,7 +404,7 @@ static void render_moon() {
 
 static const Noun kNouns[] = {
     {{"ring", "brass ring", 0}, kDeedNone, render_ring},
-    {{"lantern", "storm-lantern", 0}, kDeedTake, render_lantern},
+    {{"lantern", "storm-lantern", 0}, kDeedTake | kDeedLight, render_lantern},
     {{"pool", 0}, kDeedNone, render_pool},
     {{"moon", 0}, kDeedNone, render_moon},
 };
@@ -456,7 +457,7 @@ void commands_help() {
 // noun_deeded - the word must name a row that owns the deed - and
 // passes the row's canonical name to the obj facts (the R24 boundary
 // holds: deeds still live in obj/; the registry owns the words and
-// the permission). light/drop/search migrate in later rounds, one
+// the permission). drop/search migrate in later rounds, one
 // verb per round, per the R31 decision.
 
 static const char* noun_deeded(const char* word, unsigned deed) {
