@@ -53,6 +53,7 @@ int main(int argc, char** argv) {
     }
 
     const bool fast = (argc > 2 && std::strcmp(argv[2], "fast") == 0);   // R49: the headless timescale
+    const long pace_ms = (argc > 2 && std::strcmp(argv[2], "theatre") == 0) ? 100 : kHeartbeatMs;   // R50: the theatre pace - a game-minute to the second while a human is on stage
     log_init("log");
     persist_load();
     rooms_load();
@@ -77,8 +78,10 @@ int main(int argc, char** argv) {
     server_start(kPort);          // the door
     const long boot_ms = SteadyMs::now();
 
-    std::puts("TimeMUD boot: era one, the Age of Chronomancy. Heartbeat 100ms.");
-    log_boot("TimeMUD boot: era one, the Age of Chronomancy. Heartbeat 100ms.");
+    char boot_line[132];
+    std::snprintf(boot_line, sizeof boot_line, "TimeMUD boot: era one, the Age of Chronomancy. Heartbeat %ldms.", pace_ms);
+    std::puts(boot_line);
+    log_boot(boot_line);
 
     for (long tick = 0; tick < ticks_to_run; ++tick) {
         Event evt{};
@@ -89,7 +92,7 @@ int main(int argc, char** argv) {
         evt.visibility  = 100;
         events_emit(evt);
         if (!fast) {   // R49: the floor stands for theater; statecraft research runs the clock bare
-            const long deadline = boot_ms + (tick + 1) * kHeartbeatMs;
+            const long deadline = boot_ms + (tick + 1) * pace_ms;
             server_serve_until(deadline);
             if (server_door_shutdown()) break;   // R38: the door emptied - save and sleep
             SteadyMs::sleep_until(deadline);   // THE FLOOR: the appointment is kept, always

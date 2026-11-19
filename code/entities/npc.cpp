@@ -109,6 +109,10 @@ void Npc::restore() {
     at_room_ = room;
     x_ = x;
     y_ = y;
+    long pd = 0; int ph = 0, pm = 0;
+    if (persist_get_time(&pd, &ph, &pm)) {
+        night_ = (ph >= 20 || ph < 5);   // R51: night derives from the resumed clock - a boot into night is not a false dawn
+    }
 }
 
 void Npc::dump(FILE* f) const {
@@ -239,6 +243,10 @@ void Npc::walk(const GameTime& t) {
     if (gc.minute % 3 != 0) return;                                // R41: a waypoint every third game-minute - the world murmurs
     const int i = patrol_ptr_ % agenda_->patrol_n;                  // R41: the pendulum is retired; citizens keep errands
     ++patrol_ptr_;
+    if (at_room_ != agenda_->home) {   // R51: an errand owes a crossing home first - statecraft may stand a citizen anywhere; the circuit resumes from home ground
+        move_to(agenda_->home, x_, y_, t);
+        return;
+    }
     const int tx = agenda_->patrol_x[i];
     const int ty = agenda_->patrol_y[i];
     if (x_ == tx && y_ == ty) return;                                // R45: the stepper wears the R24 guard - standing on a waypoint is silence, and the circuit moves on
