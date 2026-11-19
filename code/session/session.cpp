@@ -1,8 +1,7 @@
-// The stranger, R18: speech joins the band law. Your words carry the
-// same distance everyone else's do - near the pool, Kaya hears you
-// whole; from a far corner, she hears only a voice. And the same law
-// serves you: words spoken at a room's far edge reach you as sound
-// alone. The voice is the same, the distance writes the meaning.
+// The stranger, R19: the hand opens. drop sets the lantern down where
+// you stand - and a burning lantern on the ground is the room's light,
+// not just yours: storms blacken the sky, but arrivals there are seen.
+// Lighting works by proximity now: carried, or standing beside it.
 
 #include "session.h"
 
@@ -37,10 +36,14 @@ static void cmd_look() {
     server_write(line);
     obj_describe_in(g_player.room->name());
     npc_describe_in(g_player.room->name());
-    if (room_dark(*g_player.room) && !obj_lit()) {
-        server_write("The dark is deep here; you see little.\n");
-    } else if (room_dark(*g_player.room) && obj_lit()) {
-        server_write("Your lantern holds back the dark in a circle of gold.\n");
+    if (room_dark(*g_player.room)) {
+        if (obj_lit()) {
+            server_write("Your lantern holds back the dark in a circle of gold.\n");
+        } else if (obj_room_light(g_player.room->name())) {
+            server_write("Lantern light pools from the ground where the storm-lantern burns.\n");
+        } else {
+            server_write("The dark is deep here; you see little.\n");
+        }
     }
     if (g_player.y == 0) {
         server_write("Through the north birches: the lamp-lit shine of the shrine.\n");
@@ -183,7 +186,7 @@ void session_line(const char* line) {
         server_write(g_player.name);
         server_write(". You stand under an open sky, rain or shine, in the moonlit grove.\n");
         cmd_look();
-        server_write("Commands: look, go <dir>, take <thing>, light <thing>, say <words>, i, quit.\n");
+        server_write("Commands: look, go <dir>, take/light/drop lantern, say <words>, i, quit.\n");
         return;
     }
     char first[16];
@@ -215,12 +218,26 @@ void session_line(const char* line) {
         return;
     }
     if (std::strcmp(first, "light") == 0) {
-        if (!obj_carried()) {
-            server_write("You are not carrying anything to light.\n");
-        } else if (obj_light(rest, g_player.name)) {
-            server_write("Steel scrapes flint; the wick takes. Your lantern burns.\n");
+        if (obj_carried()) {
+            if (obj_light(rest, g_player.name, g_player.x, g_player.y)) {
+                server_write("Steel scrapes flint; the wick takes. Your lantern burns.\n");
+            } else {
+                server_write("The lantern is already burning.\n");
+            }
+        } else if (obj_light(rest, g_player.name, g_player.x, g_player.y)) {
+            server_write("You crouch by the storm-lantern. Steel scrapes flint; the wick takes.\n");
         } else {
-            server_write("The lantern is already burning.\n");
+            server_write("There is nothing within reach to light.\n");
+        }
+        return;
+    }
+    if (std::strcmp(first, "drop") == 0) {
+        if (obj_drop(rest, g_player.name, g_player.room, g_player.x, g_player.y)) {
+            server_write(obj_room_light(g_player.room->name())
+                ? "You set the storm-lantern down. Its light steadies the grove against the dark.\n"
+                : "You set the storm-lantern down.\n");
+        } else {
+            server_write("You carry nothing to drop.\n");
         }
         return;
     }
@@ -237,9 +254,7 @@ void session_line(const char* line) {
     server_write("The grove holds no answer to that.\n");
 }
 
-// The player's ears, R18: words at a room's far edge reach the player as
-// a voice only. Everything else renders as it happened, where it
-// happened, when it happened.
+// The player's ears and eyes; distance law unchanged from R18.
 class ClientSink : public Subscriber {
 public:
     void on_event(const Event& evt) override {

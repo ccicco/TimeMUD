@@ -1,8 +1,8 @@
-// obj/: the storm-lantern, R17 - one object, done honestly: a home peg,
-// a position, a hand that can hold it, a wick that stays lit across
-// boots (carried hands do not). Taking and lighting are ObjEvts: the
-// chronicle files them like footsteps and weather. Light is the answer
-// to the dark: a lit mover is SEEN where an unlit one is only heard.
+// obj/: the storm-lantern, R19 - carried light answers the dark for
+// its bearer; placed light answers it for the whole room. A burning
+// lantern on the grove's ground means the grove is not truly dark:
+// arrivals there are seen. The peg is where it sleeps; the hand is
+// where it travels; the ground is where it serves.
 
 #include "obj.h"
 
@@ -58,7 +58,7 @@ void obj_init() {
     if (persist_get_obj(kLanternId, &zone, &rx, &ry, &x, &y, &lit)) {
         const Room* const room = room_at(zone, rx, ry);
         if (room != nullptr) {
-            g_lantern.at = room;   // carried hands do not survive a boot: the peg does
+            g_lantern.at = room;
             g_lantern.x = x;
             g_lantern.y = y;
         }
@@ -73,29 +73,54 @@ bool obj_take(const char* word, const char* who) {
     return true;
 }
 
-bool obj_light(const char* word, const char* who) {
-    if (!word_matches(word)) return false;
-    if (!g_lantern.carried || g_lantern.lit) return false;
+static int chebyshev(int ax, int ay, int bx, int by) {
+    int dx = ax - bx; if (dx < 0) dx = -dx;
+    int dy = ay - by; if (dy < 0) dy = -dy;
+    return dx > dy ? dx : dy;
+}
+
+bool obj_light(const char* word, const char* who, int px, int py) {
+    if (!word_matches(word) || g_lantern.lit) return false;
+    if (!g_lantern.carried
+        && chebyshev(px, py, g_lantern.x, g_lantern.y) > 1) {
+        return false;  // it stands elsewhere, out of a flint's reach
+    }
     g_lantern.lit = true;
     record(who, ObjAction::kLight);
+    return true;
+}
+
+bool obj_drop(const char* word, const char* who, const Room* room, int x, int y) {
+    if (!word_matches(word) || !g_lantern.carried) return false;
+    g_lantern.at = room;
+    g_lantern.x = x;
+    g_lantern.y = y;
+    g_lantern.carried = false;
+    record(who, ObjAction::kDrop);   // the hand takes the deed; history keeps the name
     return true;
 }
 
 void obj_describe_in(const char* room) {
     if (g_lantern.carried) return;
     if (std::strcmp(g_lantern.at->name(), room) != 0) return;
-    server_write("A storm-lantern hangs on a birch peg here.\n");
+    server_write(g_lantern.lit
+        ? "A storm-lantern burns here, holding the dark at a distance.\n"
+        : "A storm-lantern sits here, cold and dark.\n");
 }
 
 bool obj_carried() { return g_lantern.carried; }
 bool obj_lit()     { return g_lantern.carried && g_lantern.lit; }
 
+bool obj_room_light(const char* room) {
+    return !g_lantern.carried && g_lantern.lit
+        && std::strcmp(g_lantern.at->name(), room) == 0;
+}
+
 void obj_dump(FILE* f) {
-    const bool at_peg = !g_lantern.carried;
     std::fprintf(f, "obj %d %d %d %d %d %d %d %d\n",
                  kLanternId,
                  g_lantern.at->zone(), g_lantern.at->x(), g_lantern.at->y(),
                  g_lantern.x, g_lantern.y,
-                 at_peg ? 0 : 1,
+                 g_lantern.carried ? 1 : 0,
                  g_lantern.lit ? 1 : 0);
 }

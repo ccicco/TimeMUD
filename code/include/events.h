@@ -26,6 +26,7 @@ enum class EventCategory {
 enum class ObjAction {
     kTake = 0,
     kLight = 1,
+    kDrop = 2,
 };
 
 struct WeatherChangeEvt {

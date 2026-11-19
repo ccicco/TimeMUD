@@ -6,6 +6,7 @@
 
 #include "npc.h"
 
+#include "obj.h"
 #include "server.h"
 #include "world_clock.h"
 
@@ -27,7 +28,7 @@ void Npc::perceive_movement(const MovementEvt& mv, const GameTime& t) {
     if (std::strcmp(mv.who, agenda_->name) == 0) return;
     if (std::strcmp(mv.to_room, at_room_->name()) != 0) return;
     const GameClock gc = world_clock_now();
-    if (room_dark(*at_room_) && !mv.lit) {
+    if (room_dark(*at_room_) && !mv.lit && !obj_room_light(at_room_->name())) {
         std::snprintf(spoken_, sizeof spoken_, "hears someone arriving along the edge of the grove.");
         std::printf("%s hears someone arriving along the edge of the grove.\n", agenda_->name);
         act(spoken_, gc, t);
