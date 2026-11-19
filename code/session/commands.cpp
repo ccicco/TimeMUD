@@ -237,8 +237,11 @@ static void h_go(const Args& a)       { cmd_go(a.rest); }
 static void h_search(const Args& a)   { cmd_search(a.rest); }
 static void h_say(const Args& a)      { cmd_say(a.rest); }
 
+enum Deed : unsigned { kDeedNone = 0, kDeedTake = 1 };
+static const char* noun_deeded(const char* word, unsigned deed);
 static void h_take(const Args& a) {
-    if (obj_take(a.rest, g_player.name)) {
+    const char* thing = noun_deeded(a.rest, kDeedTake);
+    if (thing != nullptr && obj_take(thing, g_player.name)) {
         server_write("You take the storm-lantern. Its bracket is rain-proof; the wick is dry.\n");
     } else {
         server_write("You see nothing here to take.\n");
@@ -356,6 +359,7 @@ void command_run(const char* line) {
 
 struct Noun {
     const char* names[4];      // what the player may call it
+    unsigned deeds;            // R33: which deeds this thing can suffer (Deed bits)
     void (*render)();          // prose, all variants, session speaks
 };
 
@@ -398,10 +402,10 @@ static void render_moon() {
 }
 
 static const Noun kNouns[] = {
-    {{"ring", "brass ring", 0},    render_ring},
-    {{"lantern", "storm-lantern", 0}, render_lantern},
-    {{"pool", 0},                   render_pool},
-    {{"moon", 0},                   render_moon},
+    {{"ring", "brass ring", 0}, kDeedNone, render_ring},
+    {{"lantern", "storm-lantern", 0}, kDeedTake, render_lantern},
+    {{"pool", 0}, kDeedNone, render_pool},
+    {{"moon", 0}, kDeedNone, render_moon},
 };
 
 static void cmd_examine(const char* word) {
@@ -444,4 +448,25 @@ void commands_help() {
     }
     std::snprintf(out + off, sizeof out - off, ".\n");
     server_write(out);
+}
+
+// THE DEED JOIN, R33: the registry answers not just what a thing is
+// called and what it says, but WHAT CAN BE DONE TO IT. take is the
+// first verb to renounce its hard-wired noun: h_take now asks
+// noun_deeded - the word must name a row that owns the deed - and
+// passes the row's canonical name to the obj facts (the R24 boundary
+// holds: deeds still live in obj/; the registry owns the words and
+// the permission). light/drop/search migrate in later rounds, one
+// verb per round, per the R31 decision.
+
+static const char* noun_deeded(const char* word, unsigned deed) {
+    constexpr int n = int(sizeof kNouns / sizeof kNouns[0]);
+    for (int k = 0; k < n; ++k) {
+        for (int m = 0; m < 4 && kNouns[k].names[m] != nullptr; ++m) {
+            if (std::strcmp(word, kNouns[k].names[m]) == 0) {
+                return (kNouns[k].deeds & deed) != 0 ? kNouns[k].names[0] : nullptr;
+            }
+        }
+    }
+    return nullptr;
 }

@@ -1,0 +1,45 @@
+The moonlit grove, TimeMUD, era one. What name do you go by, stranger? 
+Welcome, Curtiss. You stand under an open sky, rain or shine, in the moonlit grove.
+You stand in the moonlit grove: an open circle of birch and pool.
+You are at (2, 5).
+It is day 3, 15:54 - afternoon leans on the birches.
+A brass ring, green with age, rests at the lip of the pool.
+A storm-lantern burns here, holding the dark at a distance.
+Nara the shrine keeper stands at (3, 0).
+Kaya the old hunter stands at (5, 5).
+Oren the wanderer stands at (6, 3).
+The ground remembers:
+  darkness fell across this place, earlier today, 15:41.
+  darkness fell across this place, earlier today, 15:45.
+  darkness fell across this place, earlier today, 15:49.
+  darkness fell across this place, earlier today, 15:53.
+Commands: look [ring/lantern/pool/moon], go <dir>, take lantern, light lantern, drop lantern, search pool, say <words>, i, quit.
+You take the storm-lantern. Its bracket is rain-proof; the wick is dry.
+Oren the wanderer hears someone arriving along the edge of the grove.
+Kaya the old hunter hears someone arriving along the edge of the grove.
+Oren the wanderer hears someone arriving along the edge of the grove.
+Kaya the old hunter hears someone arriving along the edge of the grove.
+Oren the wanderer hears someone arriving along the edge of the grove.
+Kaya the old hunter hears someone arriving along the edge of the grove.
+The storm-lantern burns in your hand: steel bracket, rain-proof, wick steady.
+Oren the wanderer hears someone arriving along the edge of the grove.
+Kaya the old hunter hears someone arriving along the edge of the grove.
+Oren the wanderer hears someone arriving along the edge of the grove.
+Kaya the old hunter hears someone arriving along the edge of the grove.
+Oren the wanderer hears someone arriving along the edge of the grove.
+Kaya the old hunter hears someone arriving along the edge of the grove.
+You see nothing here to take.
+Oren the wanderer hears someone arriving along the edge of the grove.
+Kaya the old hunter hears someone arriving along the edge of the grove.
+Oren the wanderer hears someone arriving along the edge of the grove.
+Kaya the old hunter hears someone arriving along the edge of the grove.
+Oren the wanderer hears someone arriving along the edge of the grove.
+Kaya the old hunter hears someone arriving along the edge of the grove.
+You see nothing here to take.
+Oren the wanderer hears someone arriving along the edge of the grove.
+Kaya the old hunter hears someone arriving along the edge of the grove.
+Oren the wanderer hears someone arriving along the edge of the grove.
+Kaya the old hunter hears someone arriving along the edge of the grove.
+Oren the wanderer hears someone arriving along the edge of the grove.
+Kaya the old hunter hears someone arriving along the edge of the grove.
+Fare well, stranger. The grove will remember your steps.
