@@ -1,8 +1,9 @@
-// The inhabitants of zone one, R18: the wits. Speech joins the band law
-// this round (fog-of-war step four): words carry clear across melee and
-// near ground, and at the room's edges they thin to a voice with no
-// words in it - noticed, never answered, because you cannot reply to
-// what you did not hear. Memory only records words actually heard.
+// The inhabitants of zone one, R23: the wits. The band law stands
+// (R18): words carry clear across melee and near ground, thin to a
+// voice at the edges - noticed, never answered. R23: the HOUR is heard
+// - nightfall sends each citizen to their night post and a line of
+// their own, dawn sends them home; and a RETIRED citizen ignores the
+// weather: no storm drags Kaya out of the shrine before first light.
 
 #include "npc.h"
 
@@ -63,6 +64,7 @@ void Npc::respond_to_speech(const SpeechEvt& sp, const GameTime& t) {
 
 void Npc::react_to(const WeatherChangeEvt& wc, const GameTime& t) {
     sky_ = static_cast<WeatherState>(wc.now);
+    if (night_ && at_room_ != agenda_->home) return;   // retired: the weather can wait until dawn
     const int i = static_cast<int>(sky_);
     if (i < 0 || i > 3) return;
     const int tx = agenda_->post_x[i];
@@ -72,4 +74,23 @@ void Npc::react_to(const WeatherChangeEvt& wc, const GameTime& t) {
     const GameClock gc = world_clock_now();
     std::printf("%s %s\n", agenda_->name, agenda_->act[i]);
     act(agenda_->act[i], gc, t);
+}
+
+void Npc::on_hour(const HourEvt& he, const GameTime& t) {
+    const bool night_now = (he.hour >= 20 || he.hour < 5);
+    if (night_now == night_) return;   // the hour between night and night is still night
+    night_ = night_now;
+    const GameClock gc = world_clock_now();
+    if (night_now) {
+        move_to(agenda_->night_room, agenda_->night_x, agenda_->night_y, t);
+        std::printf("%s %s\n", agenda_->name, agenda_->night_act);
+        act(agenda_->night_act, gc, t);
+        return;
+    }
+    // dawn: the retired go home
+    if (agenda_->night_room != agenda_->home) {
+        move_to(agenda_->home, agenda_->start_x, agenda_->start_y, t);
+    }
+    std::printf("%s %s\n", agenda_->name, agenda_->dawn_act);
+    act(agenda_->dawn_act, gc, t);
 }

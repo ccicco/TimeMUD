@@ -1,14 +1,13 @@
 #pragma once
 
-// entities/: inhabitants, R7-R22. NPCs are DATA-DRIVEN (NpcAgenda) and
+// entities/: inhabitants, R7-R23. NPCs are DATA-DRIVEN (NpcAgenda) and
 // MINDFUL (memory v0: a face greeted once, answered once). R15: cells
-// are physical - npc_occupied() makes coordinates solid, and players
-// moving on the grid are perceived through the same band machinery as
-// any other arrival. R22: the persist-split made structural - residents
-// have persisted=true (resume each boot), the wanderer persisted=false
-// (born fresh; no npc line written, none read). The class spans
-// npc.cpp (bodies) and npc_wits.cpp (perception/speech); compile weight
-// is a design surface.
+// are physical. R22: the persist-split made structural (residents
+// resume, the wanderer resets). R23: the HOUR moves citizens - night
+// posts at nightfall, dawn posts at hour 5; the weather waits while
+// a citizen is retired for the night. The class spans npc.cpp (bodies)
+// and npc_wits.cpp (perception/speech); compile weight is a design
+// surface.
 
 #include "events.h"
 #include "rooms.h"
@@ -28,7 +27,12 @@ struct NpcAgenda {
     const char* act[4];
     const char* greet;
     const char* reply;
-    bool persisted;   // R22: residents resume where they stood; the wanderer is born fresh each boot
+    bool persisted;   // R22: residents resume; the wanderer is born fresh
+    const Room* night_room;   // R23: where this citizen retires at nightfall
+    int night_x;
+    int night_y;
+    const char* night_act;    // ...and what they do there
+    const char* dawn_act;     // ...and what they say when the light returns
 };
 
 class Npc : public Subscriber {
@@ -44,6 +48,7 @@ public:
 private:
     void perceive_movement(const MovementEvt& mv, const GameTime& t);
     void react_to(const WeatherChangeEvt& wc, const GameTime& t);
+    void on_hour(const HourEvt& he, const GameTime& t);
     void respond_to_speech(const SpeechEvt& sp, const GameTime& t);
     void walk(const GameTime& t);
     void move_to(const Room* room, int x, int y, const GameTime& t);
@@ -55,6 +60,7 @@ private:
     int x_;
     int y_;
     WeatherState sky_ = WeatherState::kUnset;
+    bool night_ = false;
     char spoken_[160];
     char greeted_[32] = {};
     char replied_[32] = {};
