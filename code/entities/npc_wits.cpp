@@ -82,7 +82,9 @@ void Npc::on_hour(const HourEvt& he, const GameTime& t) {
     night_ = night_now;
     const GameClock gc = world_clock_now();
     if (night_now) {
-        move_to(agenda_->night_room, agenda_->night_x, agenda_->night_y, t);
+        if (at_room_ != agenda_->night_room || x_ != agenda_->night_x || y_ != agenda_->night_y) {
+            move_to(agenda_->night_room, agenda_->night_x, agenda_->night_y, t);
+        }
         std::printf("%s %s\n", agenda_->name, agenda_->night_act);
         act(agenda_->night_act, gc, t);
         return;

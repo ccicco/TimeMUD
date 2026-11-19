@@ -62,6 +62,7 @@ constexpr int kTraceLanternDropped = 1;
 constexpr int kTraceLanternLit     = 2;
 constexpr int kTraceLanternTaken   = 3;
 constexpr int kTraceDarkFell       = 4;
+constexpr int kTraceFound        = 5;   // R24: something surfaced from the pool
 
 void rooms_add_trace(const Room* room, int type, int x, int y,
                      long day, int hour, int minute);

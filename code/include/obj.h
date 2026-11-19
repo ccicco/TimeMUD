@@ -21,3 +21,15 @@ bool obj_carried();
 bool obj_lit();                                       // does the PLAYER carry light?
 bool obj_room_light(const char* room);               // does light burn IN this room?
 void obj_dump(FILE* f);                              // persist: position + state, numbers only
+
+// R24: the pool keeps a secret; a search is answered once per world.
+enum ObjSearch {
+    kSearchNoPool,
+    kSearchTooFar,
+    kSearchFound,
+    kSearchAlready,
+};
+
+ObjSearch obj_search(const char* word, const Room* room, int px, int py,
+                     const char* who);
+bool obj_ring_found();

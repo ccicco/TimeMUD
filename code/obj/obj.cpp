@@ -1,8 +1,9 @@
-// obj/: the storm-lantern, R21 - carried light answers the dark for
-// its bearer; placed light answers it for the whole room; and every
-// deed on the lantern leaves a trace in the ground that remembers.
-// The peg is where it sleeps; the hand is where it travels; the
-// ground is where it serves - and the ground does not forget.
+// obj/: the storm-lantern and the pool's ring. Carried light answers
+// the dark for its bearer; placed light answers it for the whole
+// room; every deed on the lantern leaves a trace in the ground that
+// remembers. The ring - R24 - is a discovery, not a possession: found
+// once, the world remembers it found; it never joins a hand. obj/ does
+// the deed and returns the fact; session/ speaks the prose.
 
 #include "obj.h"
 
@@ -16,6 +17,9 @@
 #include <cstring>
 
 static constexpr int kLanternId = 3;
+static constexpr int kRingId = 5;
+static constexpr int kPoolX = 7;
+static constexpr int kPoolY = 2;
 
 struct Lantern {
     const Room* at = nullptr;
@@ -26,6 +30,7 @@ struct Lantern {
 };
 
 static Lantern g_lantern;
+static bool g_ring_found = false;
 
 static bool word_matches(const char* word) {
     return word != nullptr
@@ -56,6 +61,12 @@ static void record(const char* who, ObjAction action) {
     events_emit(evt);
 }
 
+static int chebyshev(int ax, int ay, int bx, int by) {
+    int dx = ax - bx; if (dx < 0) dx = -dx;
+    int dy = ay - by; if (dy < 0) dy = -dy;
+    return dx > dy ? dx : dy;
+}
+
 void obj_init() {
     g_lantern.at = &room_grove();
     g_lantern.carried = false;
@@ -69,6 +80,10 @@ void obj_init() {
         }
         g_lantern.lit = (lit != 0);
     }
+    int rzone = 0, rrx = 0, rry = 0, rpx = kPoolX, rpy = kPoolY, rlit = 0;
+    if (persist_get_obj(kRingId, &rzone, &rrx, &rry, &rpx, &rpy, &rlit)) {
+        g_ring_found = (rlit != 0);   // the pool's secret, resumed; the lit slot carries the finding
+    }
 }
 
 bool obj_take(const char* word, const char* who) {
@@ -77,12 +92,6 @@ bool obj_take(const char* word, const char* who) {
     record(who, ObjAction::kTake);
     g_lantern.carried = true;
     return true;
-}
-
-static int chebyshev(int ax, int ay, int bx, int by) {
-    int dx = ax - bx; if (dx < 0) dx = -dx;
-    int dy = ay - by; if (dy < 0) dy = -dy;
-    return dx > dy ? dx : dy;
 }
 
 bool obj_light(const char* word, const char* who, const Room* room,
@@ -109,7 +118,31 @@ bool obj_drop(const char* word, const char* who, const Room* room, int x, int y)
     return true;
 }
 
+ObjSearch obj_search(const char* word, const Room* room, int px, int py,
+                     const char* /*who*/) {
+    // the pool answers only from its own room, within arm's reach of its rim
+    if (room == nullptr
+        || std::strcmp(room->name(), room_grove().name()) != 0
+        || (word != nullptr && word[0] != 0 && std::strcmp(word, "pool") != 0)) {
+        return kSearchNoPool;
+    }
+    if (chebyshev(px, py, kPoolX, kPoolY) > 1) {
+        return kSearchTooFar;   // the water is farther than a hand reaches
+    }
+    if (g_ring_found) {
+        return kSearchAlready;
+    }
+    g_ring_found = true;
+    stamp_traces(room, kTraceFound, px, py);   // the ground keeps the finding's place
+    return kSearchFound;
+}
+
+bool obj_ring_found() { return g_ring_found; }
+
 void obj_describe_in(const char* room) {
+    if (std::strcmp(room_grove().name(), room) == 0 && g_ring_found) {
+        server_write("A brass ring, green with age, rests at the lip of the pool.\n");
+    }
     if (g_lantern.carried) return;
     if (std::strcmp(g_lantern.at->name(), room) != 0) return;
     server_write(g_lantern.lit
@@ -132,4 +165,7 @@ void obj_dump(FILE* f) {
                  g_lantern.x, g_lantern.y,
                  g_lantern.carried ? 1 : 0,
                  g_lantern.lit ? 1 : 0);
+    std::fprintf(f, "obj %d 1 0 1 %d %d 0 %d\n",
+                 kRingId, kPoolX, kPoolY,
+                 g_ring_found ? 1 : 0);   // the finding outlives the finder; the ring stays the pool's
 }

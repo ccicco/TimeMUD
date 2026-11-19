@@ -1,8 +1,7 @@
-// The stranger, R21: the ground remembers. look now reads the room's
-// trace ring back as assembly - the last few deeds done in a place,
-// oldest first, prose rendered from numbers only. And a deed of flame
-// knows WHERE it happened: obj_light carries the room it was struck
-// in, carried or beside it.
+// The stranger, R21-R24: the ground remembers - look reads the room's
+// trace ring back as assembly, oldest first, prose from numbers only.
+// R24: search pool - discovery spoken here, done in obj/; a find
+// renders on look as ground-memory too.
 
 #include "session.h"
 
@@ -65,6 +64,9 @@ static void cmd_look() {
         } else if (type == kTraceLanternTaken) {
             std::snprintf(line, sizeof line,
                 "  a lantern was lifted from this ground, day %ld, %02d:%02d.\n", td, th, tm);
+        } else if (type == kTraceFound) {
+            std::snprintf(line, sizeof line,
+                "  something was found in the pool's shallows, day %ld, %02d:%02d.\n", td, th, tm);
         } else {
             std::snprintf(line, sizeof line,
                 "  darkness fell across this place, day %ld, %02d:%02d.\n", td, th, tm);
@@ -187,6 +189,27 @@ static void cmd_go(const char* dir_word) {
     emit_step(g_player.room->name(), g_player.room->name(), fx, fy, nx, ny, obj_lit());
 }
 
+static void cmd_search(const char* word) {
+    const ObjSearch r = obj_search(word, g_player.room, g_player.x, g_player.y,
+                                   g_player.name);
+    switch (r) {
+    case kSearchNoPool:
+        server_write("There is nothing here to search.\n");
+        break;
+    case kSearchTooFar:
+        server_write("The pool's edge is farther off than your reach.\n");
+        break;
+    case kSearchAlready:
+        server_write("The ring is found already; it rests at the lip of the pool.\n");
+        break;
+    case kSearchFound:
+        server_write("You wade your hand into the shallows, and your fingers close\n"
+                     "on a brass ring, green with the pool's patina. You set it back\n"
+                     "at the water's edge - some things belong to the pool.\n");
+        break;
+    }
+}
+
 void session_line(const char* line) {
     if (line == nullptr || line[0] == 0) return;
     if (!g_player.playing) {
@@ -212,7 +235,7 @@ void session_line(const char* line) {
         server_write(g_player.name);
         server_write(". You stand under an open sky, rain or shine, in the moonlit grove.\n");
         cmd_look();
-        server_write("Commands: look, go <dir>, take/light/drop lantern, say <words>, i, quit.\n");
+        server_write("Commands: look, go <dir>, take/light/drop lantern, search pool, say <words>, i, quit.\n");
         return;
     }
     char first[16];
@@ -233,6 +256,10 @@ void session_line(const char* line) {
     }
     if (std::strcmp(first, "go") == 0) {
         cmd_go(rest);
+        return;
+    }
+    if (std::strcmp(first, "search") == 0) {
+        cmd_search(rest);
         return;
     }
     if (std::strcmp(first, "take") == 0) {
