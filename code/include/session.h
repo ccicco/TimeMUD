@@ -1,11 +1,23 @@
 #pragma once
 
-// session/: the stranger's side of the door, R14. Login state machine
-// (name -> playing), command routing (look/say/quit), and the player's
-// first TextSink: a Subscriber that renders the artery into prose for
-// whoever connects - the design's one-stream-two-renderers thesis,
-// with the chronicle as the other renderer. Players are SPAWN STATE:
-// never saved, honestly reborn each boot.
+// session/: the stranger's side of the door, R14. R30 splits the will
+// from the door: commands moved to their own TU and their own table.
+// session keeps the login state machine (name -> playing) and the
+// player's TextSink: a Subscriber rendering the artery into prose - one
+// stream, two renderers, the chronicle the other. Players are SPAWN
+// STATE: never saved, honestly reborn each boot.
+
+class Room;
+
+struct Player {
+    bool playing = false;
+    char name[32] = {};
+    const Room* room = nullptr;
+    int x = 2;
+    int y = 5;
+};
+
+extern Player g_player;              // the actor commands move; the eyes see through
 
 void session_line(const char* line);   // one finished line of client input
-void session_subscribe();               // the player's eyes: last subscriber
+void session_subscribe();              // the player's eyes: last subscriber

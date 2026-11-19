@@ -1,0 +1,249 @@
+22:00:59 The moonlit grove, TimeMUD, era one. What name do you go by, stranger? 
+22:00:59 Welcome, Curtiss. You stand under an open sky, rain or shine, in the moonlit grove.
+22:00:59 You stand in the moonlit grove: an open circle of birch and pool.
+22:00:59 You are at (2, 5).
+22:00:59 It is day 1, 02:06 - night holds the land.
+22:00:59 A brass ring, green with age, rests at the lip of the pool.
+22:00:59 A storm-lantern burns here, holding the dark at a distance.
+22:00:59 Oren the wanderer stands at (9, 0).
+22:00:59 Lantern light pools from the ground where the storm-lantern burns.
+22:00:59 The ground remembers:
+22:00:59   darkness fell across this place, earlier today, 00:37.
+22:00:59   a lantern was lifted from this ground, earlier today, 01:19.
+22:00:59   a flame was struck in this place, earlier today, 01:31.
+22:00:59   darkness fell across this place, earlier today, 01:57.
+22:00:59 Commands: look [ring/lantern/pool], go <dir>, take lantern, light lantern, drop lantern, search pool, say <words>, i, quit.
+22:00:59 Oren the wanderer walks across the moonlit grove to (6, 3).
+22:00:59 Oren the wanderer crouches by the pool, watching the rain ripple it.
+22:00:59 The sky turns from storm to rain.
+22:00:59 Oren the wanderer walks across the moonlit grove to (0, 9).
+22:00:59 Oren the wanderer shakes the mist from his boots.
+22:00:59 The sky turns from rain to overcast.
+22:00:59 Oren the wanderer walks across the moonlit grove to (6, 3).
+22:00:59 Oren the wanderer turns his face up to a clearing sky.
+22:00:59 The sky turns from overcast to clear.
+22:00:59 Oren the wanderer walks across the moonlit grove to (9, 0).
+22:00:59 Oren the wanderer stands still in the storm, letting it pass.
+22:00:59 The sky turns from clear to storm.
+22:00:59 Oren the wanderer walks across the moonlit grove to (6, 3).
+22:00:59 Oren the wanderer crouches by the pool, watching the rain ripple it.
+22:00:59 The sky turns from storm to rain.
+22:00:59 Oren the wanderer walks across the moonlit grove to (0, 9).
+22:00:59 Oren the wanderer shakes the mist from his boots.
+22:00:59 The sky turns from rain to overcast.
+22:00:59 Oren the wanderer walks across the moonlit grove to (6, 3).
+22:00:59 Oren the wanderer turns his face up to a clearing sky.
+22:00:59 The sky turns from overcast to clear.
+22:01:00 Oren the wanderer walks across the moonlit grove to (9, 0).
+22:01:00 Oren the wanderer stands still in the storm, letting it pass.
+22:01:00 The sky turns from clear to storm.
+22:01:00 Oren the wanderer walks across the moonlit grove to (6, 3).
+22:01:00 Oren the wanderer crouches by the pool, watching the rain ripple it.
+22:01:00 The sky turns from storm to rain.
+22:01:00 Oren the wanderer walks across the moonlit grove to (0, 9).
+22:01:00 Oren the wanderer shakes the mist from his boots.
+22:01:00 The sky turns from rain to overcast.
+22:01:00 Oren the wanderer walks across the moonlit grove to (6, 3).
+22:01:00 Oren the wanderer turns his face up to a clearing sky.
+22:01:00 The sky turns from overcast to clear.
+22:01:00 The ring rests at the pool's lip, a little way off. Go closer.
+22:01:00 Oren the wanderer walks across the moonlit grove to (9, 0).
+22:01:00 Oren the wanderer stands still in the storm, letting it pass.
+22:01:00 The sky turns from clear to storm.
+22:01:00 Oren the wanderer walks across the moonlit grove to (6, 3).
+22:01:00 Oren the wanderer crouches by the pool, watching the rain ripple it.
+22:01:00 The sky turns from storm to rain.
+22:01:00 Oren the wanderer walks across the moonlit grove to (0, 9).
+22:01:00 Oren the wanderer shakes the mist from his boots.
+22:01:00 The sky turns from rain to overcast.
+22:01:00 Oren the wanderer walks across the moonlit grove to (6, 3).
+22:01:00 Oren the wanderer turns his face up to a clearing sky.
+22:01:00 The sky turns from overcast to clear.
+22:01:00 Oren the wanderer walks across the moonlit grove to (9, 0).
+22:01:00 Oren the wanderer stands still in the storm, letting it pass.
+22:01:00 The sky turns from clear to storm.
+22:01:00 Oren the wanderer walks across the moonlit grove to (6, 3).
+22:01:00 Oren the wanderer crouches by the pool, watching the rain ripple it.
+22:01:00 The sky turns from storm to rain.
+22:01:01 Oren the wanderer walks across the moonlit grove to (0, 9).
+22:01:01 Oren the wanderer shakes the mist from his boots.
+22:01:01 The sky turns from rain to overcast.
+22:01:01 Oren the wanderer walks across the moonlit grove to (6, 3).
+22:01:01 Oren the wanderer turns his face up to a clearing sky.
+22:01:01 The sky turns from overcast to clear.
+22:01:01 Oren the wanderer walks across the moonlit grove to (9, 0).
+22:01:01 Oren the wanderer stands still in the storm, letting it pass.
+22:01:01 The sky turns from clear to storm.
+22:01:01 Oren the wanderer walks across the moonlit grove to (6, 3).
+22:01:01 Oren the wanderer crouches by the pool, watching the rain ripple it.
+22:01:01 The sky turns from storm to rain.
+22:01:01 Oren the wanderer walks across the moonlit grove to (0, 9).
+22:01:01 Oren the wanderer shakes the mist from his boots.
+22:01:01 The sky turns from rain to overcast.
+22:01:01 Oren the wanderer walks across the moonlit grove to (6, 3).
+22:01:01 Oren the wanderer turns his face up to a clearing sky.
+22:01:01 The sky turns from overcast to clear.
+22:01:01 Oren the wanderer watches Curtiss arrive.
+22:01:01 Oren the wanderer says, "A roof out here? Only the sky's."
+22:01:01 You walk to (2, 6).
+22:01:01 Oren the wanderer walks across the moonlit grove to (9, 0).
+22:01:01 Oren the wanderer stands still in the storm, letting it pass.
+22:01:01 The sky turns from clear to storm.
+22:01:01 Oren the wanderer walks across the moonlit grove to (6, 3).
+22:01:01 Oren the wanderer crouches by the pool, watching the rain ripple it.
+22:01:01 The sky turns from storm to rain.
+22:01:01 Oren the wanderer walks across the moonlit grove to (0, 9).
+22:01:01 Oren the wanderer shakes the mist from his boots.
+22:01:01 The sky turns from rain to overcast.
+22:01:01 Oren the wanderer walks across the moonlit grove to (6, 3).
+22:01:01 Oren the wanderer turns his face up to a clearing sky.
+22:01:01 The sky turns from overcast to clear.
+22:01:02 Oren the wanderer walks across the moonlit grove to (9, 0).
+22:01:02 Oren the wanderer stands still in the storm, letting it pass.
+22:01:02 The sky turns from clear to storm.
+22:01:02 Oren the wanderer walks across the moonlit grove to (6, 3).
+22:01:02 Oren the wanderer crouches by the pool, watching the rain ripple it.
+22:01:02 The sky turns from storm to rain.
+22:01:02 Oren the wanderer walks across the moonlit grove to (0, 9).
+22:01:02 Oren the wanderer shakes the mist from his boots.
+22:01:02 The sky turns from rain to overcast.
+22:01:02 Oren the wanderer walks across the moonlit grove to (6, 3).
+22:01:02 Oren the wanderer turns his face up to a clearing sky.
+22:01:02 The sky turns from overcast to clear.
+22:01:02 Oren the wanderer walks across the moonlit grove to (9, 0).
+22:01:02 Oren the wanderer stands still in the storm, letting it pass.
+22:01:02 The sky turns from clear to storm.
+22:01:02 Oren the wanderer walks across the moonlit grove to (6, 3).
+22:01:02 Oren the wanderer crouches by the pool, watching the rain ripple it.
+22:01:02 The sky turns from storm to rain.
+22:01:02 Oren the wanderer walks across the moonlit grove to (0, 9).
+22:01:02 Oren the wanderer shakes the mist from his boots.
+22:01:02 The sky turns from rain to overcast.
+22:01:02 You take the storm-lantern. Its bracket is rain-proof; the wick is dry.
+22:01:02 Oren the wanderer walks across the moonlit grove to (6, 3).
+22:01:02 Oren the wanderer turns his face up to a clearing sky.
+22:01:02 The sky turns from overcast to clear.
+22:01:02 Oren the wanderer walks across the moonlit grove to (9, 0).
+22:01:02 Oren the wanderer stands still in the storm, letting it pass.
+22:01:02 The sky turns from clear to storm.
+22:01:02 Oren the wanderer walks across the moonlit grove to (6, 3).
+22:01:02 Oren the wanderer crouches by the pool, watching the rain ripple it.
+22:01:02 The sky turns from storm to rain.
+22:01:03 Oren the wanderer walks across the moonlit grove to (0, 9).
+22:01:03 Oren the wanderer shakes the mist from his boots.
+22:01:03 The sky turns from rain to overcast.
+22:01:03 Oren the wanderer walks across the moonlit grove to (6, 3).
+22:01:03 Oren the wanderer turns his face up to a clearing sky.
+22:01:03 The sky turns from overcast to clear.
+22:01:03 Oren the wanderer walks across the moonlit grove to (9, 0).
+22:01:03 Oren the wanderer stands still in the storm, letting it pass.
+22:01:03 The sky turns from clear to storm.
+22:01:03 Oren the wanderer walks across the moonlit grove to (6, 3).
+22:01:03 Oren the wanderer crouches by the pool, watching the rain ripple it.
+22:01:03 The sky turns from storm to rain.
+22:01:03 Oren the wanderer walks across the moonlit grove to (0, 9).
+22:01:03 Oren the wanderer shakes the mist from his boots.
+22:01:03 The sky turns from rain to overcast.
+22:01:03 Oren the wanderer walks across the moonlit grove to (6, 3).
+22:01:03 Oren the wanderer turns his face up to a clearing sky.
+22:01:03 The sky turns from overcast to clear.
+22:01:03 Oren the wanderer walks across the moonlit grove to (9, 0).
+22:01:03 Oren the wanderer stands still in the storm, letting it pass.
+22:01:03 The sky turns from clear to storm.
+22:01:03 Oren the wanderer walks across the moonlit grove to (6, 3).
+22:01:03 Oren the wanderer crouches by the pool, watching the rain ripple it.
+22:01:03 The sky turns from storm to rain.
+22:01:03 The lantern is already burning.
+22:01:03 Oren the wanderer walks across the moonlit grove to (0, 9).
+22:01:03 Oren the wanderer shakes the mist from his boots.
+22:01:03 The sky turns from rain to overcast.
+22:01:03 Oren the wanderer walks across the moonlit grove to (6, 3).
+22:01:03 Oren the wanderer turns his face up to a clearing sky.
+22:01:03 The sky turns from overcast to clear.
+22:01:04 Oren the wanderer walks across the moonlit grove to (9, 0).
+22:01:04 Oren the wanderer stands still in the storm, letting it pass.
+22:01:04 The sky turns from clear to storm.
+22:01:04 Oren the wanderer walks across the moonlit grove to (6, 3).
+22:01:04 Oren the wanderer crouches by the pool, watching the rain ripple it.
+22:01:04 The sky turns from storm to rain.
+22:01:04 Oren the wanderer walks across the moonlit grove to (0, 9).
+22:01:04 Oren the wanderer shakes the mist from his boots.
+22:01:04 The sky turns from rain to overcast.
+22:01:04 Oren the wanderer walks across the moonlit grove to (6, 3).
+22:01:04 Oren the wanderer turns his face up to a clearing sky.
+22:01:04 The sky turns from overcast to clear.
+22:01:04 Oren the wanderer walks across the moonlit grove to (9, 0).
+22:01:04 Oren the wanderer stands still in the storm, letting it pass.
+22:01:04 The sky turns from clear to storm.
+22:01:04 Oren the wanderer walks across the moonlit grove to (6, 3).
+22:01:04 Oren the wanderer crouches by the pool, watching the rain ripple it.
+22:01:04 The sky turns from storm to rain.
+22:01:04 Oren the wanderer walks across the moonlit grove to (0, 9).
+22:01:04 Oren the wanderer shakes the mist from his boots.
+22:01:04 The sky turns from rain to overcast.
+22:01:04 Oren the wanderer walks across the moonlit grove to (6, 3).
+22:01:04 Oren the wanderer turns his face up to a clearing sky.
+22:01:04 The sky turns from overcast to clear.
+22:01:04 The ring rests at the pool's lip, a little way off. Go closer.
+22:01:04 Oren the wanderer walks across the moonlit grove to (9, 0).
+22:01:04 Oren the wanderer stands still in the storm, letting it pass.
+22:01:04 The sky turns from clear to storm.
+22:01:05 Oren the wanderer walks across the moonlit grove to (6, 3).
+22:01:05 Oren the wanderer crouches by the pool, watching the rain ripple it.
+22:01:05 The sky turns from storm to rain.
+22:01:05 Oren the wanderer walks across the moonlit grove to (0, 9).
+22:01:05 Oren the wanderer shakes the mist from his boots.
+22:01:05 The sky turns from rain to overcast.
+22:01:05 Oren the wanderer walks across the moonlit grove to (6, 3).
+22:01:05 Oren the wanderer turns his face up to a clearing sky.
+22:01:05 The sky turns from overcast to clear.
+22:01:05 Oren the wanderer walks across the moonlit grove to (9, 0).
+22:01:05 Oren the wanderer stands still in the storm, letting it pass.
+22:01:05 The sky turns from clear to storm.
+22:01:05 Oren the wanderer walks across the moonlit grove to (6, 3).
+22:01:05 Oren the wanderer crouches by the pool, watching the rain ripple it.
+22:01:05 The sky turns from storm to rain.
+22:01:05 Oren the wanderer walks across the moonlit grove to (0, 9).
+22:01:05 Oren the wanderer shakes the mist from his boots.
+22:01:05 The sky turns from rain to overcast.
+22:01:05 Oren the wanderer walks across the moonlit grove to (6, 3).
+22:01:05 Oren the wanderer turns his face up to a clearing sky.
+22:01:05 The sky turns from overcast to clear.
+22:01:05 Oren the wanderer walks across the moonlit grove to (9, 0).
+22:01:05 Oren the wanderer stands still in the storm, letting it pass.
+22:01:05 The sky turns from clear to storm.
+22:01:05 Oren the wanderer walks across the moonlit grove to (6, 3).
+22:01:05 Oren the wanderer crouches by the pool, watching the rain ripple it.
+22:01:05 The sky turns from storm to rain.
+22:01:05 Oren the wanderer walks across the moonlit grove to (0, 9).
+22:01:05 Oren the wanderer shakes the mist from his boots.
+22:01:05 The sky turns from rain to overcast.
+22:01:05 Oren the wanderer walks across the moonlit grove to (6, 3).
+22:01:06 Oren the wanderer turns his face up to a clearing sky.
+22:01:06 The sky turns from overcast to clear.
+22:01:06 Oren the wanderer watches Curtiss arrive, lantern raised.
+22:01:06 You walk to (2, 5).
+22:01:06 Oren the wanderer walks across the moonlit grove to (9, 0).
+22:01:06 Oren the wanderer stands still in the storm, letting it pass.
+22:01:06 The sky turns from clear to storm.
+22:01:06 Oren the wanderer walks across the moonlit grove to (6, 3).
+22:01:06 Oren the wanderer crouches by the pool, watching the rain ripple it.
+22:01:06 The sky turns from storm to rain.
+22:01:06 Oren the wanderer walks across the moonlit grove to (0, 9).
+22:01:06 Oren the wanderer shakes the mist from his boots.
+22:01:06 The sky turns from rain to overcast.
+22:01:06 Oren the wanderer walks across the moonlit grove to (6, 3).
+22:01:06 Oren the wanderer turns his face up to a clearing sky.
+22:01:06 The sky turns from overcast to clear.
+22:01:06 Oren the wanderer walks across the moonlit grove to (9, 0).
+22:01:06 Oren the wanderer stands still in the storm, letting it pass.
+22:01:06 The sky turns from clear to storm.
+22:01:06 Oren the wanderer walks across the moonlit grove to (6, 3).
+22:01:06 Oren the wanderer crouches by the pool, watching the rain ripple it.
+22:01:06 The sky turns from storm to rain.
+22:01:06 Oren the wanderer walks across the moonlit grove to (0, 9).
+22:01:06 Oren the wanderer shakes the mist from his boots.
+22:01:06 The sky turns from rain to overcast.
+22:01:06 Oren the wanderer walks across the moonlit grove to (6, 3).
+22:01:06 Oren the wanderer turns his face up to a clearing sky.
+22:01:06 The sky turns from overcast to clear.

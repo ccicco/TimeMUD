@@ -33,3 +33,7 @@ enum ObjSearch {
 ObjSearch obj_search(const char* word, const Room* room, int px, int py,
                      const char* who);
 bool obj_ring_found();
+
+// R30: examining. obj answers whether and where; session speaks the prose.
+bool obj_ring_here(const Room* room, int px, int py);
+bool obj_lantern_here(const Room* room, int px, int py);

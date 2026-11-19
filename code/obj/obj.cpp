@@ -169,3 +169,19 @@ void obj_dump(FILE* f) {
                  kRingId, kPoolX, kPoolY,
                  g_ring_found ? 1 : 0);   // the finding outlives the finder; the ring stays the pool's
 }
+
+// R30: examining. The facts, not the prose.
+bool obj_ring_here(const Room* room, int px, int py) {
+    return g_ring_found
+        && room != nullptr
+        && std::strcmp(room->name(), room_grove().name()) == 0
+        && chebyshev(px, py, kPoolX, kPoolY) <= 2;
+}
+
+bool obj_lantern_here(const Room* room, int px, int py) {
+    if (g_lantern.carried) return true;
+    return room != nullptr
+        && g_lantern.at != nullptr
+        && std::strcmp(room->name(), g_lantern.at->name()) == 0
+        && chebyshev(px, py, g_lantern.x, g_lantern.y) <= 1;
+}
