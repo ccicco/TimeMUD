@@ -2,6 +2,11 @@
 // CHANGE of a resumed run is phrased as a change ("turns from rain to
 // storm"), and the chronicle can tell a fresh world from a resumed one
 // by its opening line. Everything else is R7 verbatim.
+// R40: THE SKY LEARNS PATIENCE - the forecast reads weather FRONTS (blocks
+// of six game-hours), so the sky holds tenure and turns only at a front
+// edge, at most four changes a day (hours 0, 6, 12, 18); the old per-minute
+// hash was forbidden to hold by its own arithmetic (minute*7 grows by 3
+// mod 4 - the sky ALWAYS moved, a strobe, one fall of dark per minute).
 
 #include "weather.h"
 
@@ -32,7 +37,8 @@ public:
 
 private:
     static WeatherState forecast(const GameClock& gc) {
-        const long h = gc.day * 131 + gc.hour * 29 + gc.minute * 7;
+        const long front = (gc.day * 24 + gc.hour) / 6;   // R40: a front holds six game-hours, patiently
+        const long h = front * 31 + gc.day;                   // the sky turns only at a front edge
         return static_cast<WeatherState>(h % static_cast<int>(WeatherState::kCount));
     }
 

@@ -1,0 +1,58 @@
+The moonlit grove, TimeMUD, era one. What name do you go by, stranger? 
+Welcome, Curtiss. You stand under an open sky, rain or shine, in the moonlit grove.
+You stand in the moonlit grove: an open circle of birch and pool.
+You are at (2, 5).
+It is day 3, 18:40 - evening gathers.
+A brass ring, green with age, rests at the lip of the pool.
+A storm-lantern burns here, holding the dark at a distance.
+Kaya the old hunter stands at (9, 9).
+Oren the wanderer stands at (9, 0).
+Lantern light pools from the ground where the storm-lantern burns.
+The ground remembers:
+  darkness fell across this place, earlier today, 21:58.
+  darkness fell across this place, earlier today, 18:32.
+  darkness fell across this place, earlier today, 18:36.
+  darkness fell across this place, earlier today, 18:40.
+Commands: look [ring/lantern/pool/moon], go <dir>, take lantern, light lantern, drop lantern, search pool, say <words>, i, quit.
+the moonlit grove lightens.
+the moonlit grove falls dark.
+the moonlit grove lightens.
+the moonlit grove falls dark.
+the moonlit grove lightens.
+the moonlit grove falls dark.
+the moonlit grove lightens.
+the moonlit grove falls dark.
+the moonlit grove lightens.
+The light thins; dusk gathers over the moonlit grove.
+the moonlit grove falls dark.
+the moonlit grove lightens.
+the moonlit grove falls dark.
+the moonlit grove lightens.
+the moonlit grove falls dark.
+the moonlit grove lightens.
+the moonlit grove falls dark.
+the moonlit grove lightens.
+the moonlit grove falls dark.
+the moonlit grove lightens.
+the moonlit grove falls dark.
+the moonlit grove lightens.
+the moonlit grove falls dark.
+the moonlit grove lightens.
+the moonlit grove falls dark.
+the moonlit grove lightens.
+the moonlit grove falls dark.
+the moonlit grove lightens.
+the moonlit grove falls dark.
+the moonlit grove lightens.
+the moonlit grove falls dark.
+the moonlit grove lightens.
+the moonlit grove falls dark.
+the moonlit grove lightens.
+the moonlit grove falls dark.
+the moonlit grove lightens.
+the moonlit grove falls dark.
+the moonlit grove lightens.
+the moonlit grove falls dark.
+the moonlit grove lightens.
+the moonlit grove falls dark.
+TimeMUD is closing down. Fare well, stranger.

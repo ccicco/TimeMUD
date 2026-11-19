@@ -1,0 +1,319 @@
+The moonlit grove, TimeMUD, era one. What name do you go by, stranger? 
+Welcome, Curtiss. You stand under an open sky, rain or shine, in the moonlit grove.
+You stand in the moonlit grove: an open circle of birch and pool.
+You are at (2, 5).
+It is day 3, 12:05 - afternoon leans on the birches.
+A brass ring, green with age, rests at the lip of the pool.
+A storm-lantern burns here, holding the dark at a distance.
+Kaya the old hunter stands at (0, 3).
+Oren the wanderer stands at (0, 9).
+The ground remembers:
+  darkness fell across this place, earlier today, 19:53.
+  darkness fell across this place, earlier today, 19:57.
+  darkness fell across this place, earlier today, 20:00.
+  darkness fell across this place, earlier today, 00:31.
+Commands: look [ring/lantern/pool/moon], go <dir>, take lantern, light lantern, drop lantern, search pool, say <words>, i, quit.
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper crosses from the shrine to the moonlit grove, arriving at (0, 0).
+Nara the shrine keeper crosses from the moonlit grove to the shrine.
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper crosses from the shrine to the moonlit grove, arriving at (0, 0).
+Nara the shrine keeper crosses from the moonlit grove to the shrine.
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper crosses from the shrine to the moonlit grove, arriving at (0, 0).
+Nara the shrine keeper crosses from the moonlit grove to the shrine.
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper crosses from the shrine to the moonlit grove, arriving at (0, 0).
+Nara the shrine keeper crosses from the moonlit grove to the shrine.
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper crosses from the shrine to the moonlit grove, arriving at (0, 0).
+Nara the shrine keeper crosses from the moonlit grove to the shrine.
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper crosses from the shrine to the moonlit grove, arriving at (0, 0).
+Nara the shrine keeper crosses from the moonlit grove to the shrine.
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper crosses from the shrine to the moonlit grove, arriving at (0, 0).
+Nara the shrine keeper crosses from the moonlit grove to the shrine.
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper crosses from the shrine to the moonlit grove, arriving at (0, 0).
+Nara the shrine keeper crosses from the moonlit grove to the shrine.
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper crosses from the shrine to the moonlit grove, arriving at (0, 0).
+Nara the shrine keeper crosses from the moonlit grove to the shrine.
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper crosses from the shrine to the moonlit grove, arriving at (0, 0).
+Nara the shrine keeper crosses from the moonlit grove to the shrine.
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper crosses from the shrine to the moonlit grove, arriving at (0, 0).
+Nara the shrine keeper crosses from the moonlit grove to the shrine.
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper crosses from the shrine to the moonlit grove, arriving at (0, 0).
+Nara the shrine keeper crosses from the moonlit grove to the shrine.
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper crosses from the shrine to the moonlit grove, arriving at (0, 0).
+Nara the shrine keeper crosses from the moonlit grove to the shrine.
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper crosses from the shrine to the moonlit grove, arriving at (0, 0).
+Nara the shrine keeper crosses from the moonlit grove to the shrine.
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper crosses from the shrine to the moonlit grove, arriving at (0, 0).
+Nara the shrine keeper crosses from the moonlit grove to the shrine.
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper crosses from the shrine to the moonlit grove, arriving at (0, 0).
+Nara the shrine keeper crosses from the moonlit grove to the shrine.
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper crosses from the shrine to the moonlit grove, arriving at (0, 0).
+Nara the shrine keeper crosses from the moonlit grove to the shrine.
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper crosses from the shrine to the moonlit grove, arriving at (0, 0).
+Nara the shrine keeper crosses from the moonlit grove to the shrine.
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper crosses from the shrine to the moonlit grove, arriving at (0, 0).
+Nara the shrine keeper crosses from the moonlit grove to the shrine.
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper crosses from the shrine to the moonlit grove, arriving at (0, 0).
+Nara the shrine keeper crosses from the moonlit grove to the shrine.
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper crosses from the shrine to the moonlit grove, arriving at (0, 0).
+Nara the shrine keeper crosses from the moonlit grove to the shrine.
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper crosses from the shrine to the moonlit grove, arriving at (0, 0).
+Nara the shrine keeper crosses from the moonlit grove to the shrine.
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper crosses from the shrine to the moonlit grove, arriving at (0, 0).
+Nara the shrine keeper crosses from the moonlit grove to the shrine.
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper crosses from the shrine to the moonlit grove, arriving at (0, 0).
+Nara the shrine keeper crosses from the moonlit grove to the shrine.
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper crosses from the shrine to the moonlit grove, arriving at (0, 0).
+Nara the shrine keeper crosses from the moonlit grove to the shrine.
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper crosses from the shrine to the moonlit grove, arriving at (0, 0).
+Nara the shrine keeper crosses from the moonlit grove to the shrine.
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper crosses from the shrine to the moonlit grove, arriving at (0, 0).
+Nara the shrine keeper crosses from the moonlit grove to the shrine.
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper crosses from the shrine to the moonlit grove, arriving at (0, 0).
+Nara the shrine keeper crosses from the moonlit grove to the shrine.
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper crosses from the shrine to the moonlit grove, arriving at (0, 0).
+Nara the shrine keeper crosses from the moonlit grove to the shrine.
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper crosses from the shrine to the moonlit grove, arriving at (0, 0).
+Nara the shrine keeper crosses from the moonlit grove to the shrine.
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper crosses from the shrine to the moonlit grove, arriving at (0, 0).
+Nara the shrine keeper crosses from the moonlit grove to the shrine.
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper crosses from the shrine to the moonlit grove, arriving at (0, 0).
+Nara the shrine keeper crosses from the moonlit grove to the shrine.
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper crosses from the shrine to the moonlit grove, arriving at (0, 0).
+Nara the shrine keeper crosses from the moonlit grove to the shrine.
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper crosses from the shrine to the moonlit grove, arriving at (0, 0).
+Nara the shrine keeper crosses from the moonlit grove to the shrine.
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper crosses from the shrine to the moonlit grove, arriving at (0, 0).
+Nara the shrine keeper crosses from the moonlit grove to the shrine.
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper crosses from the shrine to the moonlit grove, arriving at (0, 0).
+Nara the shrine keeper crosses from the moonlit grove to the shrine.
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper crosses from the shrine to the moonlit grove, arriving at (0, 0).
+Nara the shrine keeper crosses from the moonlit grove to the shrine.
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper crosses from the shrine to the moonlit grove, arriving at (0, 0).
+Nara the shrine keeper crosses from the moonlit grove to the shrine.
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper crosses from the shrine to the moonlit grove, arriving at (0, 0).
+Nara the shrine keeper crosses from the moonlit grove to the shrine.
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper crosses from the shrine to the moonlit grove, arriving at (0, 0).
+Nara the shrine keeper crosses from the moonlit grove to the shrine.
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper crosses from the shrine to the moonlit grove, arriving at (0, 0).
+Nara the shrine keeper crosses from the moonlit grove to the shrine.
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper crosses from the shrine to the moonlit grove, arriving at (0, 0).
+Nara the shrine keeper crosses from the moonlit grove to the shrine.
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper crosses from the shrine to the moonlit grove, arriving at (0, 0).
+Nara the shrine keeper crosses from the moonlit grove to the shrine.
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper crosses from the shrine to the moonlit grove, arriving at (0, 0).
+Nara the shrine keeper crosses from the moonlit grove to the shrine.
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper crosses from the shrine to the moonlit grove, arriving at (0, 0).
+Nara the shrine keeper crosses from the moonlit grove to the shrine.
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper crosses from the shrine to the moonlit grove, arriving at (0, 0).
+Nara the shrine keeper crosses from the moonlit grove to the shrine.
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper crosses from the shrine to the moonlit grove, arriving at (0, 0).
+Nara the shrine keeper crosses from the moonlit grove to the shrine.
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper crosses from the shrine to the moonlit grove, arriving at (0, 0).
+Nara the shrine keeper crosses from the moonlit grove to the shrine.
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper crosses from the shrine to the moonlit grove, arriving at (0, 0).
+Nara the shrine keeper crosses from the moonlit grove to the shrine.
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper crosses from the shrine to the moonlit grove, arriving at (0, 0).
+Nara the shrine keeper crosses from the moonlit grove to the shrine.
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper crosses from the shrine to the moonlit grove, arriving at (0, 0).
+Nara the shrine keeper crosses from the moonlit grove to the shrine.
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper crosses from the shrine to the moonlit grove, arriving at (0, 0).
+Nara the shrine keeper crosses from the moonlit grove to the shrine.
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper crosses from the shrine to the moonlit grove, arriving at (0, 0).
+Nara the shrine keeper crosses from the moonlit grove to the shrine.
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper crosses from the shrine to the moonlit grove, arriving at (0, 0).
+Nara the shrine keeper crosses from the moonlit grove to the shrine.
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper crosses from the shrine to the moonlit grove, arriving at (0, 0).
+Nara the shrine keeper crosses from the moonlit grove to the shrine.
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper crosses from the shrine to the moonlit grove, arriving at (0, 0).
+Nara the shrine keeper crosses from the moonlit grove to the shrine.
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper crosses from the shrine to the moonlit grove, arriving at (0, 0).
+Nara the shrine keeper crosses from the moonlit grove to the shrine.
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper crosses from the shrine to the moonlit grove, arriving at (0, 0).
+Nara the shrine keeper crosses from the moonlit grove to the shrine.
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper crosses from the shrine to the moonlit grove, arriving at (0, 0).
+Nara the shrine keeper crosses from the moonlit grove to the shrine.
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper crosses from the shrine to the moonlit grove, arriving at (0, 0).
+Nara the shrine keeper crosses from the moonlit grove to the shrine.
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper crosses from the shrine to the moonlit grove, arriving at (0, 0).
+Nara the shrine keeper crosses from the moonlit grove to the shrine.
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper crosses from the shrine to the moonlit grove, arriving at (0, 0).
+Nara the shrine keeper crosses from the moonlit grove to the shrine.
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper crosses from the shrine to the moonlit grove, arriving at (0, 0).
+Nara the shrine keeper crosses from the moonlit grove to the shrine.
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper crosses from the shrine to the moonlit grove, arriving at (0, 0).
+Nara the shrine keeper crosses from the moonlit grove to the shrine.
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper crosses from the shrine to the moonlit grove, arriving at (0, 0).
+Nara the shrine keeper crosses from the moonlit grove to the shrine.
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper crosses from the shrine to the moonlit grove, arriving at (0, 0).
+Nara the shrine keeper crosses from the moonlit grove to the shrine.
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper crosses from the shrine to the moonlit grove, arriving at (0, 0).
+Nara the shrine keeper crosses from the moonlit grove to the shrine.
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper crosses from the shrine to the moonlit grove, arriving at (0, 0).
+Nara the shrine keeper crosses from the moonlit grove to the shrine.
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper crosses from the shrine to the moonlit grove, arriving at (0, 0).
+Nara the shrine keeper crosses from the moonlit grove to the shrine.
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper crosses from the shrine to the moonlit grove, arriving at (0, 0).
+Nara the shrine keeper crosses from the moonlit grove to the shrine.
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper crosses from the shrine to the moonlit grove, arriving at (0, 0).
+Nara the shrine keeper crosses from the moonlit grove to the shrine.
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper crosses from the shrine to the moonlit grove, arriving at (0, 0).
+Nara the shrine keeper crosses from the moonlit grove to the shrine.
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper crosses from the shrine to the moonlit grove, arriving at (0, 0).
+Nara the shrine keeper crosses from the moonlit grove to the shrine.
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper crosses from the shrine to the moonlit grove, arriving at (0, 0).
+Nara the shrine keeper crosses from the moonlit grove to the shrine.
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper crosses from the shrine to the moonlit grove, arriving at (0, 0).
+Nara the shrine keeper crosses from the moonlit grove to the shrine.
+Kaya the old hunter watches Nara the shrine keeper arrive.
+Oren the wanderer watches Nara the shrine keeper arrive.
+Nara the shrine keeper crosses from the shrine to the moonlit grove, arriving at (0, 0).
+Fare well, stranger. The grove will remember your steps.
