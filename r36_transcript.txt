@@ -1,0 +1,23 @@
+The moonlit grove, TimeMUD, era one. What name do you go by, stranger? 
+Welcome, Curtiss. You stand under an open sky, rain or shine, in the moonlit grove.
+You stand in the moonlit grove: an open circle of birch and pool.
+You are at (2, 5).
+It is day 4, 04:34 - night holds the land.
+A brass ring, green with age, rests at the lip of the pool.
+A storm-lantern burns here, holding the dark at a distance.
+Oren the wanderer stands at (6, 3).
+Lantern light pools from the ground where the storm-lantern burns.
+The ground remembers:
+  a flame was struck in this place, earlier today, 02:24.
+  a lantern was lifted from this ground, earlier today, 02:46.
+  darkness fell across this place, earlier today, 04:23.
+  darkness fell across this place, earlier today, 04:25.
+Commands: look [ring/lantern/pool/moon], go <dir>, take lantern, light lantern, drop lantern, search pool, say <words>, i, quit.
+You take the storm-lantern. Its bracket is rain-proof; the wick is dry.
+You set the storm-lantern down. Its light steadies the grove against the dark.
+Kaya the old hunter returns to the grove at first light.
+Oren the wanderer shakes the dew from his cloak at first light.
+You carry nothing to drop.
+The pool's edge is farther off than your reach.
+There is nothing here to search.
+Fare well, stranger. The grove will remember your steps.
