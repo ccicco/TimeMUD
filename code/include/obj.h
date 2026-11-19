@@ -38,3 +38,7 @@ bool obj_ring_found();
 // R30: examining. obj answers whether and where; session speaks the prose.
 bool obj_ring_here(const Room* room, int px, int py);
 bool obj_lantern_here(const Room* room, int px, int py);
+
+// R44: the haystack keeps a secret too; the needle answers once per world.
+bool obj_stack_here(const Room* room, int px, int py);
+bool obj_needle_found();

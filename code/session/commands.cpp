@@ -85,6 +85,9 @@ static void cmd_look() {
         } else if (type == kTraceFound) {
             std::snprintf(line, sizeof line,
                 "  something was found in the pool's shallows, %s.\n", rel);
+        } else if (type == kTraceHayFound) {
+            std::snprintf(line, sizeof line,
+                "  something was turned up from the hay, %s.\n", rel);
         } else {
             std::snprintf(line, sizeof line,
                 "  darkness fell across this place, %s.\n", rel);
@@ -230,6 +233,7 @@ static void cmd_search(const char* word) {
 
 
 static void cmd_examine(const char* word);
+static void cmd_search_hay(const char* word);   // R44: the haystack owns its own prose
 // ---- thin uniform handlers: the table's voice ----
 
 enum Deed : unsigned { kDeedNone = 0, kDeedTake = 1, kDeedLight = 2, kDeedDrop = 4, kDeedSearch = 8 };
@@ -238,6 +242,13 @@ static void h_look(const Args& a)      { if (a.rest[0] != 0) cmd_examine(a.rest)
 static void h_go(const Args& a)       { cmd_go(a.rest); }
 static void h_search(const Args& a) {
     const char* thing = a.rest[0] == 0 ? a.rest : noun_deeded(a.rest, kDeedSearch);
+    const bool hay = (thing != nullptr && std::strcmp(thing, "haystack") == 0)
+        || ((thing == nullptr || thing[0] == 0)
+            && obj_stack_here(g_player.room, g_player.x, g_player.y));
+    if (hay) {
+        cmd_search_hay(thing != nullptr && thing[0] != 0 ? thing : "haystack");
+        return;
+    }
     cmd_search(thing == nullptr ? a.rest : thing);
 }
 static void h_say(const Args& a)      { cmd_say(a.rest); }
@@ -293,7 +304,7 @@ static const Command kCommands[] = {
     {"take",      {0},                    "lantern",             h_take},
     {"light",     {0},                    "lantern",             h_light},
     {"drop",      {0},                    "lantern",             h_drop},
-    {"search",    {0},                    "pool",                h_search},
+    {"search",    {0},                    "pool/haystack",     h_search},
     {"say",       {0},                    "<words>",             h_say},
     {"i",         {"inv", "inventory", 0}, "",                   h_inventory},
     {"quit",      {0},                    "",                    h_quit},
@@ -401,6 +412,21 @@ static void render_pool() {
         : "The pool keeps its counsel.\n");
 }
 
+static void render_haystack() {
+    if (obj_stack_here(g_player.room, g_player.x, g_player.y)) {
+        if (obj_needle_found()) {
+            server_write("A haystack, cut hay stacked to a neat point against the wall.\n");
+            server_write("A bone needle rests atop it, worn smooth where cloth and sinew drew through it.\n");
+            server_write("Whoever wintered here once lost it to the hay. The hall kept it a long time.\n");
+        } else {
+            server_write("A haystack, cut hay stacked to a neat point against the wall.\n");
+            server_write("The hay is deep and dry, and it keeps whatever it keeps.\n");
+        }
+    } else {
+        server_write("There is no haystack close enough to study. It stands in the shrine, if anywhere.\n");
+    }
+}
+
 static void render_moon() {
     if (std::strcmp(g_player.room->name(), "the moonlit grove") == 0) {
         server_write("You look up. The moon rides above the birches, small, cold, and generous with borrowed light.\n");
@@ -414,6 +440,7 @@ static const Noun kNouns[] = {
     {{"ring", "brass ring", 0}, kDeedNone, render_ring},
     {{"lantern", "storm-lantern", 0}, kDeedTake | kDeedLight | kDeedDrop, render_lantern},
     {{"pool", 0}, kDeedSearch, render_pool},
+    {{"haystack", "hay", 0}, kDeedSearch, render_haystack},
     {{"moon", 0}, kDeedNone, render_moon},
 };
 
@@ -478,4 +505,27 @@ static const char* noun_deeded(const char* word, unsigned deed) {
         }
     }
     return nullptr;
+}
+
+// R44: the hay answers in its own words. The pool keeps its four answers in
+// cmd_search; the stack keeps these. obj answers facts; the seam speaks here.
+static void cmd_search_hay(const char* word) {
+    const ObjSearch r = obj_search(word, g_player.room, g_player.x, g_player.y,
+                                   g_player.name);
+    switch (r) {
+    case kSearchNoPool:
+        server_write("There is no hay in this room to search.\n");
+        break;
+    case kSearchTooFar:
+        server_write("The haystack stands farther off than your reach.\n");
+        break;
+    case kSearchAlready:
+        server_write("The needle is found already; it rests atop the hay.\n");
+        break;
+    case kSearchFound:
+        server_write("You burrow both hands into the hay, and your fingers close\n"
+                     "on a small hard shape: a bone needle, worn smooth by a seamstress's grip.\n"
+                     "You lay it atop the stack, where the lamplight finds it.\n");
+        break;
+    }
 }
