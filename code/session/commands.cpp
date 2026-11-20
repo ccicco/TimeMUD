@@ -94,10 +94,19 @@ static void cmd_look() {
         }
         server_write(line);
     }
-    if (g_player.y == 0) {
-        server_write("Through the north birches: the lamp-lit shine of the shrine.\n");
-    } else if (g_player.y == g_player.room->size() - 1) {
-        server_write("Southward, the dark of the open grove waits.\n");
+    // R55: the edge speaks its doors, one step from each crossing - prose from the place
+    for (int d = 0; d < 4; ++d) {
+        if (!g_player.room->has_exit(d)) continue;
+        const bool at_edge = (d == 0 && g_player.y == 0)
+                          || (d == 1 && g_player.y == g_player.room->size() - 1)
+                          || (d == 2 && g_player.x == 0)
+                          || (d == 3 && g_player.x == g_player.room->size() - 1);
+        if (!at_edge) continue;
+        const char* const prose = g_player.room->exit_prose(d);
+        if (prose == nullptr) continue;
+        char hint[300];
+        std::snprintf(hint, sizeof hint, "%s%c", prose, 10);
+        server_write(hint);
     }
 }
 
@@ -165,37 +174,49 @@ static void cross_to(const Room* to, int x, int y) {
     emit_step(from_room, to->name(), fx, fy, x, y, obj_lit());
 }
 
+// R55: crossings follow doors - the place itself says which walls hold.
+// The crossing law: north lands on the target's south edge, the
+// wandering axis preserved; east and west mirror it.
+// R55: crossings follow doors - the place itself says which walls hold.
+// The crossing law: north lands on the target's south edge, the
+// wandering axis preserved; east and west mirror it.
 static void cmd_go(const char* dir_word) {
-    int nx = g_player.x;
-    int ny = g_player.y;
-    if (std::strcmp(dir_word, "north") == 0 || std::strcmp(dir_word, "n") == 0) {
-        ny -= 1;
-    } else if (std::strcmp(dir_word, "south") == 0 || std::strcmp(dir_word, "s") == 0) {
-        ny += 1;
-    } else if (std::strcmp(dir_word, "west") == 0 || std::strcmp(dir_word, "w") == 0) {
-        nx -= 1;
-    } else if (std::strcmp(dir_word, "east") == 0 || std::strcmp(dir_word, "e") == 0) {
-        nx += 1;
-    } else {
+    int dir = -1;
+    if (std::strcmp(dir_word, "north") == 0 || std::strcmp(dir_word, "n") == 0) dir = 0;
+    else if (std::strcmp(dir_word, "south") == 0 || std::strcmp(dir_word, "s") == 0) dir = 1;
+    else if (std::strcmp(dir_word, "west") == 0 || std::strcmp(dir_word, "w") == 0) dir = 2;
+    else if (std::strcmp(dir_word, "east") == 0 || std::strcmp(dir_word, "e") == 0) dir = 3;
+    else {
         server_write("Go where? (north, south, east, west)\n");
         return;
     }
-    if (nx < 0 || nx >= g_player.room->size()) {
+    const bool leaving = (dir == 0 && g_player.y == 0)
+                      || (dir == 1 && g_player.y == g_player.room->size() - 1)
+                      || (dir == 2 && g_player.x == 0)
+                      || (dir == 3 && g_player.x == g_player.room->size() - 1);
+    if (leaving) {
+        if (g_player.room->has_exit(dir)) {
+            const Room* const to = g_player.room->exit(dir);
+            int ax = g_player.x;
+            int ay = g_player.y;
+            if (dir == 0) ay = to->size() - 1;
+            else if (dir == 1) ay = 0;
+            else if (dir == 2) ax = to->size() - 1;
+            else ax = 0;
+            cross_to(to, ax, ay);
+            return;
+        }
         server_write("The birches stand too thick that way; the place holds you.\n");
         return;
     }
-    const int edge = g_player.room->size() - 1;
-    const bool in_grove = std::strcmp(g_player.room->name(), room_grove().name()) == 0;
-    const bool in_shrine = std::strcmp(g_player.room->name(), room_shrine().name()) == 0;
-    if (ny < 0 && in_grove && g_player.y == 0) {
-        cross_to(&room_shrine(), g_player.x, edge);
-        return;
-    }
-    if (ny > edge && in_shrine && g_player.y == edge) {
-        cross_to(&room_grove(), g_player.x, 0);
-        return;
-    }
-    if (ny < 0 || ny > edge) {
+    int nx = g_player.x;
+    int ny = g_player.y;
+    if (dir == 0) ny -= 1;
+    else if (dir == 1) ny += 1;
+    else if (dir == 2) nx -= 1;
+    else nx += 1;
+    if (nx < 0 || nx >= g_player.room->size()
+        || ny < 0 || ny >= g_player.room->size()) {
         server_write("The birches stand too thick that way; the place holds you.\n");
         return;
     }
@@ -209,6 +230,7 @@ static void cmd_go(const char* dir_word) {
     g_player.y = ny;
     emit_step(g_player.room->name(), g_player.room->name(), fx, fy, nx, ny, obj_lit());
 }
+
 
 static void cmd_search(const char* word) {
     const ObjSearch r = obj_search(word, g_player.room, g_player.x, g_player.y,

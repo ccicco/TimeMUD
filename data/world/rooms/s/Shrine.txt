@@ -6,3 +6,5 @@ at 0 0
 size 10
 prose a lamp-lit hall of old timber
 sheltered true
+exit south room 1 0 1
+exit-prose south Southward, the dark of the open grove waits.

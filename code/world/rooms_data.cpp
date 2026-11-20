@@ -29,6 +29,11 @@ char* pool_str(const char* src) {
     return dst;
 }
 
+char* pool_prose(const char* rest) {
+    if (std::strcmp(rest, "-") == 0) return nullptr;   // an authored none: the door speaks nothing, on purpose
+    return pool_str(rest);
+}
+
 void warn(const char* rel, const char* what) {
     std::printf("World warning: world - %s: %s\n", rel, what);
     log_boot("world: %s: %s", rel, what);
@@ -45,6 +50,11 @@ bool load_one(const char* rel) {
     bool has_schema = false, has_name = false, has_zone = false;
     bool has_at = false, has_size = false, has_prose = false, has_shelter = false;
     bool sheltered = false;
+    bool spawn = false;                                  // R55: the login homes here when true
+    int raw_zone[4] = {-1, -1, -1, -1};                  // R55: parse triples, doors bind after canon order
+    int raw_x[4] = {0, 0, 0, 0};
+    int raw_y[4] = {0, 0, 0, 0};
+    const char* ex_prose[4] = {};                        // what look says of the door; "-" is an authored none
     char line[256];
     while (std::fgets(line, sizeof line, f)) {
         const int len = static_cast<int>(std::strlen(line));
@@ -81,6 +91,40 @@ bool load_one(const char* rel) {
                 sheltered = (std::strcmp(v, "true") == 0);
                 has_shelter = true;
             }
+        } else if (std::strcmp(key, "spawn") == 0) {
+            char v[16];
+            if (std::sscanf(rest, "%15s", v) == 1) spawn = (std::strcmp(v, "true") == 0);
+        } else if (std::strncmp(key, "exit-prose", 10) == 0) {
+            char dir[16];
+            if (std::sscanf(rest, "%15s", dir) == 1) {
+                int d = -1;
+                if (std::strcmp(dir, "north") == 0) d = 0;
+                else if (std::strcmp(dir, "south") == 0) d = 1;
+                else if (std::strcmp(dir, "west") == 0) d = 2;
+                else if (std::strcmp(dir, "east") == 0) d = 3;
+                if (d >= 0) {
+                    const char* text = rest + std::strlen(dir);
+                    while (*text == ' ') ++text;
+                    ex_prose[d] = pool_prose(text);
+                } else {
+                    warn(rel, rest);   // an unknown direction warns, never kills
+                }
+            }
+        } else if (std::strcmp(key, "exit") == 0) {
+            char dir[16];
+            int ez = 0, ex = 0, ey = 0;
+            if (std::sscanf(rest, "%15s room %d %d %d", dir, &ez, &ex, &ey) == 4) {
+                int d = -1;
+                if (std::strcmp(dir, "north") == 0) d = 0;
+                else if (std::strcmp(dir, "south") == 0) d = 1;
+                else if (std::strcmp(dir, "west") == 0) d = 2;
+                else if (std::strcmp(dir, "east") == 0) d = 3;
+                if (d >= 0) {
+                    raw_zone[d] = ez; raw_x[d] = ex; raw_y[d] = ey;
+                } else {
+                    warn(rel, rest);   // an unknown direction warns, never kills
+                }
+            }
         } else {
             warn(rel, key);   // the flexibility law, R52: unknown keys warn, never kill
         }
@@ -98,7 +142,14 @@ bool load_one(const char* rel) {
             return false;
         }
     }
-    g_rooms[g_room_n++] = Room(pool_str(name), zone, x, y, size, prose, sheltered);
+    g_rooms[g_room_n] = Room(pool_str(name), zone, x, y, size, prose, sheltered);   // R55: the doors follow the room into the world
+    Room& placed = g_rooms[g_room_n];
+    placed.set_spawn(spawn);
+    for (int d = 0; d < 4; ++d) {
+        placed.set_raw_exit(d, raw_zone[d], raw_x[d], raw_y[d]);
+        placed.set_exit_prose(d, ex_prose[d]);
+    }
+    ++g_room_n;
     return true;
 }
 
@@ -129,6 +180,8 @@ void rooms_load_data() {
         }
         g_rooms[j + 1] = key;
     }
+
+    rooms_resolve_exits();   // R55: doors bind after canon order - a pointer into a moving array is a lie
 
     if (g_room_n == 0) {   // the boot-empty law, R52, wearing world's name
         std::printf("World warning: world - no rooms under data/world/rooms/; the world has no ground to stand on.\n");

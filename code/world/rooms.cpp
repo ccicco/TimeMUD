@@ -29,19 +29,6 @@
 Room g_rooms[kRoomMax];   // R53: the ground; its places arrive by data
 int g_room_n = 0;
 
-const Room& room_shrine() {
-    for (int i = 0; i < g_room_n; ++i) {
-        if (g_rooms[i].zone() == 1 && g_rooms[i].x() == 0 && g_rooms[i].y() == 0) return g_rooms[i];
-    }
-    return g_rooms[0];   // era one's famous room, by coordinates now; the boot-empty warning spoke if the ground is bare
-}
-
-const Room& room_grove() {
-    for (int i = 0; i < g_room_n; ++i) {
-        if (g_rooms[i].zone() == 1 && g_rooms[i].x() == 0 && g_rooms[i].y() == 1) return g_rooms[i];
-    }
-    return g_rooms[0];
-}
 
 const Room* room_at(int zone, int x, int y) {
     for (int i = 0; i < g_room_n; ++i) {
@@ -232,4 +219,28 @@ void rooms_describe(int sky) {
         }
     }
     log_boot("world places described: %d rooms", g_room_n);
+}
+
+// R55: doors bind after canon order - a pointer into a moving array is a lie
+void rooms_resolve_exits() {
+    for (int i = 0; i < g_room_n; ++i) {
+        Room& r = g_rooms[i];
+        for (int d = 0; d < 4; ++d) {
+            if (r.raw_zone(d) < 0) continue;
+            const Room* const t = room_at(r.raw_zone(d), r.raw_x(d), r.raw_y(d));
+            if (t == nullptr) {
+                std::printf("World warning: world - %s: a door opens on nowhere\n", r.name());
+                log_boot("world: %s: a door opens on nowhere", r.name());
+                continue;
+            }
+            r.bind_exit(d, t);
+        }
+    }
+}
+
+const Room* room_spawn() {
+    for (int i = 0; i < g_room_n; ++i) {
+        if (g_rooms[i].spawn()) return &g_rooms[i];
+    }
+    return (g_room_n > 0) ? &g_rooms[0] : nullptr;   // degenerate: first ground; no ground: the door holds
 }

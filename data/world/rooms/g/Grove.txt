@@ -8,3 +8,6 @@ at 0 1
 size 10
 prose an open circle of birch and pool
 sheltered false
+spawn true
+exit north room 1 0 0
+exit-prose north Through the north birches: the lamp-lit shine of the shrine.

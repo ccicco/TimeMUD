@@ -38,11 +38,18 @@ void session_line(const char* line) {
         }
         name[w] = 0;
         std::snprintf(g_player.name, sizeof g_player.name, "%s", name);
-        g_player.room = &room_grove();
+        const Room* const home = room_spawn();   // R55: the login homes where the data says
+        if (home == nullptr) {
+            server_write("The world has no ground to stand on.\n");
+            return;
+        }
+        g_player.room = home;
         g_player.playing = true;
         server_write("\nWelcome, ");
         server_write(g_player.name);
-        server_write(". You stand under an open sky, rain or shine, in the moonlit grove.\n");
+        char greet[160];
+        std::snprintf(greet, sizeof greet, ". You stand under an open sky, rain or shine, in %s%c", home->name(), 10);
+        server_write(greet);
         command_run("look");
         commands_help();
         return;

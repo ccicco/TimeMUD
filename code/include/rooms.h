@@ -23,6 +23,22 @@ public:
     constexpr const char* base() const { return base_; }
     constexpr bool sheltered() const { return sheltered_; }
 
+    // R55: a place owns its doors. dir: 0 north, 1 south, 2 west, 3 east.
+    // Raw triples keep parse order; targets bind after canon sort.
+    constexpr bool spawn() const { return spawn_; }
+    constexpr bool has_exit(int dir) const { return exit_[dir] != nullptr; }
+    constexpr const Room* exit(int dir) const { return exit_[dir]; }
+    constexpr const char* exit_prose(int dir) const { return exit_prose_[dir]; }
+    constexpr int raw_zone(int dir) const { return raw_zone_[dir]; }
+    constexpr int raw_x(int dir) const { return raw_x_[dir]; }
+    constexpr int raw_y(int dir) const { return raw_y_[dir]; }
+
+    // the loader's hands; the world reads, the data writes
+    void set_spawn(bool v) { spawn_ = v; }
+    void set_raw_exit(int dir, int zone, int x, int y) { raw_zone_[dir] = zone; raw_x_[dir] = x; raw_y_[dir] = y; }
+    void set_exit_prose(int dir, const char* prose) { exit_prose_[dir] = prose; }
+    void bind_exit(int dir, const Room* target) { exit_[dir] = target; }
+
 private:
     const char* name_;
     int zone_;
@@ -31,6 +47,12 @@ private:
     int size_;
     const char* base_;
     bool sheltered_;
+    bool spawn_ = false;
+    int raw_zone_[4] = {-1, -1, -1, -1};   // doors arrive as triples, bind as pointers
+    int raw_x_[4] = {};
+    int raw_y_[4] = {};
+    const Room* exit_[4] = {};
+    const char* exit_prose_[4] = {};
 };
 
 enum class Band { kMelee, kNear, kFar, kEdge };
@@ -46,8 +68,6 @@ inline Band band_between(int ax, int ay, int bx, int by) {
 }
 
 void rooms_load();
-const Room& room_shrine();
-const Room& room_grove();
 const Room* room_at(int zone, int x, int y);
 void rooms_describe(int sky);          // assembled prose: base + shelter + the sky as it stands
 void conditions_subscribe();           // R13: rooms wear their weather
@@ -81,3 +101,5 @@ constexpr int kRoomMax = 32;
 extern Room g_rooms[kRoomMax];
 extern int g_room_n;
 void rooms_load_data();
+void rooms_resolve_exits();   // R55: doors bind after canon order
+const Room* room_spawn();      // R55: the login's home is data now: first spawn-flagged room, first ground in a degenerate world
