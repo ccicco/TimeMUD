@@ -1,0 +1,11 @@
+# timemud object - schema 1
+# a possession: it joins hands, its flame survives a boot.
+schema 1
+id 3
+kind possession
+name storm-lantern
+words lantern storm-lantern
+home room 1 0 1
+at 2 6
+prose-lit A storm-lantern burns here, holding the dark at a distance.
+prose-unlit A storm-lantern sits here, cold and dark.

@@ -1,0 +1,14 @@
+# timemud object - schema 1
+# a secret: found once per world; the hay keeps it.
+schema 1
+id 6
+kind secret
+name bone needle
+words haystack
+home room 1 0 0
+at 8 1
+search haystack
+reach 1
+near 2
+prose-found A haystack stands in the corner of the hall, a bone needle laid on top of it.
+prose-waiting A haystack stands in the corner of the hall.

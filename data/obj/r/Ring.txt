@@ -1,0 +1,15 @@
+# timemud object - schema 1
+# a secret: found once per world, it never joins a hand.
+schema 1
+id 5
+kind secret
+name brass ring
+words pool ring
+home room 1 0 1
+at 7 2
+search pool
+reach 1
+near 2
+prose-found A brass ring, green with age, rests at the lip of the pool.
+# a secret shows nothing while it waits: the authored none comes of age
+prose-waiting -

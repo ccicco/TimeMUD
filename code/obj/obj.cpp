@@ -1,9 +1,15 @@
-// obj/: the storm-lantern and the pool's ring. Carried light answers
-// the dark for its bearer; placed light answers it for the whole
-// room; every deed on the lantern leaves a trace in the ground that
-// remembers. The ring - R24 - is a discovery, not a possession: found
-// once, the world remembers it found; it never joins a hand. obj/ does
-// the deed and returns the fact; session/ speaks the prose.
+// obj/: the lantern and the world's secrets. R54: THE OBJECTS LIVE IN
+// DRAWERS - data/obj/<a-z>/<Name>.txt carries each object's facts (id,
+// kind, names, home, position, reach, prose); behavior stays here in
+// code, exactly as the design drew it: DATA DECLARES WHAT, CODE
+// IMPLEMENTS HOW. The ids and bands and prose constants died with the
+// agendas - every number and sentence now reads from the defs. Era-
+// one's famous accessors (obj_ring_found, obj_stack_here) keep their
+// names and change their socks: name lookups into loaded defs, the
+// room-accessor law again. The lantern is THE WORLD'S FIRST POSSESSION
+// (the hand targets a possession by its words); secrets trace by
+// ORDINAL (first secret kTraceFound, second kTraceHayFound) - era two
+// formalizes trace types when there are more than ordinals can name.
 
 #include "obj.h"
 
@@ -16,29 +22,45 @@
 #include <cstdio>
 #include <cstring>
 
-static constexpr int kLanternId = 3;
-static constexpr int kRingId = 5;
-static constexpr int kPoolX = 7;
-static constexpr int kPoolY = 2;
-static constexpr int kNeedleId = 6;
-static constexpr int kStackX = 8;       // the rick stands in the shrine corner
-static constexpr int kStackY = 1;
-
-struct Lantern {
-    const Room* at = nullptr;
-    int x = 2;
-    int y = 6;
-    bool carried = false;
-    bool lit = false;
+struct ObjState {
+    const Room* at = nullptr;   // possessions only: where it rests
+    int x = 0;
+    int y = 0;
+    bool carried = false;       // possessions: it joined a hand
+    bool lit = false;           // possessions: the flame
+    bool found = false;        // secrets: found once per world
 };
 
-static Lantern g_lantern;
-static bool g_ring_found = false;
-static bool g_needle_found = false;    // R44: found once per world, the pool rule
+static ObjState g_states[kObjDefsMax];
 
-static bool word_matches(const char* word) {
-    return word != nullptr
-        && (std::strcmp(word, "lantern") == 0 || std::strcmp(word, "storm-lantern") == 0);
+static int obj_find_name(const char* name) {
+    for (int i = 0; i < g_obj_def_n; ++i) {
+        if (g_obj_defs[i].name != nullptr && std::strcmp(g_obj_defs[i].name, name) == 0) return i;
+    }
+    return -1;
+}
+
+static int obj_find_possession() {   // the lantern: the world's first possession
+    for (int i = 0; i < g_obj_def_n; ++i) {
+        if (g_obj_defs[i].possession) return i;
+    }
+    return -1;
+}
+
+static int obj_secret_ordinal(int ix) {   // 0-based: the first secret traces kTraceFound
+    int n = 0;
+    for (int i = 0; i < ix; ++i) {
+        if (!g_obj_defs[i].possession) ++n;
+    }
+    return n;
+}
+
+static bool words_match(const ObjDef& d, const char* word) {
+    if (word == nullptr) return false;
+    for (int i = 0; i < 4; ++i) {
+        if (d.words[i] != nullptr && std::strcmp(d.words[i], word) == 0) return true;
+    }
+    return false;
 }
 
 static void stamp_traces(const Room* room, int type, int x, int y) {
@@ -48,9 +70,10 @@ static void stamp_traces(const Room* room, int type, int x, int y) {
 
 static void record(const char* who, ObjAction action) {
     const GameClock gc = world_clock_now();
+    const int lx = obj_find_possession();
     ObjEvt oe{};
     oe.who    = who;
-    oe.obj    = "storm-lantern";
+    oe.obj    = (lx >= 0 && g_obj_defs[lx].name != nullptr) ? g_obj_defs[lx].name : "";
     oe.action = static_cast<int>(action);
     oe.day    = gc.day;
     oe.hour   = gc.hour;
@@ -72,55 +95,69 @@ static int chebyshev(int ax, int ay, int bx, int by) {
 }
 
 void obj_init() {
-    g_lantern.at = &room_grove();
-    g_lantern.carried = false;
-    int zone = 0, rx = 0, ry = 0, x = 2, y = 6, lit = 0;
-    if (persist_get_obj(kLanternId, &zone, &rx, &ry, &x, &y, &lit)) {
-        const Room* const room = room_at(zone, rx, ry);
-        if (room != nullptr) {
-            g_lantern.at = room;
-            g_lantern.x = x;
-            g_lantern.y = y;
+    obj_load_data();   // R54: the objects arrive as data before any hand can reach them
+    for (int i = 0; i < g_obj_def_n; ++i) {
+        const ObjDef& d = g_obj_defs[i];
+        ObjState& s = g_states[i];
+        if (d.possession) {   // the spawn: it rests where its file said, until a save says otherwise
+            s.at = d.home;
+            s.x = d.x;
+            s.y = d.y;
         }
-        g_lantern.lit = (lit != 0);
-    }
-    int rzone = 0, rrx = 0, rry = 0, rpx = kPoolX, rpy = kPoolY, rlit = 0;
-    if (persist_get_obj(kRingId, &rzone, &rrx, &rry, &rpx, &rpy, &rlit)) {
-        g_ring_found = (rlit != 0);   // the pool's secret, resumed; the lit slot carries the finding
-    }
-    int nzone = 0, nrx = 0, nry = 0, nsx = kStackX, nsy = kStackY, nlit = 0;
-    if (persist_get_obj(kNeedleId, &nzone, &nrx, &nry, &nsx, &nsy, &nlit)) {
-        g_needle_found = (nlit != 0);   // the needle resumes, found or waiting
+        int zone = 0, rx = 0, ry = 0, x = d.x, y = d.y, lit = 0;
+        if (!persist_get_obj(d.id, &zone, &rx, &ry, &x, &y, &lit)) continue;
+        if (d.possession) {
+            const Room* const room = room_at(zone, rx, ry);
+            if (room != nullptr) s.at = room;
+            else if (d.home != nullptr) s.at = d.home;
+            s.x = x;
+            s.y = y;
+            s.lit = (lit != 0);
+        } else {
+            s.found = (lit != 0);   // the finding outlives the finder; the site keeps its own
+        }
     }
 }
 
 bool obj_take(const char* word, const char* who) {
-    if (!word_matches(word) || g_lantern.carried) return false;
-    stamp_traces(g_lantern.at, kTraceLanternTaken, g_lantern.x, g_lantern.y);
+    const int lx = obj_find_possession();
+    if (lx < 0) return false;
+    const ObjDef& d = g_obj_defs[lx];
+    ObjState& s = g_states[lx];
+    if (!words_match(d, word) || s.carried) return false;
+    stamp_traces(s.at, kTraceLanternTaken, s.x, s.y);
     record(who, ObjAction::kTake);
-    g_lantern.carried = true;
+    s.carried = true;
     return true;
 }
 
 bool obj_light(const char* word, const char* who, const Room* room,
                int px, int py) {
-    if (!word_matches(word) || g_lantern.lit) return false;
-    if (!g_lantern.carried
-        && chebyshev(px, py, g_lantern.x, g_lantern.y) > 1) {
+    const int lx = obj_find_possession();
+    if (lx < 0) return false;
+    const ObjDef& d = g_obj_defs[lx];
+    ObjState& s = g_states[lx];
+    if (!words_match(d, word) || s.lit) return false;
+    if (!s.carried
+        && chebyshev(px, py, s.x, s.y) > d.reach) {
         return false;  // it stands elsewhere, out of a flint's reach
     }
     stamp_traces(room, kTraceLanternLit, px, py);   // a flame was struck HERE
-    g_lantern.lit = true;
+    s.lit = true;
     record(who, ObjAction::kLight);
     return true;
 }
 
 bool obj_drop(const char* word, const char* who, const Room* room, int x, int y) {
-    if (!word_matches(word) || !g_lantern.carried) return false;
-    g_lantern.at = room;
-    g_lantern.x = x;
-    g_lantern.y = y;
-    g_lantern.carried = false;
+    const int lx = obj_find_possession();
+    if (lx < 0) return false;
+    const ObjDef& d = g_obj_defs[lx];
+    ObjState& s = g_states[lx];
+    if (!words_match(d, word) || !s.carried) return false;
+    s.at = room;
+    s.x = x;
+    s.y = y;
+    s.carried = false;
     stamp_traces(room, kTraceLanternDropped, x, y);
     record(who, ObjAction::kDrop);   // the hand takes the deed; history keeps the name
     return true;
@@ -128,104 +165,136 @@ bool obj_drop(const char* word, const char* who, const Room* room, int x, int y)
 
 ObjSearch obj_search(const char* word, const Room* room, int px, int py,
                      const char* /*who*/) {
-    // R44: two secrets, one seam: the pool keeps the ring, the hay keeps the needle.
-    const bool hay = word != nullptr && std::strcmp(word, "haystack") == 0;
-    if (!hay) {
-        // the pool answers only from its own room, within a hand of its rim
-        if (room == nullptr
-            || std::strcmp(room->name(), room_grove().name()) != 0
-            || (word != nullptr && word[0] != 0 && std::strcmp(word, "pool") != 0)) {
+    // secrets answer by their search word, from their own ground, within their reach
+    if (room == nullptr) return kSearchNoPool;
+    for (int i = 0; i < g_obj_def_n; ++i) {
+        const ObjDef& d = g_obj_defs[i];
+        if (d.possession) continue;
+        if (d.search == nullptr || word == nullptr || std::strcmp(word, d.search) != 0) continue;
+        if (d.home == nullptr || std::strcmp(room->name(), d.home->name()) != 0) {
             return kSearchNoPool;
         }
-        if (chebyshev(px, py, kPoolX, kPoolY) > 1) {
-            return kSearchTooFar;   // the water is farther than a hand reaches
+        if (chebyshev(px, py, d.x, d.y) > d.reach) {
+            return kSearchTooFar;   // the deed is farther than a hand reaches
         }
-        if (g_ring_found) {
+        if (g_states[i].found) {
             return kSearchAlready;
         }
-        g_ring_found = true;
-        stamp_traces(room, kTraceFound, px, py);
+        g_states[i].found = true;   // found once per world
+        stamp_traces(room, kTraceFound + obj_secret_ordinal(i), px, py);
         return kSearchFound;
     }
-    // the needle: found once per world, the pool rule; the hay answers from its hall
-    if (room == nullptr || std::strcmp(room->name(), room_shrine().name()) != 0) {
-        return kSearchNoPool;
-    }
-    if (chebyshev(px, py, kStackX, kStackY) > 1) {
-        return kSearchTooFar;   // the rick is farther than a hand reaches
-    }
-    if (g_needle_found) {
-        return kSearchAlready;
-    }
-    g_needle_found = true;
-    stamp_traces(room, kTraceHayFound, px, py);
-    return kSearchFound;
+    return kSearchNoPool;
 }
 
-bool obj_ring_found() { return g_ring_found; }
+bool obj_ring_found() {
+    const int i = obj_find_name("brass ring");
+    return i >= 0 && g_states[i].found;
+}
 
 void obj_describe_in(const char* room) {
-    if (std::strcmp(room_grove().name(), room) == 0 && g_ring_found) {
-        server_write("A brass ring, green with age, rests at the lip of the pool.\n");
+    for (int i = 0; i < g_obj_def_n; ++i) {
+        const ObjDef& d = g_obj_defs[i];
+        const ObjState& s = g_states[i];
+        if (d.possession) {
+            if (s.carried || s.at == nullptr) continue;
+            if (std::strcmp(s.at->name(), room) != 0) continue;
+            char line[512];
+            std::snprintf(line, sizeof line, "%s%c", s.lit ? d.prose_lit : d.prose_unlit, 10);
+            server_write(line);
+        } else {
+            if (d.home == nullptr || std::strcmp(d.home->name(), room) != 0) continue;
+            const char* const prose = s.found ? d.prose_found : d.prose_waiting;
+            if (prose != nullptr) {
+                char line[512];
+                std::snprintf(line, sizeof line, "%s%c", prose, 10);
+                server_write(line);   // "-": a secret shows nothing while it waits
+            }
+        }
     }
-    if (std::strcmp(room_shrine().name(), room) == 0) {
-        server_write(g_needle_found
-            ? "A haystack stands in the corner of the hall, a bone needle laid on top of it.\n"
-            : "A haystack stands in the corner of the hall.\n");
-    }
-    if (g_lantern.carried) return;
-    if (std::strcmp(g_lantern.at->name(), room) != 0) return;
-    server_write(g_lantern.lit
-        ? "A storm-lantern burns here, holding the dark at a distance.\n"
-        : "A storm-lantern sits here, cold and dark.\n");
 }
 
-bool obj_carried() { return g_lantern.carried; }
-bool obj_lantern_burning() { return g_lantern.lit; }   // R35: the flame itself, carried or at rest
-bool obj_lit()     { return g_lantern.carried && g_lantern.lit; }
+bool obj_carried() {
+    const int lx = obj_find_possession();
+    return lx >= 0 && g_states[lx].carried;
+}
+
+bool obj_lantern_burning() {   // R35: the flame itself, carried or at rest
+    const int lx = obj_find_possession();
+    return lx >= 0 && g_states[lx].lit;
+}
+
+bool obj_lit() {
+    const int lx = obj_find_possession();
+    return lx >= 0 && g_states[lx].carried && g_states[lx].lit;
+}
 
 bool obj_room_light(const char* room) {
-    return !g_lantern.carried && g_lantern.lit
-        && std::strcmp(g_lantern.at->name(), room) == 0;
+    const int lx = obj_find_possession();
+    if (lx < 0) return false;
+    const ObjState& s = g_states[lx];
+    return !s.carried && s.lit
+        && s.at != nullptr
+        && std::strcmp(s.at->name(), room) == 0;
 }
 
 void obj_dump(FILE* f) {
-    std::fprintf(f, "obj %d %d %d %d %d %d %d %d\n",
-                 kLanternId,
-                 g_lantern.at->zone(), g_lantern.at->x(), g_lantern.at->y(),
-                 g_lantern.x, g_lantern.y,
-                 g_lantern.carried ? 1 : 0,
-                 g_lantern.lit ? 1 : 0);
-    std::fprintf(f, "obj %d 1 0 1 %d %d 0 %d\n",
-                 kRingId, kPoolX, kPoolY,
-                 g_ring_found ? 1 : 0);   // the finding outlives the finder; the ring stays the pool's
-    std::fprintf(f, "obj %d %d %d %d %d %d 0 %d\n",
-                 kNeedleId, room_shrine().zone(), room_shrine().x(), room_shrine().y(),
-                 kStackX, kStackY,
-                 g_needle_found ? 1 : 0);   // the finding outlives the finder; the hay keeps it
+    for (int i = 0; i < g_obj_def_n; ++i) {
+        const ObjDef& d = g_obj_defs[i];
+        const ObjState& s = g_states[i];
+        if (d.possession) {
+            const Room* const at = (s.at != nullptr) ? s.at : d.home;
+            if (at == nullptr) continue;
+            std::fprintf(f, "obj %d %d %d %d %d %d %d %d\n",
+                         d.id, at->zone(), at->x(), at->y(),
+                         s.x, s.y,
+                         s.carried ? 1 : 0,
+                         s.lit ? 1 : 0);
+        } else {
+            if (d.home == nullptr) continue;
+            std::fprintf(f, "obj %d %d %d %d %d %d 0 %d\n",
+                         d.id, d.home->zone(), d.home->x(), d.home->y(),
+                         d.x, d.y,
+                         s.found ? 1 : 0);   // the finding outlives the finder; the site keeps its own
+        }
+    }
 }
 
-// R30: examining. The facts, not the prose.
+// R30/R44: examining. The facts, not the prose - now from the defs.
 bool obj_ring_here(const Room* room, int px, int py) {
-    return g_ring_found
+    const int i = obj_find_name("brass ring");
+    if (i < 0) return false;
+    const ObjDef& d = g_obj_defs[i];
+    return g_states[i].found
         && room != nullptr
-        && std::strcmp(room->name(), room_grove().name()) == 0
-        && chebyshev(px, py, kPoolX, kPoolY) <= 2;
+        && d.home != nullptr
+        && std::strcmp(room->name(), d.home->name()) == 0
+        && chebyshev(px, py, d.x, d.y) <= d.near;
 }
 
 bool obj_lantern_here(const Room* room, int px, int py) {
-    if (g_lantern.carried) return true;
+    const int lx = obj_find_possession();
+    if (lx < 0) return false;
+    const ObjDef& d = g_obj_defs[lx];
+    const ObjState& s = g_states[lx];
+    if (s.carried) return true;
     return room != nullptr
-        && g_lantern.at != nullptr
-        && std::strcmp(room->name(), g_lantern.at->name()) == 0
-        && chebyshev(px, py, g_lantern.x, g_lantern.y) <= 1;
+        && s.at != nullptr
+        && std::strcmp(room->name(), s.at->name()) == 0
+        && chebyshev(px, py, s.x, s.y) <= d.reach;
 }
 
-// R44: the haystack and its needle. Facts, not prose.
 bool obj_stack_here(const Room* room, int px, int py) {
+    const int i = obj_find_name("bone needle");
+    if (i < 0) return false;
+    const ObjDef& d = g_obj_defs[i];
     return room != nullptr
-        && std::strcmp(room->name(), room_shrine().name()) == 0
-        && chebyshev(px, py, kStackX, kStackY) <= 2;
+        && d.home != nullptr
+        && std::strcmp(room->name(), d.home->name()) == 0
+        && chebyshev(px, py, d.x, d.y) <= d.near;
 }
 
-bool obj_needle_found() { return g_needle_found; }
+bool obj_needle_found() {
+    const int i = obj_find_name("bone needle");
+    return i >= 0 && g_states[i].found;
+}
