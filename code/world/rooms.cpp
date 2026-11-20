@@ -168,6 +168,7 @@ void conditions_subscribe() {
 
 void rooms_load() {
     rooms_load_data();   // R53: the ground arrives as data before anything stands on it
+    rooms_resume_exitways();   // R56: what deeds moved, resumes after the census
     if (g_room_n >= 2) {   // era one's survey sentence, worded as always, sourced from disk now
         std::printf("World survey: zone %d holds %s at (%d, %d) and %s at (%d, %d), each a %dx%d grid.\n",
                     g_rooms[0].zone(), g_rooms[0].name(), g_rooms[0].x(), g_rooms[0].y(),
@@ -221,26 +222,94 @@ void rooms_describe(int sky) {
     log_boot("world places described: %d rooms", g_room_n);
 }
 
-// R55: doors bind after canon order - a pointer into a moving array is a lie
-void rooms_resolve_exits() {
-    for (int i = 0; i < g_room_n; ++i) {
-        Room& r = g_rooms[i];
-        for (int d = 0; d < 4; ++d) {
-            if (r.raw_zone(d) < 0) continue;
-            const Room* const t = room_at(r.raw_zone(d), r.raw_x(d), r.raw_y(d));
-            if (t == nullptr) {
-                std::printf("World warning: world - %s: a door opens on nowhere\n", r.name());
-                log_boot("world: %s: a door opens on nowhere", r.name());
-                continue;
-            }
-            r.bind_exit(d, t);
-        }
-    }
-}
 
 const Room* room_spawn() {
     for (int i = 0; i < g_room_n; ++i) {
         if (g_rooms[i].spawn()) return &g_rooms[i];
     }
     return (g_room_n > 0) ? &g_rooms[0] : nullptr;   // degenerate: first ground; no ground: the door holds
+}
+
+// R56: ways bind after canon order - a pointer into a moving array is
+// a lie, and a preserved axis is a promise the sizes may not keep. A
+// way that opens on nowhere warns by name; a compass crossing into a
+// different size warns and clamps; a named way with no authored
+// landing lands at the target's heart, and says so.
+void rooms_resolve_exits() {
+    for (int i = 0; i < g_room_n; ++i) {
+        Room& r = g_rooms[i];
+        for (int s = 0; s < r.exit_n(); ++s) {
+            Exitway& e = r.exitway(s);
+            const Room* const t = room_at(e.raw_zone, e.raw_x, e.raw_y);
+            if (t == nullptr) {
+                std::printf("World warning: world - %s: the %s way opens on nowhere\n", r.name(), e.word);
+                log_boot("world: %s: the %s way opens on nowhere", r.name(), e.word);
+                continue;
+            }
+            e.target = t;
+            const bool compass = std::strcmp(e.word, "north") == 0
+                              || std::strcmp(e.word, "south") == 0
+                              || std::strcmp(e.word, "west") == 0
+                              || std::strcmp(e.word, "east") == 0;
+            if (e.at_authored) continue;
+            if (compass && r.size() == t->size()) continue;
+            if (compass) {
+                std::printf("World warning: world - %s: the %s way crosses into a different size; the crossing law lands the wandering axis clamped\n", r.name(), e.word);
+                log_boot("world: %s: the %s way crosses into a different size", r.name(), e.word);
+            } else {
+                e.at_authored = true;
+                e.ax = t->size() / 2;
+                e.ay = t->size() / 2;
+                std::printf("World warning: world - %s: the %s way has no authored landing; it lands at the target's heart\n", r.name(), e.word);
+                log_boot("world: %s: the %s way lands at the target's heart, unauthored", r.name(), e.word);
+            }
+        }
+    }
+}
+
+int room_exit_way(const Room* r, const char* word) {
+    if (r == nullptr || word == nullptr) return -1;
+    for (int s = 0; s < r->exit_n(); ++s) {
+        if (std::strcmp(r->exitway(s).word, word) == 0) return s;
+    }
+    return -1;
+}
+
+void rooms_reveal(const Room* r, const char* word) {
+    const int s = room_exit_way(r, word);
+    if (s < 0) return;   // a way the data never worded stays as nothing, not as found
+    const_cast<Room*>(r)->exitway(s).hidden = false;   // and it stays shown: the finding outlives the finder
+}
+
+void rooms_unbar(const Room* r, const char* word) {
+    const int s = room_exit_way(r, word);
+    if (s < 0) return;
+    const_cast<Room*>(r)->exitway(s).refused = false;
+}
+
+const char* exit_refusal_default() { return "The way is barred."; }
+
+void rooms_resume_exitways() {
+    for (int i = 0; ; ++i) {
+        int z = 0, rx = 0, ry = 0, s = 0, ref = 0, hid = 0;
+        if (!persist_get_exitway(i, &z, &rx, &ry, &s, &ref, &hid)) break;
+        Room* const r = const_cast<Room*>(room_at(z, rx, ry));
+        if (r == nullptr || s < 0 || s >= r->exit_n()) continue;   // a stale row skips: the data's word outranks the save's memory
+        Exitway& e = r->exitway(s);
+        e.refused = ref != 0;
+        e.hidden  = hid != 0;
+    }
+}
+
+void rooms_dump_exitways(FILE* f) {
+    for (int i = 0; i < g_room_n; ++i) {
+        const Room& r = g_rooms[i];
+        for (int s = 0; s < r.exit_n(); ++s) {
+            const Exitway& e = r.exitway(s);
+            if (e.refused == e.auth_refused_ && e.hidden == e.auth_hidden_) continue;
+            std::fprintf(f, "exitway %d %d %d %d %d %d\n",
+                         r.zone(), r.x(), r.y(), s,
+                         e.refused ? 1 : 0, e.hidden ? 1 : 0);
+        }
+    }
 }

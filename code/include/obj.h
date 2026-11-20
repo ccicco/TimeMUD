@@ -66,6 +66,8 @@ struct ObjDef {
     const char* prose_waiting = nullptr;   // "-" is an authored none (R52 law)
     const char* prose_lit = nullptr;      // possessions speak state
     const char* prose_unlit = nullptr;
+    const char* reveals = nullptr;   // R56: finding this secret shows a way of its home (the way's word)
+    const char* unbars = nullptr;    // R56: taking this possession lifts a named way's bar, where it rested
 };
 
 extern ObjDef g_obj_defs[kObjDefsMax];

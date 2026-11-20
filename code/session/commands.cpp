@@ -37,6 +37,25 @@ static void trace_time(char* out, int n, long td, int th, int tm) {
     else std::snprintf(out, n, "%ld days ago, %02d:%02d", today - td, th, tm);
 }
 
+// R56: the ways' words - a compass alias for the engine, the plain
+// word for everything else; both live above every reader in the file.
+
+// R56: the ways' words - a compass alias for the engine, the plain
+// word for everything else; both live above every reader in the file.
+static int way_dir(const char* w) {
+    if (std::strcmp(w, "north") == 0 || std::strcmp(w, "n") == 0) return 0;
+    if (std::strcmp(w, "south") == 0 || std::strcmp(w, "s") == 0) return 1;
+    if (std::strcmp(w, "west") == 0 || std::strcmp(w, "w") == 0) return 2;
+    if (std::strcmp(w, "east") == 0 || std::strcmp(w, "e") == 0) return 3;
+    return -1;
+}
+
+static const char* way_word(const char* said) {
+    static const char* const kWords[4] = {"north", "south", "west", "east"};
+    const int d = way_dir(said);
+    return (d >= 0) ? kWords[d] : said;
+}
+
 static void cmd_look() {
     char line[300];
     std::snprintf(line, sizeof line, "You stand in %s: %s.\n",
@@ -94,18 +113,23 @@ static void cmd_look() {
         }
         server_write(line);
     }
-    // R55: the edge speaks its doors, one step from each crossing - prose from the place
-    for (int d = 0; d < 4; ++d) {
-        if (!g_player.room->has_exit(d)) continue;
-        const bool at_edge = (d == 0 && g_player.y == 0)
-                          || (d == 1 && g_player.y == g_player.room->size() - 1)
-                          || (d == 2 && g_player.x == 0)
-                          || (d == 3 && g_player.x == g_player.room->size() - 1);
-        if (!at_edge) continue;
-        const char* const prose = g_player.room->exit_prose(d);
-        if (prose == nullptr) continue;
+    // R56: compass ways speak at their edges, one step from each
+    // crossing; named ways speak wherever they stand; hidden ways say
+    // nothing at all - prose from the place, never from a door
+    for (int s = 0; s < g_player.room->exit_n(); ++s) {
+        const Exitway& e = g_player.room->exitway(s);
+        if (e.hidden || e.prose == nullptr) continue;
+        const int d = way_dir(e.word);
+        if (d >= 0) {
+            const int edge = g_player.room->size() - 1;
+            const bool at_edge = (d == 0 && g_player.y == 0)
+                              || (d == 1 && g_player.y == edge)
+                              || (d == 2 && g_player.x == 0)
+                              || (d == 3 && g_player.x == edge);
+            if (!at_edge) continue;
+        }
         char hint[300];
-        std::snprintf(hint, sizeof hint, "%s%c", prose, 10);
+        std::snprintf(hint, sizeof hint, "%s%c", e.prose, 10);
         server_write(hint);
     }
 }
@@ -180,57 +204,99 @@ static void cross_to(const Room* to, int x, int y) {
 // R55: crossings follow doors - the place itself says which walls hold.
 // The crossing law: north lands on the target's south edge, the
 // wandering axis preserved; east and west mirror it.
+
+// R56: crossings walk the exitways' seam. A compass way keeps the R55
+// crossing law and lives at the room's edge; a named way crosses from
+// anywhere and lands where its author stood it. Refused answers with
+// prose; hidden answers the way a wall would, because a bespoke
+// refusal would leak the secret's existence.
 static void cmd_go(const char* dir_word) {
-    int dir = -1;
-    if (std::strcmp(dir_word, "north") == 0 || std::strcmp(dir_word, "n") == 0) dir = 0;
-    else if (std::strcmp(dir_word, "south") == 0 || std::strcmp(dir_word, "s") == 0) dir = 1;
-    else if (std::strcmp(dir_word, "west") == 0 || std::strcmp(dir_word, "w") == 0) dir = 2;
-    else if (std::strcmp(dir_word, "east") == 0 || std::strcmp(dir_word, "e") == 0) dir = 3;
-    else {
+    if (dir_word == nullptr || dir_word[0] == 0) {
         server_write("Go where? (north, south, east, west)\n");
         return;
     }
-    const bool leaving = (dir == 0 && g_player.y == 0)
-                      || (dir == 1 && g_player.y == g_player.room->size() - 1)
-                      || (dir == 2 && g_player.x == 0)
-                      || (dir == 3 && g_player.x == g_player.room->size() - 1);
-    if (leaving) {
-        if (g_player.room->has_exit(dir)) {
-            const Room* const to = g_player.room->exit(dir);
-            int ax = g_player.x;
-            int ay = g_player.y;
-            if (dir == 0) ay = to->size() - 1;
-            else if (dir == 1) ay = 0;
-            else if (dir == 2) ax = to->size() - 1;
-            else ax = 0;
-            cross_to(to, ax, ay);
+    const int d = way_dir(dir_word);
+    if (d < 0) {   // a named way, or nothing here
+        const int slot = room_exit_way(g_player.room, dir_word);
+        if (slot < 0) {
+            server_write("Go where? (north, south, east, west)\n");
             return;
         }
+        const Exitway& e = g_player.room->exitway(slot);
+        if (e.hidden || e.target == nullptr) {
+            server_write("The birches stand too thick that way; the place holds you.\n");
+            return;
+        }
+        if (e.refused) {
+            char line[300];
+            std::snprintf(line, sizeof line, "%s%c",
+                          e.refusal != nullptr ? e.refusal : exit_refusal_default(), 10);
+            server_write(line);
+            return;
+        }
+        cross_to(e.target, e.ax, e.ay);   // the resolver stood every named way's landing
+        return;
+    }
+    const char* const word = way_word(dir_word);
+    const int slot = room_exit_way(g_player.room, word);
+    const Exitway* e = (slot >= 0) ? &g_player.room->exitway(slot) : nullptr;
+    if (e != nullptr && e->hidden) e = nullptr;   // hidden is absent, in go as in look
+    const int edge = g_player.room->size() - 1;
+    const bool at_edge = (d == 0 && g_player.y == 0)
+                      || (d == 1 && g_player.y == edge)
+                      || (d == 2 && g_player.x == 0)
+                      || (d == 3 && g_player.x == edge);
+    if (!at_edge) {   // an interior step, no crossing, as the place has always stepped
+        int nx = g_player.x;
+        int ny = g_player.y;
+        if (d == 0) ny -= 1;
+        else if (d == 1) ny += 1;
+        else if (d == 2) nx -= 1;
+        else nx += 1;
+        if (nx < 0 || nx >= g_player.room->size()
+            || ny < 0 || ny >= g_player.room->size()) {
+            server_write("The birches stand too thick that way; the place holds you.\n");
+            return;
+        }
+        if (npc_occupied(g_player.room->name(), nx, ny)) {
+            server_write("Someone already stands there. You keep your ground.\n");
+            return;
+        }
+        const int fx = g_player.x;
+        const int fy = g_player.y;
+        g_player.x = nx;
+        g_player.y = ny;
+        emit_step(g_player.room->name(), g_player.room->name(), fx, fy, nx, ny, obj_lit());
+        return;
+    }
+    if (e == nullptr || e->target == nullptr) {
         server_write("The birches stand too thick that way; the place holds you.\n");
         return;
     }
-    int nx = g_player.x;
-    int ny = g_player.y;
-    if (dir == 0) ny -= 1;
-    else if (dir == 1) ny += 1;
-    else if (dir == 2) nx -= 1;
-    else nx += 1;
-    if (nx < 0 || nx >= g_player.room->size()
-        || ny < 0 || ny >= g_player.room->size()) {
-        server_write("The birches stand too thick that way; the place holds you.\n");
+    if (e->refused) {
+        char line[300];
+        std::snprintf(line, sizeof line, "%s%c",
+                      e->refusal != nullptr ? e->refusal : exit_refusal_default(), 10);
+        server_write(line);
         return;
     }
-    if (npc_occupied(g_player.room->name(), nx, ny)) {
-        server_write("Someone already stands there. You keep your ground.\n");
-        return;
+    int ax = 0;
+    int ay = 0;
+    if (e->at_authored) {
+        ax = e->ax;
+        ay = e->ay;
+    } else {
+        const int far = e->target->size() - 1;
+        if (d == 0) { ax = g_player.x; ay = far; }
+        else if (d == 1) { ax = g_player.x; ay = 0; }
+        else if (d == 2) { ax = far; ay = g_player.y; }
+        else { ax = 0; ay = g_player.y; }
     }
-    const int fx = g_player.x;
-    const int fy = g_player.y;
-    g_player.x = nx;
-    g_player.y = ny;
-    emit_step(g_player.room->name(), g_player.room->name(), fx, fy, nx, ny, obj_lit());
+    const int lim = e->target->size() > 0 ? e->target->size() - 1 : 0;
+    if (ax > lim) ax = lim;   // the clamp: a promise the sizes did not keep, healed at the landing
+    if (ay > lim) ay = lim;
+    cross_to(e->target, ax, ay);
 }
-
 
 static void cmd_search(const char* word) {
     const ObjSearch r = obj_search(word, g_player.room, g_player.x, g_player.y,
@@ -252,7 +318,6 @@ static void cmd_search(const char* word) {
         break;
     }
 }
-
 
 static void cmd_examine(const char* word);
 static void cmd_search_hay(const char* word);   // R44: the haystack owns its own prose
@@ -383,7 +448,6 @@ void command_run(const char* line) {
     }
     server_write("The grove holds no answer to that.\n");
 }
-
 
 // ---- the noun registry, R31: things as data ----
 // A thing is a row: its spoken names, and a render that speaks its

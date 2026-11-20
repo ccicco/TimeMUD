@@ -20,6 +20,8 @@ bool persist_get_trace(int idx, int* zone, int* room_x, int* room_y,
                        int* type, int* x, int* y,
                        long* day, int* hour, int* minute);
 bool persist_get_time(long* day, int* hour, int* minute);  // R29: the clock resumes
+bool persist_get_exitway(int idx, int* zone, int* room_x, int* room_y,
+                         int* slot, int* refused, int* hidden);   // R56: a way's truth that moved from its data
 
 // R52: the data seam - persist stays the ONLY place a file opens, and
 // that now includes CONTENT files; categories parse meaning, persist

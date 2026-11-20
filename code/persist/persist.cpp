@@ -22,6 +22,7 @@ static constexpr int kSaveSchema = 1;   // additive lines keep schema 1: obj (R1
 static constexpr int kMaxSavedEntities = 8;
 static constexpr int kMaxSavedObjects = 4;
 static constexpr int kMaxSavedTraces = 16;
+static constexpr int kMaxSavedWays = 24;
 
 struct EntityRec {
     int id;
@@ -55,6 +56,10 @@ struct TraceRec {
     int minute;
 };
 
+struct ExitwayRec {   // R56: what a deed moved, the save remembers
+    int zone; int room_x; int room_y; int slot; int refused; int hidden;
+};
+
 struct PersistState {
     bool has_sky = false;
     bool has_time = false;   // R29: the clock in the save
@@ -68,6 +73,8 @@ struct PersistState {
     int obj_count = 0;
     TraceRec traces[kMaxSavedTraces] = {};
     int trace_count = 0;
+    ExitwayRec ways[kMaxSavedWays] = {};
+    int way_count = 0;
 };
 
 static PersistState g_state;
@@ -115,6 +122,13 @@ void persist_load() {
             g_state.objs[g_state.obj_count++] = o;
             continue;
         }
+        ExitwayRec x{};
+        if (std::sscanf(line, "exitway %d %d %d %d %d %d",
+                       &x.zone, &x.room_x, &x.room_y,
+                       &x.slot, &x.refused, &x.hidden) == 6
+            && g_state.way_count < kMaxSavedWays) {
+            g_state.ways[g_state.way_count++] = x;   // R56: a way's truth that moved, recalled
+        }
         TraceRec tr{};
         if (std::sscanf(line, "room-trace %d %d %d %d %d %d %ld %d %d",
                        &tr.zone, &tr.room_x, &tr.room_y, &tr.type, &tr.x, &tr.y,
@@ -152,6 +166,7 @@ void persist_save() {
     weather_dump(f);
     npc_dump(f);
     obj_dump(f);
+    rooms_dump_exitways(f);   // R56: the ways whose truth moved
     rooms_dump(f);   // R21: the ground's memory joins the chorus
     std::fclose(f);
     std::printf("World state saved.\n");
@@ -246,4 +261,13 @@ int data_list(const char* rel_dir, char names[][32], int cap) {
         std::snprintf(names[j + 1], 32, "%s", key);
     }
     return n;
+}
+
+bool persist_get_exitway(int idx, int* zone, int* room_x, int* room_y,
+                         int* slot, int* refused, int* hidden) {
+    if (idx < 0 || idx >= g_state.way_count) return false;
+    const ExitwayRec& w = g_state.ways[idx];
+    *zone = w.zone; *room_x = w.room_x; *room_y = w.room_y;
+    *slot = w.slot; *refused = w.refused; *hidden = w.hidden;
+    return true;
 }

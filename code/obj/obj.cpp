@@ -128,6 +128,7 @@ bool obj_take(const char* word, const char* who) {
     stamp_traces(s.at, kTraceLanternTaken, s.x, s.y);
     record(who, ObjAction::kTake);
     s.carried = true;
+    if (d.unbars != nullptr) rooms_unbar(s.at, d.unbars);   // R56: the deed lifts the bar where the deed was done
     return true;
 }
 
@@ -181,6 +182,7 @@ ObjSearch obj_search(const char* word, const Room* room, int px, int py,
             return kSearchAlready;
         }
         g_states[i].found = true;   // found once per world
+        if (d.reveals != nullptr) rooms_reveal(room, d.reveals);   // R56: finding shows a way, and it stays shown
         stamp_traces(room, kTraceFound + obj_secret_ordinal(i), px, py);
         return kSearchFound;
     }

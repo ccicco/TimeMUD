@@ -107,6 +107,10 @@ bool load_one(const char* rel) {
             def.prose_lit = pool_prose(rest);
         } else if (std::strcmp(key, "prose-unlit") == 0) {
             def.prose_unlit = pool_prose(rest);
+        } else if (std::strcmp(key, "reveals") == 0) {
+            def.reveals = pool_str(rest);
+        } else if (std::strcmp(key, "unbars") == 0) {
+            def.unbars = pool_str(rest);
         } else {
             warn(rel, key);   // the flexibility law: unknown keys warn, never kill
         }

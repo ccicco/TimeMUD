@@ -34,6 +34,27 @@ char* pool_prose(const char* rest) {
     return pool_str(rest);
 }
 
+
+// R56: ways stage in the file's parlor - data rows may arrive in any
+// order, so a seam's word binds its prose, refusal, and state to one
+// slot before the room takes them in.
+static Exitway s_pend[kExitMax];
+static int s_pend_n = 0;
+
+static Exitway* pend_slot(const char* w) {
+    for (int i = 0; i < s_pend_n; ++i) {
+        if (std::strcmp(s_pend[i].word, w) == 0) return &s_pend[i];
+    }
+    if (s_pend_n >= kExitMax) {
+        log_boot("rooms: %s: more than %d ways; the last is turned away", w, kExitMax);
+        return nullptr;
+    }
+    Exitway& e = s_pend[s_pend_n++];
+    e = Exitway{};
+    e.exists = true;
+    e.word = pool_str(w);
+    return &e;
+}
 void warn(const char* rel, const char* what) {
     std::printf("World warning: world - %s: %s\n", rel, what);
     log_boot("world: %s: %s", rel, what);
@@ -51,10 +72,7 @@ bool load_one(const char* rel) {
     bool has_at = false, has_size = false, has_prose = false, has_shelter = false;
     bool sheltered = false;
     bool spawn = false;                                  // R55: the login homes here when true
-    int raw_zone[4] = {-1, -1, -1, -1};                  // R55: parse triples, doors bind after canon order
-    int raw_x[4] = {0, 0, 0, 0};
-    int raw_y[4] = {0, 0, 0, 0};
-    const char* ex_prose[4] = {};                        // what look says of the door; "-" is an authored none
+    s_pend_n = 0;   // R56: each room's ways stage anew
     char line[256];
     while (std::fgets(line, sizeof line, f)) {
         const int len = static_cast<int>(std::strlen(line));
@@ -94,35 +112,49 @@ bool load_one(const char* rel) {
         } else if (std::strcmp(key, "spawn") == 0) {
             char v[16];
             if (std::sscanf(rest, "%15s", v) == 1) spawn = (std::strcmp(v, "true") == 0);
+        } else if (std::strcmp(key, "exit") == 0) {
+            char w[16];
+            int ez = 0, ex = 0, ey = 0, ax = 0, ay = 0;
+            const int n = std::sscanf(rest, "%15s room %d %d %d at %d %d",
+                                      w, &ez, &ex, &ey, &ax, &ay);
+            if (n >= 4) {
+                Exitway* const e = pend_slot(w);
+                if (e != nullptr) {
+                    e->raw_zone = ez; e->raw_x = ex; e->raw_y = ey;
+                    if (n >= 6) { e->at_authored = true; e->ax = ax; e->ay = ay; }
+                }
+            } else {
+                warn(rel, rest);   // a way that names no far side warns, never kills
+            }
         } else if (std::strncmp(key, "exit-prose", 10) == 0) {
-            char dir[16];
-            if (std::sscanf(rest, "%15s", dir) == 1) {
-                int d = -1;
-                if (std::strcmp(dir, "north") == 0) d = 0;
-                else if (std::strcmp(dir, "south") == 0) d = 1;
-                else if (std::strcmp(dir, "west") == 0) d = 2;
-                else if (std::strcmp(dir, "east") == 0) d = 3;
-                if (d >= 0) {
-                    const char* text = rest + std::strlen(dir);
+            char w[16];
+            if (std::sscanf(rest, "%15s", w) == 1) {
+                Exitway* const e = pend_slot(w);
+                if (e != nullptr) {
+                    const char* text = rest + std::strlen(w);
                     while (*text == ' ') ++text;
-                    ex_prose[d] = pool_prose(text);
-                } else {
-                    warn(rel, rest);   // an unknown direction warns, never kills
+                    e->prose = pool_prose(text);
                 }
             }
-        } else if (std::strcmp(key, "exit") == 0) {
-            char dir[16];
-            int ez = 0, ex = 0, ey = 0;
-            if (std::sscanf(rest, "%15s room %d %d %d", dir, &ez, &ex, &ey) == 4) {
-                int d = -1;
-                if (std::strcmp(dir, "north") == 0) d = 0;
-                else if (std::strcmp(dir, "south") == 0) d = 1;
-                else if (std::strcmp(dir, "west") == 0) d = 2;
-                else if (std::strcmp(dir, "east") == 0) d = 3;
-                if (d >= 0) {
-                    raw_zone[d] = ez; raw_x[d] = ex; raw_y[d] = ey;
-                } else {
-                    warn(rel, rest);   // an unknown direction warns, never kills
+        } else if (std::strncmp(key, "exit-refusal", 12) == 0) {
+            char w[16];
+            if (std::sscanf(rest, "%15s", w) == 1) {
+                Exitway* const e = pend_slot(w);
+                if (e != nullptr) {
+                    const char* text = rest + std::strlen(w);
+                    while (*text == ' ') ++text;
+                    e->refusal = pool_prose(text);
+                }
+            }
+        } else if (std::strncmp(key, "exit-state", 10) == 0) {
+            char w[24], st[24];
+            if (std::sscanf(rest, "%15s %23s", w, st) == 2) {
+                Exitway* const e = pend_slot(w);
+                if (e != nullptr) {
+                    if (std::strcmp(st, "refused") == 0) e->refused = true;
+                    else if (std::strcmp(st, "hidden") == 0) e->hidden = true;
+                    else if (std::strcmp(st, "crossable") == 0) {}   // the default, said aloud
+                    else warn(rel, st);
                 }
             }
         } else {
@@ -142,12 +174,19 @@ bool load_one(const char* rel) {
             return false;
         }
     }
-    g_rooms[g_room_n] = Room(pool_str(name), zone, x, y, size, prose, sheltered);   // R55: the doors follow the room into the world
-    Room& placed = g_rooms[g_room_n];
+    g_rooms[g_room_n] = Room(pool_str(name), zone, x, y, size, prose, sheltered);
+    Room& placed = g_rooms[g_room_n];   // R56: the ways follow the room into the world
     placed.set_spawn(spawn);
-    for (int d = 0; d < 4; ++d) {
-        placed.set_raw_exit(d, raw_zone[d], raw_x[d], raw_y[d]);
-        placed.set_exit_prose(d, ex_prose[d]);
+    for (int w = 0; w < s_pend_n; ++w) {
+        Exitway& e = placed.exit_add();
+        const Exitway& p = s_pend[w];
+        e.word         = p.word;
+        e.raw_zone     = p.raw_zone; e.raw_x = p.raw_x; e.raw_y = p.raw_y;
+        e.at_authored  = p.at_authored; e.ax = p.ax; e.ay = p.ay;
+        e.refused      = p.refused;   e.hidden = p.hidden;
+        e.auth_refused_ = p.refused;  e.auth_hidden_ = p.hidden;   // the data's word, kept so persistence knows a move from a truth
+        e.prose        = p.prose;
+        e.refusal      = p.refusal;
     }
     ++g_room_n;
     return true;

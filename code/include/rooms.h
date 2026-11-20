@@ -7,6 +7,39 @@
 // the weather decides). Description is ASSEMBLY: base + conditions,
 // rendered now as a sentence, later as a scene.
 
+// R56: EXITWAYS. A place's seam of passage; everything else about
+// doors is vocabulary - the door, if one exists, is an object linked
+// by claim. The four compass words keep the R55 crossing law (north
+// lands on the target's south edge, wandering axis preserved). Any
+// other word is a named way, crosses from anywhere, and wants an
+// authored landing. State is one honest pair that deeds may move:
+// refused (crossing answered with prose) and hidden (indistinguishable
+// from absent in look and go alike - a bespoke refusal would leak the
+// secret's existence). The lock's mechanism carries its own memory.
+
+#include <cstdio>
+
+class Room;   // R56: a way points at its place before places are defined
+
+class Room;   // R56: a way points at its place before places are defined
+
+constexpr int kExitMax = 6;   // four walls and some Dictionary, era one's headroom
+
+struct Exitway {
+    bool      exists     = false;    // a slot may await its seam
+    const char* word     = nullptr;  // the way's word: a compass name or any other
+    int       raw_zone = -1, raw_x = 0, raw_y = 0;   // the promised far side
+    bool      at_authored = false;   // an authored landing outranks the crossing law
+    int       ax = 0, ay = 0;
+    bool      refused = false;       // the bit the engine measures
+    bool      hidden  = false;       // the bit the engine hides
+    const Room* target = nullptr;    // bound after canon sort
+    const char* prose    = nullptr;  // what look says one step from the crossing
+    const char* refusal   = nullptr;  // what go says when refused; default prose below
+    bool      auth_refused_ = false; // what the data worded, so persistence knows a move from a standing truth
+    bool      auth_hidden_  = false;
+};
+
 class Room {
 public:
     constexpr Room(const char* name, int zone, int x, int y, int size,
@@ -23,21 +56,18 @@ public:
     constexpr const char* base() const { return base_; }
     constexpr bool sheltered() const { return sheltered_; }
 
-    // R55: a place owns its doors. dir: 0 north, 1 south, 2 west, 3 east.
-    // Raw triples keep parse order; targets bind after canon sort.
     constexpr bool spawn() const { return spawn_; }
-    constexpr bool has_exit(int dir) const { return exit_[dir] != nullptr; }
-    constexpr const Room* exit(int dir) const { return exit_[dir]; }
-    constexpr const char* exit_prose(int dir) const { return exit_prose_[dir]; }
-    constexpr int raw_zone(int dir) const { return raw_zone_[dir]; }
-    constexpr int raw_x(int dir) const { return raw_x_[dir]; }
-    constexpr int raw_y(int dir) const { return raw_y_[dir]; }
+    constexpr int exit_n() const { return exit_n_; }
+    const Exitway& exitway(int slot) const { return exits_[slot]; }
+    Exitway& exitway(int slot) { return exits_[slot]; }   // the loader's hand
 
-    // the loader's hands; the world reads, the data writes
     void set_spawn(bool v) { spawn_ = v; }
-    void set_raw_exit(int dir, int zone, int x, int y) { raw_zone_[dir] = zone; raw_x_[dir] = x; raw_y_[dir] = y; }
-    void set_exit_prose(int dir, const char* prose) { exit_prose_[dir] = prose; }
-    void bind_exit(int dir, const Room* target) { exit_[dir] = target; }
+    Exitway& exit_add() {   // a new seam takes its slot; the loader writes the rest
+        if (exit_n_ >= kExitMax) return exits_[kExitMax - 1];
+        ++exit_n_;
+        exits_[exit_n_ - 1].exists = true;
+        return exits_[exit_n_ - 1];
+    }
 
 private:
     const char* name_;
@@ -48,11 +78,8 @@ private:
     const char* base_;
     bool sheltered_;
     bool spawn_ = false;
-    int raw_zone_[4] = {-1, -1, -1, -1};   // doors arrive as triples, bind as pointers
-    int raw_x_[4] = {};
-    int raw_y_[4] = {};
-    const Room* exit_[4] = {};
-    const char* exit_prose_[4] = {};
+    Exitway exits_[kExitMax];
+    int  exit_n_ = 0;
 };
 
 enum class Band { kMelee, kNear, kFar, kEdge };
@@ -76,8 +103,6 @@ bool room_dark(const Room& room);      // the darkness a room wears right now
 // R21: the room's short memory. Four traces per room, oldest evicted;
 // the chronicle keeps the long history, these keep what the GROUND
 // knows. Types are numbers end to end - never prose in persist.
-#include <cstdio>
-
 constexpr int kTracesPerRoom = 4;
 constexpr int kTraceLanternDropped = 1;
 constexpr int kTraceLanternLit     = 2;
@@ -101,5 +126,15 @@ constexpr int kRoomMax = 32;
 extern Room g_rooms[kRoomMax];
 extern int g_room_n;
 void rooms_load_data();
-void rooms_resolve_exits();   // R55: doors bind after canon order
+void rooms_resolve_exits();   // R56: ways bind after canon order - and honest at any size
 const Room* room_spawn();      // R55: the login's home is data now: first spawn-flagged room, first ground in a degenerate world
+
+// R56: the exitways' engine. A way is found by word; go treats hidden
+// as absent; both flip seams arrive here - finding shows a way, a deed
+// lifts a bar - and what moves from the data's word is persisted.
+int  room_exit_way(const Room* r, const char* word);   // slot or -1; hidden included, state is the caller's law
+void rooms_reveal(const Room* r, const char* word);   // a found secret shows its way, and it stays shown
+void rooms_unbar(const Room* r, const char* word);    // a deed lifts the bar, and it stays lifted
+void rooms_dump_exitways(FILE* f);
+void rooms_resume_exitways();   // R56: what deeds moved, resumes after the census                   // rows for ways whose state moved from what the data said
+const char* exit_refusal_default();                   // "The way is barred." - the refusal a way borrows when its data worded none
