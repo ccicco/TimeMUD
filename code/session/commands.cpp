@@ -234,6 +234,10 @@ static void cmd_go(const char* dir_word) {
             server_write(line);
             return;
         }
+        if (e.closed) {
+            server_write("That way is closed.\n");
+            return;
+        }
         cross_to(e.target, e.ax, e.ay);   // the resolver stood every named way's landing
         return;
     }
@@ -298,6 +302,64 @@ static void cmd_go(const char* dir_word) {
     cross_to(e->target, ax, ay);
 }
 
+
+// R58: the closed way - the refusal any hand lifts. Hidden answers as
+// the birches would (a bespoke refusal would leak the secret);
+// refused owes a deed; closed owes only a verb, and the verb is
+// common. What a hand moves here moves from the data's word, and the
+// save remembers it.
+static void cmd_open(const char* word) {
+    if (word == nullptr || word[0] == 0) {
+        server_write("Open what way?\n");
+        return;
+    }
+    const int slot = room_exit_way(g_player.room, word);
+    if (slot < 0 || g_player.room->exitway(slot).hidden
+        || g_player.room->exitway(slot).target == nullptr) {
+        server_write("The birches stand too thick that way; the place holds you.\n");
+        return;
+    }
+    Room* const rm = const_cast<Room*>(g_player.room);   // the resume precedent: a hand that moves a truth may reach it
+    Exitway& e = rm->exitway(slot);
+    if (e.refused) {
+        server_write("The way is barred; no hand opens it.\n");
+        return;
+    }
+    if (!e.closed) {
+        server_write("That way stands open already.\n");
+        return;
+    }
+    e.closed = false;
+    server_write("You push it open; the way stands clear for a crossing.\n");
+}
+
+static void cmd_close(const char* word) {
+    if (word == nullptr || word[0] == 0) {
+        server_write("Close what way?\n");
+        return;
+    }
+    const int slot = room_exit_way(g_player.room, word);
+    if (slot < 0 || g_player.room->exitway(slot).hidden
+        || g_player.room->exitway(slot).target == nullptr) {
+        server_write("The birches stand too thick that way; the place holds you.\n");
+        return;
+    }
+    Room* const rm = const_cast<Room*>(g_player.room);   // the resume precedent: a hand that moves a truth may reach it
+    Exitway& e = rm->exitway(slot);
+    if (e.refused) {
+        server_write("It is barred shut; there is nothing to close.\n");
+        return;
+    }
+    if (e.closed) {
+        server_write("That way stands closed already.\n");
+        return;
+    }
+    e.closed = true;
+    server_write("You draw the way closed.\n");
+}
+
+static void h_open(const Args& a)       { cmd_open(a.rest); }
+static void h_close(const Args& a)      { cmd_close(a.rest); }
 static void cmd_search(const char* word) {
     const ObjSearch r = obj_search(word, g_player.room, g_player.x, g_player.y,
                                    g_player.name);
@@ -388,6 +450,8 @@ static void h_quit(const Args& a) {
 static const Command kCommands[] = {
     {"look",      {"l", 0},                "@nouns", h_look},
     {"go",        {0},                    "<dir>",               h_go},
+    {"open",      {0},                    "<way>",               h_open},
+    {"close",     {0},                    "<way>",               h_close},
     {"take",      {0},                    "lantern",             h_take},
     {"light",     {0},                    "lantern",             h_light},
     {"drop",      {0},                    "lantern",             h_drop},

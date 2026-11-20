@@ -153,6 +153,7 @@ bool load_one(const char* rel) {
                 if (e != nullptr) {
                     if (std::strcmp(st, "refused") == 0) e->refused = true;
                     else if (std::strcmp(st, "hidden") == 0) e->hidden = true;
+                    else if (std::strcmp(st, "closed") == 0) e->closed = true;
                     else if (std::strcmp(st, "crossable") == 0) {}   // the default, said aloud
                     else warn(rel, st);
                 }
@@ -184,7 +185,9 @@ bool load_one(const char* rel) {
         e.raw_zone     = p.raw_zone; e.raw_x = p.raw_x; e.raw_y = p.raw_y;
         e.at_authored  = p.at_authored; e.ax = p.ax; e.ay = p.ay;
         e.refused      = p.refused;   e.hidden = p.hidden;
-        e.auth_refused_ = p.refused;  e.auth_hidden_ = p.hidden;   // the data's word, kept so persistence knows a move from a truth
+        e.auth_refused_ = p.refused;  e.auth_hidden_ = p.hidden;
+        e.closed        = p.closed;
+        e.auth_closed_  = p.closed;   // the data's word, kept so persistence knows a move from a truth
         e.prose        = p.prose;
         e.refusal      = p.refusal;
     }

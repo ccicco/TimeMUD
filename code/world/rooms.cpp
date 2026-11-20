@@ -305,13 +305,14 @@ const char* exit_refusal_default() { return "The way is barred."; }
 
 void rooms_resume_exitways() {
     for (int i = 0; ; ++i) {
-        int z = 0, rx = 0, ry = 0, s = 0, ref = 0, hid = 0;
-        if (!persist_get_exitway(i, &z, &rx, &ry, &s, &ref, &hid)) break;
+        int z = 0, rx = 0, ry = 0, s = 0, ref = 0, hid = 0, clo = 0;
+        if (!persist_get_exitway(i, &z, &rx, &ry, &s, &ref, &hid, &clo)) break;
         Room* const r = const_cast<Room*>(room_at(z, rx, ry));
         if (r == nullptr || s < 0 || s >= r->exit_n()) continue;   // a stale row skips: the data's word outranks the save's memory
         Exitway& e = r->exitway(s);
         e.refused = ref != 0;
         e.hidden  = hid != 0;
+        e.closed  = clo != 0;
     }
 }
 
@@ -320,10 +321,10 @@ void rooms_dump_exitways(FILE* f) {
         const Room& r = g_rooms[i];
         for (int s = 0; s < r.exit_n(); ++s) {
             const Exitway& e = r.exitway(s);
-            if (e.refused == e.auth_refused_ && e.hidden == e.auth_hidden_) continue;
-            std::fprintf(f, "exitway %d %d %d %d %d %d\n",
+            if (e.refused == e.auth_refused_ && e.hidden == e.auth_hidden_ && e.closed == e.auth_closed_) continue;
+            std::fprintf(f, "exitway %d %d %d %d %d %d %d\n",
                          r.zone(), r.x(), r.y(), s,
-                         e.refused ? 1 : 0, e.hidden ? 1 : 0);
+                         e.refused ? 1 : 0, e.hidden ? 1 : 0, e.closed ? 1 : 0);
         }
     }
 }

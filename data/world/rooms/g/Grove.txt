@@ -15,3 +15,6 @@ exit poolway room 1 0 0 at 5 5
 exit-prose poolway The pool's far rim glimmers; a sunken path is barred beneath the water.
 exit-refusal poolway The water is closed over the sunken path; the pool does not let you through.
 exit-state poolway refused
+exit birchgate room 1 0 0 at 5 5
+exit-prose birchgate A gate of pale birchwood hangs in the pool's stone rim.
+exit-state birchgate closed

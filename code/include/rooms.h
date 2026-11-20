@@ -33,11 +33,13 @@ struct Exitway {
     int       ax = 0, ay = 0;
     bool      refused = false;       // the bit the engine measures
     bool      hidden  = false;       // the bit the engine hides
+    bool      closed  = false;       // R58: any hand lifts it - open and close move it
     const Room* target = nullptr;    // bound after canon sort
     const char* prose    = nullptr;  // what look says one step from the crossing
     const char* refusal   = nullptr;  // what go says when refused; default prose below
     bool      auth_refused_ = false; // what the data worded, so persistence knows a move from a standing truth
     bool      auth_hidden_  = false;
+    bool      auth_closed_  = false;   // R58: the data's word on closed, for the moved-truth law
 };
 
 class Room {

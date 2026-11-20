@@ -57,7 +57,7 @@ struct TraceRec {
 };
 
 struct ExitwayRec {   // R56: what a deed moved, the save remembers
-    int zone; int room_x; int room_y; int slot; int refused; int hidden;
+    int zone; int room_x; int room_y; int slot; int refused; int hidden; int closed;
 };
 
 struct PersistState {
@@ -123,9 +123,9 @@ void persist_load() {
             continue;
         }
         ExitwayRec x{};
-        if (std::sscanf(line, "exitway %d %d %d %d %d %d",
+        if (std::sscanf(line, "exitway %d %d %d %d %d %d %d",
                        &x.zone, &x.room_x, &x.room_y,
-                       &x.slot, &x.refused, &x.hidden) == 6
+                       &x.slot, &x.refused, &x.hidden, &x.closed) == 7
             && g_state.way_count < kMaxSavedWays) {
             g_state.ways[g_state.way_count++] = x;   // R56: a way's truth that moved, recalled
         }
@@ -264,10 +264,10 @@ int data_list(const char* rel_dir, char names[][32], int cap) {
 }
 
 bool persist_get_exitway(int idx, int* zone, int* room_x, int* room_y,
-                         int* slot, int* refused, int* hidden) {
+                         int* slot, int* refused, int* hidden, int* closed) {
     if (idx < 0 || idx >= g_state.way_count) return false;
     const ExitwayRec& w = g_state.ways[idx];
     *zone = w.zone; *room_x = w.room_x; *room_y = w.room_y;
-    *slot = w.slot; *refused = w.refused; *hidden = w.hidden;
+    *slot = w.slot; *refused = w.refused; *hidden = w.hidden; *closed = w.closed;
     return true;
 }
