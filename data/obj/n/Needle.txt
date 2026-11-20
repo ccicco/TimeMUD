@@ -12,3 +12,4 @@ reach 1
 near 2
 prose-found A haystack stands in the corner of the hall, a bone needle laid on top of it.
 prose-waiting A haystack stands in the corner of the hall.
+reveals rootway

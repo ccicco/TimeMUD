@@ -8,3 +8,6 @@ prose a lamp-lit hall of old timber
 sheltered true
 exit south room 1 0 1
 exit-prose south Southward, the dark of the open grove waits.
+exit rootway room 1 0 1 at 5 5
+exit-prose rootway A low root-tunnel is open in the hall's floor, running beneath the birches toward the grove.
+exit-state rootway hidden

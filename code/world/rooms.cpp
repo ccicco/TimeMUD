@@ -251,6 +251,20 @@ void rooms_resolve_exits() {
                               || std::strcmp(e.word, "south") == 0
                               || std::strcmp(e.word, "west") == 0
                               || std::strcmp(e.word, "east") == 0;
+            if (compass) {   // R57: the pair audit - a compass way asks whether its far
+                // side answers; one-way crossings stay legal, the boot only names them.
+                const char* rev = nullptr;
+                if (std::strcmp(e.word, "north") == 0) rev = "south";
+                else if (std::strcmp(e.word, "south") == 0) rev = "north";
+                else if (std::strcmp(e.word, "west") == 0) rev = "east";
+                else if (std::strcmp(e.word, "east") == 0) rev = "west";
+                if (rev != nullptr && room_exit_way(t, rev) < 0) {
+                    std::printf("World warning: world - %s: the %s way has no %s answer in %s\n",
+                                r.name(), e.word, rev, t->name());
+                    log_boot("world: %s: the %s way has no %s answer in %s",
+                             r.name(), e.word, rev, t->name());
+                }
+            }
             if (e.at_authored) continue;
             if (compass && r.size() == t->size()) continue;
             if (compass) {
