@@ -1,9 +1,19 @@
-// Zone one, surveyed, STATEFUL, now REMEMBERING, R21. Darkness has two
-// masters (storm R13, night R20); traces are the ground's own memory
-// of deeds done in a place: lanterns set down, flames struck, lanterns
-// lifted, dark that fell. A ring of N per room, oldest evicted - the
-// chronicle keeps the world's long history; a room keeps only what
-// its ground knows. Numbers end to end: resume reads them back.
+// The places, surveyed, STATEFUL, remembering, R21. Darkness has two
+// masters (storm R13, night R20); traces are the ground's own memory of
+// deeds done in a place: lanterns set down, flames struck, lanterns
+// lifted, dark that fell. A ring of N per place, oldest evicted - the
+// chronicle keeps the world's long history; a room keeps only what its
+// ground knows. Numbers end to end: resume reads them back.
+//
+// R53: THE TWINS DIE - the shrine and the grove stop being constexpr
+// constants and start being residents of g_rooms, loaded from
+// data/world/rooms/<a-z>/<Name>.txt by rooms_data.cpp. Dozens of
+// consumers keep their signatures: accessors keep their names and
+// change their socks (coordinate lookups into loaded storage,
+// pointer-stable for the process). Darkness follows the SHELTERED
+// flag now - the data's law, not the code's memory. THE GROUND IS
+// LOAD-BEARING: a world without citizens boots wistfully; a world
+// without ground is warned and may not survive contact.
 
 #include "rooms.h"
 
@@ -16,17 +26,27 @@
 #include <cstring>
 #include <variant>
 
-static constexpr Room kShrine("the shrine", 1, 0, 0, 10,
-                              "a lamp-lit hall of old timber", true);
-static constexpr Room kGrove("the moonlit grove", 1, 0, 1, 10,
-                             "an open circle of birch and pool", false);
+Room g_rooms[kRoomMax];   // R53: the ground; its places arrive by data
+int g_room_n = 0;
 
-const Room& room_shrine() { return kShrine; }
-const Room& room_grove()  { return kGrove; }
+const Room& room_shrine() {
+    for (int i = 0; i < g_room_n; ++i) {
+        if (g_rooms[i].zone() == 1 && g_rooms[i].x() == 0 && g_rooms[i].y() == 0) return g_rooms[i];
+    }
+    return g_rooms[0];   // era one's famous room, by coordinates now; the boot-empty warning spoke if the ground is bare
+}
+
+const Room& room_grove() {
+    for (int i = 0; i < g_room_n; ++i) {
+        if (g_rooms[i].zone() == 1 && g_rooms[i].x() == 0 && g_rooms[i].y() == 1) return g_rooms[i];
+    }
+    return g_rooms[0];
+}
 
 const Room* room_at(int zone, int x, int y) {
-    if (kShrine.zone() == zone && kShrine.x() == x && kShrine.y() == y) return &kShrine;
-    if (kGrove.zone() == zone && kGrove.x() == x && kGrove.y() == y) return &kGrove;
+    for (int i = 0; i < g_room_n; ++i) {
+        if (g_rooms[i].zone() == zone && g_rooms[i].x() == x && g_rooms[i].y() == y) return &g_rooms[i];
+    }
     return nullptr;
 }
 
@@ -64,17 +84,17 @@ struct TraceRing {
     }
 };
 
-static TraceRing g_ring_shrine;
-static TraceRing g_ring_grove;
+static TraceRing g_rings[kRoomMax];   // R53: one ring per loaded place, parallel to g_rooms
 
 static TraceRing* ring_for(const Room* room) {
-    if (room == &kShrine) return &g_ring_shrine;
-    return &g_ring_grove;
+    if (room < g_rooms || room >= g_rooms + g_room_n) return nullptr;
+    return &g_rings[room - g_rooms];
 }
 
 static TraceRing* ring_for_name(const char* room) {
-    if (std::strcmp(room, kShrine.name()) == 0) return &g_ring_shrine;
-    if (std::strcmp(room, kGrove.name()) == 0) return &g_ring_grove;
+    for (int i = 0; i < g_room_n; ++i) {
+        if (std::strcmp(room, g_rooms[i].name()) == 0) return &g_rings[i];
+    }
     return nullptr;
 }
 
@@ -98,21 +118,21 @@ public:
         if (std::holds_alternative<WeatherChangeEvt>(evt.payload)) {
             const auto& wc = std::get<WeatherChangeEvt>(evt.payload);
             storm_ = (wc.now == static_cast<int>(WeatherState::kStorm));
-            apply(kGrove, dark_grove_, wc.day, wc.hour, wc.minute, wc.second, evt.time);
+            for (int i = 0; i < g_room_n; ++i) apply(i, wc.day, wc.hour, wc.minute, wc.second, evt.time);
         } else if (std::holds_alternative<HourEvt>(evt.payload)) {
             const auto& he = std::get<HourEvt>(evt.payload);
             const bool night_now = night(he.hour);
             if (night_now != night_) {
                 night_ = night_now;
-                apply(kGrove, dark_grove_, he.day, he.hour, he.minute, he.second, evt.time);
+                for (int i = 0; i < g_room_n; ++i) apply(i, he.day, he.hour, he.minute, he.second, evt.time);
             }
         }
-        // the shrine is sheltered: neither storm nor hour darkens its lamps
+        // sheltered rooms never darken: the flag's law, not a hardcoded name
     }
 
     bool dark(const Room& room) const {
-        if (&room == &kGrove) return dark_grove_;
-        return false;   // shelter and lamps hold
+        if (&room < g_rooms || &room >= g_rooms + g_room_n) return false;
+        return dark_[&room - g_rooms];
     }
 
 private:
@@ -120,13 +140,13 @@ private:
         return hour >= 20 || hour < 5;   // the night rule, the clock's teeth
     }
 
-    void apply(const Room& room, bool& flag, long day, int hour,
-               int minute, int second, const GameTime& t) {
+    void apply(int idx, long day, int hour, int minute, int second, const GameTime& t) {
+        const Room& room = g_rooms[idx];
         const bool dark_now = !room.sheltered() && (storm_ || night_);
-        if (dark_now == flag) return;
-        flag = dark_now;
+        if (dark_now == dark_[idx]) return;
+        dark_[idx] = dark_now;
         if (dark_now) {   // the ground remembers every fall of dark
-            room_inline_trace(&room, day, hour, minute);
+            g_rings[idx].add(kTraceDarkFell, 0, 0, day, hour, minute);
         }
         RoomConditionEvt rc{};
         rc.room   = room.name();
@@ -140,19 +160,13 @@ private:
         evt.time        = t;
         evt.category    = EventCategory::kWorld;
         evt.payload     = rc;
-        evt.visibility  = 100;  // a room falling dark is not subtle
+        evt.visibility  = 100;  // a place falling dark is not subtle
         events_emit(evt);
     }
 
-    static void room_inline_trace(const Room* room, long day, int hour, int minute) {
-        // a small seam: darkness falls on the unsheltered ground only
-        TraceRing* ring = ring_for(room);
-        if (ring != nullptr) ring->add(kTraceDarkFell, 0, 0, day, hour, minute);
-    }
-
-    bool storm_     = false;
-    bool night_    = false;
-    bool dark_grove_ = false;
+    bool storm_ = false;
+    bool night_ = false;
+    bool dark_[kRoomMax] = {};
 };
 
 static RoomState g_room_state;
@@ -166,11 +180,21 @@ void conditions_subscribe() {
 }
 
 void rooms_load() {
-    std::printf("World survey: zone 1 holds %s at (%d, %d) and %s at (%d, %d), each a %dx%d grid.\n",
-                kShrine.name(), kShrine.x(), kShrine.y(),
-                kGrove.name(), kGrove.x(), kGrove.y(),
-                kShrine.size(), kShrine.size());
-    log_boot("world survey: zone 1 holds 2 rooms, 10x10 grids");
+    rooms_load_data();   // R53: the ground arrives as data before anything stands on it
+    if (g_room_n >= 2) {   // era one's survey sentence, worded as always, sourced from disk now
+        std::printf("World survey: zone %d holds %s at (%d, %d) and %s at (%d, %d), each a %dx%d grid.\n",
+                    g_rooms[0].zone(), g_rooms[0].name(), g_rooms[0].x(), g_rooms[0].y(),
+                    g_rooms[1].name(), g_rooms[1].x(), g_rooms[1].y(),
+                    g_rooms[0].size(), g_rooms[0].size());
+    } else if (g_room_n == 1) {
+        std::printf("World survey: zone %d holds %s at (%d, %d), a %dx%d grid.\n",
+                    g_rooms[0].zone(), g_rooms[0].name(), g_rooms[0].x(), g_rooms[0].y(),
+                    g_rooms[0].size(), g_rooms[0].size());
+    }
+    // else: the boot-empty warning already named the ground in rooms_load_data
+    log_boot("world survey: zone %d holds %d rooms, %dx%d grids",
+             g_room_n > 0 ? g_rooms[0].zone() : 0, g_room_n,
+             g_room_n > 0 ? g_rooms[0].size() : 0, g_room_n > 0 ? g_rooms[0].size() : 0);
     // R21: the ground's memory resumes where it stood
     for (int idx = 0; ; ++idx) {
         int zone = 0, rx = 0, ry = 0, type = 0, x = 0, y = 0, hour = 0, minute = 0;
@@ -183,27 +207,29 @@ void rooms_load() {
 }
 
 void rooms_dump(FILE* f) {
-    const char* names[2] = { kShrine.name(), kGrove.name() };
-    for (int r = 0; r < 2; ++r) {
+    for (int r = 0; r < g_room_n; ++r) {
         for (int idx = 0; ; ++idx) {
             int type = 0, x = 0, y = 0, hour = 0, minute = 0;
             long day = 0;
-            if (!rooms_read_trace(names[r], idx, &type, &x, &y, &day, &hour, &minute)) break;
-            const Room* const room = room_at(r == 0 ? 1 : 1, 0, r);   // shrine (1,0,0), grove (1,0,1)
+            if (!rooms_read_trace(g_rooms[r].name(), idx, &type, &x, &y, &day, &hour, &minute)) break;
             std::fprintf(f, "room-trace %d %d %d %d %d %d %ld %d %d\n",
-                         room->zone(), room->x(), room->y(),
+                         g_rooms[r].zone(), g_rooms[r].x(), g_rooms[r].y(),
                          type, x, y, day, hour, minute);
         }
     }
 }
 
 void rooms_describe(int sky) {
-    std::printf("%s: %s, sheltered from the sky.\n", kShrine.name(), kShrine.base());
-    if (sky >= 0 && sky < static_cast<int>(WeatherState::kCount)) {
-        std::printf("%s: %s, open beneath the %s.\n",
-                    kGrove.name(), kGrove.base(), weather_name(static_cast<WeatherState>(sky)));
-    } else {
-        std::printf("%s: %s, open beneath an empty sky.\n", kGrove.name(), kGrove.base());
+    for (int i = 0; i < g_room_n; ++i) {
+        const Room& room = g_rooms[i];
+        if (room.sheltered()) {
+            std::printf("%s: %s, sheltered from the sky.\n", room.name(), room.base());
+        } else if (sky >= 0 && sky < static_cast<int>(WeatherState::kCount)) {
+            std::printf("%s: %s, open beneath the %s.\n",
+                        room.name(), room.base(), weather_name(static_cast<WeatherState>(sky)));
+        } else {
+            std::printf("%s: %s, open beneath an empty sky.\n", room.name(), room.base());
+        }
     }
-    log_boot("world places described: 2 rooms");
+    log_boot("world places described: %d rooms", g_room_n);
 }

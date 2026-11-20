@@ -13,6 +13,7 @@ public:
                   const char* base, bool sheltered)
         : name_(name), zone_(zone), x_(x), y_(y), size_(size),
           base_(base), sheltered_(sheltered) {}
+    Room() : name_(nullptr), zone_(0), x_(0), y_(0), size_(0), base_(nullptr), sheltered_(false) {}   // R53: a slot may await its place
 
     constexpr const char* name() const { return name_; }
     constexpr int zone() const { return zone_; }
@@ -70,3 +71,13 @@ void rooms_add_trace(const Room* room, int type, int x, int y,
 bool rooms_read_trace(const char* room, int idx, int* type, int* x, int* y,
                       long* day, int* hour, int* minute);  // oldest first
 void rooms_dump(FILE* f);
+
+// R53: places arrive as data - data/world/rooms/<a-z>/<Name>.txt, one
+// file per place. rooms.cpp's constexpr twins die; accessors keep their
+// names and change their socks: coordinate lookups into loaded storage,
+// pointer-stable for the process. Rooms sort to canon order (zone, x, y):
+// the survey reads the world in the order its prose was written.
+constexpr int kRoomMax = 32;
+extern Room g_rooms[kRoomMax];
+extern int g_room_n;
+void rooms_load_data();

@@ -1,0 +1,10 @@
+# timemud room - schema 1
+# the entity's whole self, R52 laws: one file per place, unknown keys
+# warn never kill, partial selves never enter the world.
+schema 1
+name the moonlit grove
+zone 1
+at 0 1
+size 10
+prose an open circle of birch and pool
+sheltered false

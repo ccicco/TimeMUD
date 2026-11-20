@@ -1,0 +1,8 @@
+# timemud room - schema 1
+schema 1
+name the shrine
+zone 1
+at 0 0
+size 10
+prose a lamp-lit hall of old timber
+sheltered true

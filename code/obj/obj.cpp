@@ -87,10 +87,10 @@ void obj_init() {
     int rzone = 0, rrx = 0, rry = 0, rpx = kPoolX, rpy = kPoolY, rlit = 0;
     if (persist_get_obj(kRingId, &rzone, &rrx, &rry, &rpx, &rpy, &rlit)) {
         g_ring_found = (rlit != 0);   // the pool's secret, resumed; the lit slot carries the finding
+    }
     int nzone = 0, nrx = 0, nry = 0, nsx = kStackX, nsy = kStackY, nlit = 0;
     if (persist_get_obj(kNeedleId, &nzone, &nrx, &nry, &nsx, &nsy, &nlit)) {
         g_needle_found = (nlit != 0);   // the needle resumes, found or waiting
-    }
     }
 }
 
@@ -167,11 +167,11 @@ bool obj_ring_found() { return g_ring_found; }
 void obj_describe_in(const char* room) {
     if (std::strcmp(room_grove().name(), room) == 0 && g_ring_found) {
         server_write("A brass ring, green with age, rests at the lip of the pool.\n");
+    }
     if (std::strcmp(room_shrine().name(), room) == 0) {
         server_write(g_needle_found
             ? "A haystack stands in the corner of the hall, a bone needle laid on top of it.\n"
             : "A haystack stands in the corner of the hall.\n");
-    }
     }
     if (g_lantern.carried) return;
     if (std::strcmp(g_lantern.at->name(), room) != 0) return;

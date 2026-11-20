@@ -82,7 +82,7 @@ int main(int argc, char** argv) {
     char boot_line[132];
     std::snprintf(boot_line, sizeof boot_line, "TimeMUD boot: era one, the Age of Chronomancy. Heartbeat %ldms.", pace_ms);
     std::puts(boot_line);
-    log_boot(boot_line);
+    log_boot("%s", boot_line);   // the boot line is data, not a format
 
     for (long tick = 0; tick < ticks_to_run; ++tick) {
         Event evt{};
