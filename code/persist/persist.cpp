@@ -16,6 +16,8 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
+#include <dirent.h>
+
 static constexpr int kSaveSchema = 1;   // additive lines keep schema 1: obj (R17), traces (R21)
 static constexpr int kMaxSavedEntities = 8;
 static constexpr int kMaxSavedObjects = 4;
@@ -206,4 +208,42 @@ bool persist_get_time(long* day, int* hour, int* minute) {
     if (!g_state.has_time) return false;
     *day = g_state.t_day; *hour = g_state.t_hour; *minute = g_state.t_minute;
     return true;
+}
+
+// R52: THE DATA SEAM. persist keeps its law - the only place a file
+// opens - and extends it from save files to content files: a category
+// asks for bytes here and keeps its meaning to itself. data_list
+// sorts its answer: boot order is a property of the world, not of the
+// disk, or the sequence of a face-list would drift between boots.
+FILE* data_fopen(const char* rel_path) {
+    char path[192];
+    std::snprintf(path, sizeof path, "data/%s", rel_path);
+    return std::fopen(path, "r");
+}
+
+int data_list(const char* rel_dir, char names[][32], int cap) {
+    char path[192];
+    std::snprintf(path, sizeof path, "data/%s", rel_dir);
+    DIR* const d = ::opendir(path);
+    if (!d) return 0;
+    int n = 0;
+    while (n < cap) {
+        const dirent* const e = ::readdir(d);
+        if (!e) break;
+        if (e->d_name[0] == '.') continue;   // drawers hold no hidden files
+        std::snprintf(names[n], 32, "%s", e->d_name);
+        ++n;
+    }
+    ::closedir(d);
+    for (int i = 1; i < n; ++i) {           // insertion sort: 26 drawers, each a handful of files
+        char key[32];
+        std::snprintf(key, 32, "%s", names[i]);
+        int j = i - 1;
+        while (j >= 0 && std::strcmp(names[j], key) > 0) {
+            std::snprintf(names[j + 1], 32, "%s", names[j]);
+            --j;
+        }
+        std::snprintf(names[j + 1], 32, "%s", key);
+    }
+    return n;
 }

@@ -60,7 +60,9 @@ struct FaceMem {
 
 class Npc : public Subscriber {
 public:
-    explicit Npc(const NpcAgenda& agenda);
+    Npc();                      // R52: a body may boot with no agenda - every entry self-guards
+    void assign(const NpcAgenda& agenda);   // R52: the loader gives each body its self
+    bool assigned() const { return agenda_ != nullptr; }
 
     void on_event(const Event& evt) override;
     void restore();
@@ -94,6 +96,12 @@ private:
 };
 
 void npc_subscribe();
+
+// R52: the citizens arrive as data - bodies live in an array now, not in named globals
+constexpr int kNpcMax = 16;      // R52: a boot holds at most sixteen citizens
+extern Npc g_npcs[kNpcMax];
+extern int g_npc_n;
+void npc_load_data();
 void npc_dump(FILE* f);
 void npc_describe_in(const char* room);
 bool npc_occupied(const char* room, int x, int y);

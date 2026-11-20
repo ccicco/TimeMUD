@@ -1,0 +1,22 @@
+# timemud entity - schema 1 - the npc's whole self: agenda today, behavior tomorrow
+schema 1
+id 1
+name Nara the shrine keeper
+home room 1 0 0
+other room 1 0 1
+start 1 2
+posts 1 0 3 3 2 5 7 7
+act 0 sweeps the shrine steps beneath a clearing sky.
+act 1 watches the low clouds from the doorway.
+act 2 opens the shrine windows to listen to the rain.
+act 3 shuts the shrine windows against the storm.
+greet The grove is quiet, this far from the steps.
+greet-other The shrine keeps its doors open, stranger.
+greet-face Kaya the old hunter
+reply The shrine held. The storm has passed.
+persist true
+night-home room 1 0 0
+night-pos 1 1
+night-act banks the shrine lamps against the night.
+dawn-act unbolts the shrine doors at first light.
+patrol 4 1 7 3 0 1 2 7 5

@@ -15,10 +15,9 @@
 #include <cstring>
 #include <variant>
 
-extern Npc g_shrine_keeper;
-extern Npc g_old_hunter;
 
 void Npc::describe_in(const char* room) const {
+    if (agenda_ == nullptr) return;   // R52: a body may boot with no self
     if (std::strcmp(at_room_->name(), room) != 0) return;
     char line[160];
     std::snprintf(line, sizeof line, "%s stands at (%d, %d).\n", agenda_->name, x_, y_);

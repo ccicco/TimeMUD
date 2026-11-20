@@ -58,6 +58,7 @@ int main(int argc, char** argv) {
     persist_load();
     rooms_load();
     obj_init();                  // the objects stand where the world left them
+    npc_load_data();   // R52: the citizens arrive as data - a citizen is a file edit now, not a rebuild
     log_subscribe_events();       // subscriber 1: the record (forgets)
     world_clock_subscribe();      // subscriber 2: the calendar
     weather_subscribe();          // subscriber 3: the sky

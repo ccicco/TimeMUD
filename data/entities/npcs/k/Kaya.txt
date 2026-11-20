@@ -1,0 +1,22 @@
+# timemud entity - schema 1 - the npc's whole self: agenda today, behavior tomorrow
+schema 1
+id 2
+name Kaya the old hunter
+home room 1 0 1
+other none
+start 5 5
+posts 5 0 5 9 5 3 5 9
+act 0 strings her bow by the pool.
+act 1 scans the treeline from the grove's edge.
+act 2 watches the rain fill the grove's pool.
+act 3 pulls her cloak tight beneath the old oak.
+greet The rain speaks, keeper. Welcome to the grove.
+greet-other The grove does not ask names of whoever walks in from the rain.
+greet-face Nara the shrine keeper
+reply Rain keeps its own counsel.
+persist true
+night-home room 1 0 0
+night-pos 5 3
+night-act takes shelter in the shrine for the night.
+dawn-act returns to the grove at first light.
+patrol 4 5 9 0 5 3 5 9

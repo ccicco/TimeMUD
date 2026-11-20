@@ -1,0 +1,22 @@
+# timemud entity - schema 1 - the npc's whole self: agenda today, behavior tomorrow
+schema 1
+id 4
+name Oren the wanderer
+home room 1 0 1
+other none
+start 6 3
+posts 6 0 6 9 3 9 3 0
+act 0 turns his face up to a clearing sky.
+act 1 shakes the mist from his boots.
+act 2 crouches by the pool, watching the rain ripple it.
+act 3 stands still in the storm, letting it pass.
+greet A roof out here? Only the sky's.
+greet-other -
+greet-face -
+reply Storms pass. So do I.
+persist false
+night-home room 1 0 1
+night-pos 9 8
+night-act settles beneath the birches, hood down, watching the dark.
+dawn-act shakes the dew from his cloak at first light.
+patrol 4 9 0 3 3 8 9 6 0
